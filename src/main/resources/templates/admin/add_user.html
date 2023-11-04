@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<!--
+* Bootstrap Simple Admin Template
+* Version: 2.1
+* Author: Alexis Luna
+* Website: https://github.com/alexis-luna/bootstrap-simple-admin-template
+-->
+
+<head th:replace="fragments/admin/commons::head"></head>
+
+<body>
+<div class="wrapper">
+    <nav th:replace="fragments/admin/commons::left_menu"></nav>
+    <div id="body" class="active">
+        <nav th:replace="fragments/admin/commons::navbar"></nav>
+        <div class="content">
+            <div class="container">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">Form Validation</div>
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <form class="needs-validation" novalidate accept-charset="utf-8" method="POST" action="/admin/user/add" th:object="${addUserDTO}">
+                                <div class="row g-2">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="firstName" class="form-label">First Name</label>
+                                        <input  th:field="*{firstName}" th:errorclass="'is-invalid alert-danger'" id="firstName" type="text" class="form-control" name="firstName">
+                                        <small class="form-text text-muted"></small>
+                                        <div class="valid-feedback"></div>
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">This is an error</div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="lastName" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" name="lastName">
+                                        <small class="form-text text-muted"></small>
+                                        <div class="valid-feedback"></div>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="username" class="form-label">Username</label>
+                                        <input type="text" class="form-control" name="username">
+                                        <small class="form-text text-muted"></small>
+                                        <div class="valid-feedback"></div>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input id="email" type="email" class="form-control" name="email">
+                                        <small class="form-text text-muted"></small>
+                                        <div class="valid-feedback">Looks good!</div>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" class="form-control" name="password">
+                                        <small class="form-text text-muted"></small>
+                                        <div class="valid-feedback">Looks good!</div>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="role" class="custom-select form-label">Role</label>
+                                        <select class="form-select" name="role">
+                                            <option th:each="r : ${T(BakeryProject.demo.models.enums.RoleEnum).values()}" th:value="${r}" th:text="${r}">Role</option>
+                                        </select>
+                                        <small class="form-text text-muted"></small>
+                                        <div class="valid-feedback"></div>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control" name="address">
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="row g-2">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="city" class="form-label">City</label>
+                                        <input type="text" class="form-control" name="city">
+                                        <div class="valid-feedback">Looks good!</div>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="mb-3 col-md-2">
+                                        <label for="phone" class="form-label">Phone number</label>
+                                        <input type="text" class="form-control" name="phoneNumber">
+                                        <div class="valid-feedback">Looks good!</div>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="check1" required>
+                                        <label class="form-check-label" for="check1">
+                                            Check me out
+                                        </label>
+                                        <div class="invalid-feedback">You must agree before submitting.</div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:include="fragments/admin/scripts"></th:block>
+</body>
+
+</html>
