@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<!--
-* Bootstrap Simple Admin Template
-* Version: 2.1
-* Author: Alexis Luna
-* Website: https://github.com/alexis-luna/bootstrap-simple-admin-template
--->
-
 <head th:replace="fragments/admin/commons::head"></head>
 
 <body>
@@ -16,29 +9,29 @@
     <div id="body" class="active">
         <nav th:replace="fragments/admin/commons::navbar"></nav>
         <div class="content">
-            <div class="box box-primary">
-                <div class="box-body">
-                </div>
-            </div>
             <div class="container">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header">Add New Category</div>
+                        <div class="card-header">Edit Category</div>
                         <div class="card-body">
                             <h5 class="card-title"></h5>
-                            <form class="needs-validation" novalidate accept-charset="utf-8" method="POST" action="/admin/category/add" th:object="${addCategoryDTO}">
+                            <form class="needs-validation" novalidate accept-charset="utf-8" method="POST"
+                                  th:action="@{/admin/category/edit/}" th:object="${categoryData}">
+                                <input type="hidden" name="id" th:field="*{id}">
                                 <div class="row g-2">
                                     <div class="mb-3 col-md-6">
                                         <label for="name" class="form-label">Category Name</label>
-                                        <label>
-                                            <input th:field="*{name}" th:errorclass="'is-invalid alert-danger'" type="text" class="form-control" id ="name" name="name">
-                                        </label>
+                                        <input th:field="*{name}" th:errorclass="'is-invalid alert-danger'"
+                                               id="name" type="text" class="form-control" name="name">
                                         <small class="form-text text-muted"></small>
                                         <div class="valid-feedback"></div>
-                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">This is an error</div>
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}"
+                                             th:errors="*{name}">This is an error
+                                        </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
-                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                                <a class="btn btn-danger" href="/admin/category/"><i class="fas fa-save"></i> Cancel </a>
                             </form>
                         </div>
                     </div>
@@ -49,5 +42,4 @@
 </div>
 <th:block th:include="fragments/admin/scripts"></th:block>
 </body>
-
 </html>

@@ -49,7 +49,7 @@
                                     <div class="mb-3 col-md-6">
                                         <label for="username" class="form-label">Username</label>
                                         <input th:field="*{username}" th:errorclass="'is-invalid alert-danger'"
-                                               type="text" class="form-control" name="lastName">
+                                               id="username" type="text" class="form-control" name="lastName">
                                         <small class="form-text text-muted"></small>
                                         <div class="valid-feedback"></div>
                                         <div class="invalid-feedback"></div>
@@ -57,22 +57,22 @@
                                     <div class="mb-3 col-md-6">
                                         <label for="email" class="form-label">Email</label>
                                         <input th:field="*{email}" th:errorclass="'is-invalid alert-danger'"
-                                               type="email" class="form-control" name="email">
+                                               id="email" type="email" class="form-control" name="email">
                                         <small class="form-text text-muted"></small>
-                                        <div class="valid-feedback">Looks good!</div>
+                                        <div class="valid-feedback"></div>
                                         <div class="invalid-feedback"></div>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="password" class="form-label">Password</label>
                                         <input th:field="*{password}" th:errorclass="'is-invalid alert-danger'"
-                                               type="password" class="form-control" name="password">
+                                               id="password" type="password" class="form-control" name="password">
                                         <small class="form-text text-muted"></small>
-                                        <div class="valid-feedback">Looks good!</div>
+                                        <div class="valid-feedback"></div>
                                         <div class="invalid-feedback"></div>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="role" class="custom-select form-label"> Change Role</label>
-                                        <select class="form-select" name="role">
+                                        <select class="form-select" id="role" name="role">
                                             <option th:each="r : ${T(BakeryProject.demo.models.enums.RoleEnum).values()}"
                                                     th:value="${r}" th:text="${r}">Role
                                             </option>
@@ -84,36 +84,27 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="address" class="form-label">Address</label>
-                                    <input th:field="*{address}" th:errorclass="'is-invalid alert-danger'" type="text"
+                                    <input th:field="*{address}" th:errorclass="'is-invalid alert-danger'" id="address" type="text"
                                            class="form-control" name="address">
-                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="valid-feedback"></div>
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="row g-2">
                                     <div class="mb-3 col-md-6">
                                         <label for="city" class="form-label">City</label>
-                                        <input th:field="*{city}" th:errorclass="'is-invalid alert-danger'" type="text"
+                                        <input th:field="*{city}" th:errorclass="'is-invalid alert-danger'" id="city" type="text"
                                                class="form-control" name="city">
-                                        <div class="valid-feedback">Looks good!</div>
+                                        <div class="valid-feedback"></div>
                                         <div class="invalid-feedback"></div>
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="phone" class="form-label">Phone number</label>
+                                        <label for="phoneNumber" class="form-label">Phone number</label>
                                         <input th:field="*{phoneNumber}" th:errorclass="'is-invalid alert-danger'"
-                                               type="text" class="form-control" name="phone">
-                                        <div class="valid-feedback">Looks good!</div>
+                                               id="phoneNumber" type="text" class="form-control" name="phoneNumber">
+                                        <div class="valid-feedback"></div>
                                         <div class="invalid-feedback"></div>
                                     </div>
                                 </div>
-                                <!--                                <div class="mb-3">-->
-                                <!--                                    <div class="form-check">-->
-                                <!--                                        <input class="form-check-input" type="checkbox" value="" id="check1" required>-->
-                                <!--                                        <label class="form-check-label" for="check1">-->
-                                <!--                                            Check me out-->
-                                <!--                                        </label>-->
-                                <!--                                        <div class="invalid-feedback">You must agree before submitting.</div>-->
-                                <!--                                    </div>-->
-                                <!--                                </div>-->
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
                                 <a class="btn btn-danger" href="/admin/"><i class="fas fa-save"></i> Cancel </a>
                             </form>

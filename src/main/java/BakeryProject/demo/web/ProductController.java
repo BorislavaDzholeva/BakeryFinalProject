@@ -23,6 +23,6 @@ public class ProductController {
     public String all(Model model) {
         List<Product> all = productService.getAll();
         model.addAttribute("products", all);
-        return "products";
+        return "products-otherFile";
     }
 }

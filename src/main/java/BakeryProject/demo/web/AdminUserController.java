@@ -15,13 +15,11 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminUserController {
 
-    private final ProductService productService;
     private final UserService userService;
 
-    public AdminController(ProductService productService, UserService userService) {
-        this.productService = productService;
+    public AdminUserController(UserService userService) {
         this.userService = userService;
     }
 

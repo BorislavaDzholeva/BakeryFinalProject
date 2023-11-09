@@ -5,6 +5,9 @@ import BakeryProject.demo.models.entity.Order;
 import BakeryProject.demo.models.entity.Review;
 import BakeryProject.demo.models.enums.RoleEnum;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.List;
@@ -12,23 +15,30 @@ import java.util.List;
 public class AddUserDTO {
     private Long id;
     @Column(nullable = false)
-    @Size(min = 4,message = "Korec")
+    @Size(min = 3, max = 20, message = "First name length must be between 3 and 20 characters!")
     private String firstName;
     @Column(nullable = false)
+    @Size(min = 3, max = 20, message = "Last name length must be between 3 and 20 characters!")
     private String lastName;
     @Column(nullable = false)
+    @Size(min = 3, max = 20, message = "Username length must be between 3 and 20 characters!")
     private String username;
     @Column(nullable = false)
+    @Size(min = 3, message = "Password length must be at least 3 characters!")
     private String password;
-    @Column(nullable = false)
+    @NotEmpty(message = "Email cannot be empty")
+    @Email(message = "Email should be valid.")
     private String email;
     @Column(nullable = false)
+    @Size(min = 3, message = "City length must be at least 3 characters!")
     private String city;
     @Column(nullable = false)
+    @Size(min = 3, message = "Address length must be at least 3 characters!")
     private String address;
     @Column(nullable = false)
+    @Size(min = 9, max = 10, message = "Phone number length must be 10 numbers")
     private String phoneNumber;
-    @Column(nullable = false)
+    @NotNull(message = "You must select a role!")
     private RoleEnum role;
 
     public AddUserDTO() {
