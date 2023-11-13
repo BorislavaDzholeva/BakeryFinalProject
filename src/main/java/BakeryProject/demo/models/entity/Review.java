@@ -1,8 +1,11 @@
 package BakeryProject.demo.models.entity;
 
 import jakarta.persistence.*;
+import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Default;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -13,9 +16,13 @@ public class Review {
     private Long id;
     @Column(columnDefinition = "TEXT")
     private String message;
+    @Column(nullable = false)
+    private boolean isApproved = false;
     @ManyToOne
     private User creator;
-    private LocalDate date;
+    @Column(name = "review_date", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime reviewDate;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "reviews_products",
@@ -33,6 +40,13 @@ public class Review {
     public void setId(Long id) {
         this.id = id;
     }
+    public boolean isApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(boolean approved) {
+        isApproved = approved;
+    }
 
     public String getMessage() {
         return message;
@@ -45,12 +59,14 @@ public class Review {
     public User getCreator() {
         return creator;
     }
-    public LocalDate getDate() {
-        return date;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    public LocalDateTime getReviewDate() {
+        return reviewDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setReviewDate(LocalDateTime reviewDate) {
+        this.reviewDate = reviewDate;
     }
 
     public void setCreator(User creator) {

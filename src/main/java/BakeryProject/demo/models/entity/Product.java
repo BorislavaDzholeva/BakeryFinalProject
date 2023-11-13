@@ -2,6 +2,7 @@ package BakeryProject.demo.models.entity;
 
 import BakeryProject.demo.models.enums.AvailabilityEnum;
 import jakarta.persistence.*;
+import jakarta.servlet.annotation.MultipartConfig;
 
 import java.math.BigDecimal;
 import java.util.List;

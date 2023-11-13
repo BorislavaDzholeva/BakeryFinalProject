@@ -42,7 +42,8 @@ public class CategoryServiceImpl implements CategoryService {
     public void updateCategory(AddCategoryDTO addCategoryDTO) {
         Category category = categoryRepository.findById(addCategoryDTO.getId()).orElse(null);
         if(category != null){
-            modelMapper.map(category, AddCategoryDTO.class);
+            category.setName(addCategoryDTO.getName());
+//            modelMapper.map(category, AddCategoryDTO.class);
             categoryRepository.save(category);
         }
 

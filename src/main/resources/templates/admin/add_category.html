@@ -26,19 +26,22 @@
                         <div class="card-header">Add New Category</div>
                         <div class="card-body">
                             <h5 class="card-title"></h5>
-                            <form class="needs-validation" novalidate accept-charset="utf-8" method="POST" action="/admin/category/add" th:object="${addCategoryDTO}">
-                                <div class="row g-2">
+                            <form class="needs-validation" novalidate accept-charset="utf-8" method="POST"
+                                  action="/admin/category/add" th:object="${addCategoryDTO}">
+                                <div class="row g-4">
                                     <div class="mb-3 col-md-6">
                                         <label for="name" class="form-label">Category Name</label>
-                                        <label>
-                                            <input th:field="*{name}" th:errorclass="'is-invalid alert-danger'" type="text" class="form-control" id ="name" name="name">
-                                        </label>
+                                        <input th:field="*{name}" th:errorclass="'is-invalid alert-danger'" type="text"
+                                               class="form-control" id="name" name="name">
                                         <small class="form-text text-muted"></small>
                                         <div class="valid-feedback"></div>
-                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">This is an error</div>
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}"
+                                             th:errors="*{name}">This is an error
+                                        </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>

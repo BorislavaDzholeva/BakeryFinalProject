@@ -22,77 +22,108 @@
                         <div class="card-header">Add New Product</div>
                         <div class="card-body">
                             <h5 class="card-title"></h5>
-                            <form class="needs-validation" novalidate accept-charset="utf-8" method="POST" action="/admin/products/add" th:object="${addProductDTO}">
+                            <form class="needs-validation" enctype="multipart/form-data" novalidate
+                                  accept-charset="utf-8" method="POST" action="/admin/products/add"
+                                  th:object="${addProductDTO}">
                                 <div class="row g-4">
                                     <div class="mb-3 col-md-6">
                                         <label for="name" class="form-label">Product Name</label>
-                                        <input  th:field="*{name}" th:errorclass="'is-invalid alert-danger'" id="name" type="text" class="form-control" name="name">
+                                        <input th:field="*{name}" th:errorclass="'is-invalid alert-danger'" id="name"
+                                               type="text" class="form-control" name="name">
                                         <small class="form-text text-muted"></small>
                                         <div class="valid-feedback"></div>
-                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">This is an error</div>
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}"
+                                             th:errors="*{name}">This is an error
+                                        </div>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="weight" class="form-label">Weight</label>
-                                        <input  th:field="*{weight}" th:errorclass="'is-invalid alert-danger'" id="weight" type="text" class="form-control" name="weight">
+                                        <input th:field="*{weight}" th:errorclass="'is-invalid alert-danger'"
+                                               id="weight" type="text" class="form-control" name="weight">
                                         <small class="form-text text-muted"></small>
                                         <div class="valid-feedback"></div>
-                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">This is an error</div>
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('weight')}"
+                                             th:errors="*{weight}">This is an error
+                                        </div>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="price" class="form-label">Price</label>
-                                        <input  th:field="*{price}" th:errorclass="'is-invalid alert-danger'" id="price" type="text" class="form-control" name="price">
+                                        <input th:field="*{price}" th:errorclass="'is-invalid alert-danger'" id="price"
+                                               type="text" class="form-control" name="price">
                                         <small class="form-text text-muted"></small>
                                         <div class="valid-feedback"></div>
-                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">This is an error</div>
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}"
+                                             th:errors="*{price}">This is an error
+                                        </div>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="allergens" class="form-label">Allergens</label>
-                                        <input  th:field="*{allergens}" th:errorclass="'is-invalid alert-danger'" id="allergens" type="text" class="form-control" name="allergens">
+                                        <input th:field="*{allergens}" th:errorclass="'is-invalid alert-danger'"
+                                               id="allergens" type="text" class="form-control" name="allergens">
                                         <small class="form-text text-muted"></small>
                                         <div class="valid-feedback"></div>
-                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('allergens')}" th:errors="*{allergens}">This is an error</div>
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('allergens')}"
+                                             th:errors="*{allergens}">This is an error
+                                        </div>
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label for="productImage" class="form-label">Product Image</label>
-                                        <input  th:field="*{productImage}" th:errorclass="'is-invalid alert-danger'" id="productImage" type="text" class="form-control" name="productImage">
+                                        <label for="image" class="form-label">Upload image</label>
+                                        <input accept="image/*" id="image" type="file" class="form-control" name="image">
                                         <small class="form-text text-muted"></small>
                                         <div class="valid-feedback"></div>
-                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('productImage')}" th:errors="*{productImage}">This is an error</div>
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label for="availability" class="custom-select form-label"> Select Availability</label>
-                                        <select th:field="*{availability}" th:errorclass="'is-invalid alert-danger'" class="form-select" id="availability" name="availability">
-                                            <option th:each="a : ${T(BakeryProject.demo.models.enums.AvailabilityEnum).values()}" th:value="${a}" th:text="${a}">Availability</option>
+                                        <label for="availability" class="custom-select form-label"> Select
+                                            Availability</label>
+                                        <select th:field="*{availability}" th:errorclass="'is-invalid alert-danger'"
+                                                class="form-select" id="availability" name="availability">
+                                            <option th:each="a : ${T(BakeryProject.demo.models.enums.AvailabilityEnum).values()}"
+                                                    th:value="${a}" th:text="${a}">Availability
+                                            </option>
                                         </select>
                                         <small class="form-text text-muted"></small>
                                         <div class="valid-feedback"></div>
-                                        <small th:if="${#fields.hasErrors('availability')}" th:errors="*{availability}" class="bg-danger">Availability error message</small>
+                                        <small th:if="${#fields.hasErrors('availability')}" th:errors="*{availability}"
+                                               class="bg-danger">Availability error message</small>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="category" class="form-label">Select Category</label>
-                                        <select th:field="*{category}" th:errorclass="'is-invalid alert-danger'" class="form-select" id="category" name="category">
-                                            <option th:each="c : ${allCategories}" th:value="${c.getId()}" th:text="${c.getName()}">Category</option>
+                                        <select th:field="*{category}" th:errorclass="'is-invalid alert-danger'"
+                                                class="form-select" id="category" name="category">
+                                            <option th:each="c : ${allCategories}" th:value="${c.getId()}"
+                                                    th:text="${c.getName()}">Category
+                                            </option>
 
                                         </select>
                                         <small class="form-text text-muted"></small>
                                         <div class="valid-feedback"></div>
-                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">This is an error</div>
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('category')}"
+                                             th:errors="*{category}">This is an error
+                                        </div>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="ingredients" class="form-label">Ingredients</label>
-                                        <input  th:field="*{ingredients}" th:errorclass="'is-invalid alert-danger'" id="ingredients" type="text" class="form-control" name="ingredients">
+                                        <input th:field="*{ingredients}" th:errorclass="'is-invalid alert-danger'"
+                                               id="ingredients" type="text" class="form-control" name="ingredients">
                                         <small class="form-text text-muted"></small>
                                         <div class="valid-feedback"></div>
-                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('ingredients')}" th:errors="*{ingredients}">This is an error</div>
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('ingredients')}"
+                                             th:errors="*{ingredients}">This is an error
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Description</label>
-                                    <textarea class="form-control" th:field="*{description}" th:errorclass="'is-invalid alert-danger'" type="text" name="description" id="description" rows="4"></textarea>
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">This is an error</div>
+                                    <textarea class="form-control" th:field="*{description}"
+                                              th:errorclass="'is-invalid alert-danger'" type="text" name="description"
+                                              id="description" rows="4"></textarea>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}"
+                                         th:errors="*{description}">This is an error
+                                    </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
-                                <a class="btn btn-danger" href="/admin/products/"><i class="fas fa-save"></i> Cancel </a>
+                                <a class="btn btn-danger" href="/admin/products/"><i class="fas fa-save"></i> Cancel
+                                </a>
                             </form>
                         </div>
                     </div>
