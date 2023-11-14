@@ -22,16 +22,19 @@
                         <div class="card-header">Edit Product</div>
                         <div class="card-body">
                             <h5 class="card-title"></h5>
-                            <form class="needs-validation" novalidate accept-charset="utf-8" method="POST"
-                                  th:action="@{/admin/products/edit/}" th:object="${productData}">
+                            <form class="needs-validation" enctype="multipart/form-data" novalidate accept-charset="utf-8" method="POST"
+                                  th:action="@{/admin/products/edit/}" th:object="${addProductDTO}">
                                 <input type="hidden" name="id" th:field="*{id}">
                                 <div class="row g-4">
                                     <div class="mb-3 col-md-6">
                                         <label for="name" class="form-label">Product Name</label>
-                                        <input  th:field="*{name}" th:errorclass="'is-invalid alert-danger'" id="name" type="text" class="form-control" name="name">
+                                        <input th:field="*{name}" th:errorclass="'is-invalid alert-danger'" id="name"
+                                               type="text" class="form-control" name="name">
                                         <small class="form-text text-muted"></small>
                                         <div class="valid-feedback"></div>
-                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">This is an error</div>
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}"
+                                             th:errors="*{name}">This is an error
+                                        </div>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="weight" class="form-label">Weight</label>
@@ -55,11 +58,10 @@
                                         <div class="invalid-feedback" th:if="${#fields.hasErrors('allergens')}" th:errors="*{allergens}">This is an error</div>
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label for="productImage" class="form-label">Product Image</label>
-                                        <input  th:field="*{productImage}" th:errorclass="'is-invalid alert-danger'" id="productImage" type="text" class="form-control" name="productImage">
+                                        <label for="image" class="form-label">Change Image</label>
+                                        <input accept="image/*" id="image" type="file" class="form-control" name="image">
                                         <small class="form-text text-muted"></small>
                                         <div class="valid-feedback"></div>
-                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('productImage')}" th:errors="*{productImage}">This is an error</div>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="availability" class="custom-select form-label">Change Availability</label>

@@ -1,8 +1,7 @@
 package BakeryProject.demo.web;
 
-import BakeryProject.demo.models.DTO.AddUserDTO;
+import BakeryProject.demo.models.DTO.AdminAddUserDTO;
 import BakeryProject.demo.models.entity.User;
-import BakeryProject.demo.service.ProductService;
 import BakeryProject.demo.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -36,12 +35,12 @@ public class AdminUserController {
     }
 
     @ModelAttribute
-    public AddUserDTO addUserDTO() {
-        return new AddUserDTO();
+    public AdminAddUserDTO addUserDTO() {
+        return new AdminAddUserDTO();
     }
 
     @PostMapping("/user/add")
-    public String userAddConfirm(@Valid AddUserDTO addUserDTO, BindingResult bindingResult,
+    public String userAddConfirm(@Valid AdminAddUserDTO addUserDTO, BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute
@@ -57,13 +56,13 @@ public class AdminUserController {
 
     @GetMapping("/user/edit/{id}")
     public String userEdit(@PathVariable Long id, Model model) {
-        AddUserDTO userData = userService.findUserById(id);
+        AdminAddUserDTO userData = userService.findUserById(id);
         model.addAttribute("userData", userData);
         return "admin/edit_user";
     }
 
     @PostMapping("/user/edit/")
-    public String userEditConfirm(@Valid AddUserDTO addUserDTO, BindingResult bindingResult,
+    public String userEditConfirm(@Valid AdminAddUserDTO addUserDTO, BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute

@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 
-public class AddProductDTO {
+public class AdminAddProductDTO {
     private Long id;
     @Column(nullable = false, unique = true)
     @Size(min = 3, message = "Product name must be at least 3 characters!")
@@ -39,7 +39,7 @@ public class AddProductDTO {
     @NotNull
     private Category category;
 
-    public AddProductDTO() {
+    public AdminAddProductDTO() {
     }
 
     public Long getId() {

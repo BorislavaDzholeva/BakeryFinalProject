@@ -1,5 +1,6 @@
 package BakeryProject.demo.models.entity;
 
+import BakeryProject.demo.models.enums.OrderStatusEnum;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -20,6 +21,10 @@ public class Order {
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> productsOrders;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_status", nullable = false)
+    private OrderStatusEnum orderStatus = OrderStatusEnum.Pending;
 
 
     public Order() {
@@ -47,6 +52,14 @@ public class Order {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public OrderStatusEnum getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatusEnum orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public List<Product> getProductsOrders() {

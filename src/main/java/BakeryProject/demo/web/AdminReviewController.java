@@ -1,8 +1,6 @@
 package BakeryProject.demo.web;
 
-import BakeryProject.demo.models.DTO.AddCategoryDTO;
-import BakeryProject.demo.models.DTO.AddReviewDTO;
-import BakeryProject.demo.models.entity.Category;
+import BakeryProject.demo.models.DTO.AdminReviewDTO;
 import BakeryProject.demo.models.entity.Review;
 import BakeryProject.demo.service.ReviewService;
 import jakarta.validation.Valid;
@@ -33,23 +31,23 @@ public class AdminReviewController {
         return "/admin/review";
     }
     @GetMapping("/approve/{id}")
-    public String editReview(@PathVariable Long id) {
+    public String approveReview(@PathVariable Long id) {
         reviewService.approveReview(id);
         return "redirect:/admin/review/";
     }
-    @PostMapping("/approve/")
-    public String editReviewConfirm(@Valid AddReviewDTO addReviewDTO, BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute
-                    ("addReviewDTO", addReviewDTO);
-            redirectAttributes.addFlashAttribute
-                    ("org.springframework.validation.BindingResult.addReviewDTO", bindingResult);
-            return "redirect:/admin/review/edit/" + addReviewDTO.getId();
-        }
-        reviewService.updateReview(addReviewDTO);
-        return "redirect:/admin/review/";
-    }
+//    @PostMapping("/approve/")
+//    public String approveReviewConfirm(@Valid AdminReviewDTO addReviewDTO, BindingResult bindingResult,
+//                                    RedirectAttributes redirectAttributes) {
+//        if (bindingResult.hasErrors()) {
+//            redirectAttributes.addFlashAttribute
+//                    ("addReviewDTO", addReviewDTO);
+//            redirectAttributes.addFlashAttribute
+//                    ("org.springframework.validation.BindingResult.addReviewDTO", bindingResult);
+//            return "redirect:/admin/review/approve/" + addReviewDTO.getId();
+//        }
+//        reviewService.approveReview(addReviewDTO.getId());
+//        return "redirect:/admin/review/";
+//    }
     @GetMapping("/removeReview/{id}")
     public String removeCategory(@PathVariable Long id) {
         reviewService.removeReviewById(id);

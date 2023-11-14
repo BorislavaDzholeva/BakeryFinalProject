@@ -1,6 +1,6 @@
 package BakeryProject.demo.service.impl;
 
-import BakeryProject.demo.models.DTO.AddUserDTO;
+import BakeryProject.demo.models.DTO.AdminAddUserDTO;
 import BakeryProject.demo.models.entity.User;
 import BakeryProject.demo.repository.UserRepository;
 import BakeryProject.demo.service.UserService;
@@ -8,7 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,25 +31,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(AddUserDTO addUserDTO) {
+    public void addUser(AdminAddUserDTO addUserDTO) {
         User user = modelMapper.map(addUserDTO, User.class);
         userRepository.save(user);
     }
 
     @Override
-    public AddUserDTO findUserById(Long id) {
+    public AdminAddUserDTO findUserById(Long id) {
         User user = userRepository.findById(id).orElse(null);
-        return modelMapper.map(user, AddUserDTO.class);
+        return modelMapper.map(user, AdminAddUserDTO.class);
     }
 
     @Override
-    public void updateUser(AddUserDTO addUserDTO) {
+    public void updateUser(AdminAddUserDTO addUserDTO) {
         User user = userRepository.findById(addUserDTO.getId()).orElse(null);
         if (user != null) {
             user.setFirstName(addUserDTO.getFirstName());
             user.setLastName(addUserDTO.getLastName());
             user.setAddress(addUserDTO.getAddress());
             user.setEmail(addUserDTO.getEmail());
+            user.setUsername(addUserDTO.getUsername());
             user.setCity(addUserDTO.getCity());
             user.setPhoneNumber(addUserDTO.getPhoneNumber());
             user.setRole(addUserDTO.getRole());

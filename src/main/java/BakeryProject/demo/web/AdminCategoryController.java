@@ -1,6 +1,6 @@
 package BakeryProject.demo.web;
 
-import BakeryProject.demo.models.DTO.AddCategoryDTO;
+import BakeryProject.demo.models.DTO.AdminAddCategoryDTO;
 import BakeryProject.demo.models.entity.Category;
 import BakeryProject.demo.service.CategoryService;
 import jakarta.validation.Valid;
@@ -36,13 +36,13 @@ public class AdminCategoryController {
     }
 
     @ModelAttribute
-    public AddCategoryDTO addCategoryDTO() {
-        return new AddCategoryDTO();
+    public AdminAddCategoryDTO addCategoryDTO() {
+        return new AdminAddCategoryDTO();
     }
 
     @PostMapping("/add")
-    public String addCategoryConfirm(@Valid AddCategoryDTO addCategoryDTO, BindingResult bindingResult,
-                                 RedirectAttributes redirectAttributes) {
+    public String addCategoryConfirm(@Valid AdminAddCategoryDTO addCategoryDTO, BindingResult bindingResult,
+                                     RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("addCategoryDTO", addCategoryDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addCategoryDTO", bindingResult);
@@ -54,12 +54,12 @@ public class AdminCategoryController {
     }
     @GetMapping("/edit/{id}")
     public String categoryEdit(@PathVariable Long id, Model model) {
-        AddCategoryDTO categoryData = categoryService.findCategoryById(id);
+        AdminAddCategoryDTO categoryData = categoryService.findCategoryById(id);
         model.addAttribute("categoryData", categoryData);
         return "admin/edit_category";
     }
     @PostMapping("/edit/")
-    public String userEditConfirm(@Valid AddCategoryDTO addCategoryDTO, BindingResult bindingResult,
+    public String userEditConfirm(@Valid AdminAddCategoryDTO addCategoryDTO, BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute

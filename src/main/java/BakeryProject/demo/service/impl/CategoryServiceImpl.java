@@ -1,10 +1,7 @@
 package BakeryProject.demo.service.impl;
 
-import BakeryProject.demo.models.DTO.AddCategoryDTO;
-import BakeryProject.demo.models.DTO.AddProductDTO;
-import BakeryProject.demo.models.DTO.AddUserDTO;
+import BakeryProject.demo.models.DTO.AdminAddCategoryDTO;
 import BakeryProject.demo.models.entity.Category;
-import BakeryProject.demo.models.entity.User;
 import BakeryProject.demo.repository.CategoryRepository;
 import BakeryProject.demo.service.CategoryService;
 import org.modelmapper.ModelMapper;
@@ -33,13 +30,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public AddCategoryDTO findCategoryById(Long id) {
+    public AdminAddCategoryDTO findCategoryById(Long id) {
         Category category = categoryRepository.findById(id).orElse(null);
-        return modelMapper.map(category, AddCategoryDTO.class);
+        return modelMapper.map(category, AdminAddCategoryDTO.class);
     }
 
     @Override
-    public void updateCategory(AddCategoryDTO addCategoryDTO) {
+    public void updateCategory(AdminAddCategoryDTO addCategoryDTO) {
         Category category = categoryRepository.findById(addCategoryDTO.getId()).orElse(null);
         if(category != null){
             category.setName(addCategoryDTO.getName());

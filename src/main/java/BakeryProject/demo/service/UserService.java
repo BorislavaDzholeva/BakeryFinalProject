@@ -1,6 +1,6 @@
 package BakeryProject.demo.service;
 
-import BakeryProject.demo.models.DTO.AddUserDTO;
+import BakeryProject.demo.models.DTO.AdminAddUserDTO;
 import BakeryProject.demo.models.entity.User;
 
 import java.util.List;
@@ -10,9 +10,9 @@ public interface UserService {
 
     void removeUserById(Long id);
 
-    void addUser(AddUserDTO addUserDTO);
+    void addUser(AdminAddUserDTO addUserDTO);
 
-    AddUserDTO findUserById(Long id);
+    AdminAddUserDTO findUserById(Long id);
 
-    void updateUser(AddUserDTO addUserDTO);
+    void updateUser(AdminAddUserDTO addUserDTO);
 }

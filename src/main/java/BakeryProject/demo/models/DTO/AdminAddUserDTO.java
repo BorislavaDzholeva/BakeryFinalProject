@@ -1,8 +1,5 @@
 package BakeryProject.demo.models.DTO;
 
-import BakeryProject.demo.models.entity.Card;
-import BakeryProject.demo.models.entity.Order;
-import BakeryProject.demo.models.entity.Review;
 import BakeryProject.demo.models.enums.RoleEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -10,9 +7,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.util.List;
-
-public class AddUserDTO {
+public class AdminAddUserDTO {
     private Long id;
     @Column(nullable = false)
     @Size(min = 3, max = 20, message = "First name length must be between 3 and 20 characters!")
@@ -41,7 +36,7 @@ public class AddUserDTO {
     @NotNull(message = "You must select a role!")
     private RoleEnum role;
 
-    public AddUserDTO() {
+    public AdminAddUserDTO() {
     }
 
     public Long getId() {

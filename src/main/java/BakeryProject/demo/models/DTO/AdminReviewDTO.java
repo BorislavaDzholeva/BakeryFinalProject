@@ -1,14 +1,12 @@
 package BakeryProject.demo.models.DTO;
 
 import BakeryProject.demo.models.entity.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
-public class AddReviewDTO {
+public class AdminReviewDTO {
     private Long id;
     @Size(min = 5, message = "The review must be at least 5 characters!")
     private String message;
@@ -17,7 +15,7 @@ public class AddReviewDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime reviewDate;
 
-    public AddReviewDTO() {
+    public AdminReviewDTO() {
     }
 
     public Long getId() {

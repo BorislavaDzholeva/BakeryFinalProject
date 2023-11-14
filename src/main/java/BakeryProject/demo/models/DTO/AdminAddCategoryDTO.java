@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Size;
 
-public class AddCategoryDTO {
+public class AdminAddCategoryDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,7 +14,7 @@ public class AddCategoryDTO {
     @Size(min = 3, message = "Category name must be at least 3 characters!")
     private String name;
 
-    public AddCategoryDTO() {
+    public AdminAddCategoryDTO() {
     }
     public String getName() {
         return name;
