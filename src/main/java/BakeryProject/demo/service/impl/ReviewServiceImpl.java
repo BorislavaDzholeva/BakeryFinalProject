@@ -16,7 +16,6 @@ public class ReviewServiceImpl implements ReviewService {
         this.reviewRepository = reviewRepository;
 
     }
-
     @Override
     public List<Review> getAllReviews() {
         return reviewRepository.findAll();
