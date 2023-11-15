@@ -35,22 +35,22 @@ public class AdminUserController {
     }
 
     @ModelAttribute
-    public AdminAddUserDTO addUserDTO() {
+    public AdminAddUserDTO adminAddUserDTO() {
         return new AdminAddUserDTO();
     }
 
     @PostMapping("/user/add")
-    public String userAddConfirm(@Valid AdminAddUserDTO addUserDTO, BindingResult bindingResult,
+    public String userAddConfirm(@Valid AdminAddUserDTO adminAddUserDTO, BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute
-                    ("addUserDTO", addUserDTO);
+                    ("adminAddUserDTO", adminAddUserDTO);
             redirectAttributes.addFlashAttribute
-                    ("org.springframework.validation.BindingResult.addUserDTO", bindingResult);
+                    ("org.springframework.validation.BindingResult.adminAddUserDTO", bindingResult);
 
             return "redirect:/admin/user/add";
         }
-        userService.addUser(addUserDTO);
+        userService.addUser(adminAddUserDTO);
         return "redirect:/admin/";
     }
 
@@ -62,16 +62,16 @@ public class AdminUserController {
     }
 
     @PostMapping("/user/edit/")
-    public String userEditConfirm(@Valid AdminAddUserDTO addUserDTO, BindingResult bindingResult,
+    public String userEditConfirm(@Valid AdminAddUserDTO adminAddUserDTO, BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute
-                    ("addUserDTO", addUserDTO);
+                    ("adminAddUserDTO", adminAddUserDTO);
             redirectAttributes.addFlashAttribute
-                    ("org.springframework.validation.BindingResult.addUserDTO", bindingResult);
-            return "redirect:/admin/user/edit/" + addUserDTO.getId();
+                    ("org.springframework.validation.BindingResult.adminAddUserDTO", bindingResult);
+            return "redirect:/admin/user/edit/" + adminAddUserDTO.getId();
         }
-        userService.updateUser(addUserDTO);
+        userService.updateUser(adminAddUserDTO);
         return "redirect:/admin/";
     }
 

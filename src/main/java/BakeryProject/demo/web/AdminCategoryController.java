@@ -36,20 +36,20 @@ public class AdminCategoryController {
     }
 
     @ModelAttribute
-    public AdminAddCategoryDTO addCategoryDTO() {
+    public AdminAddCategoryDTO adminAddCategoryDTO() {
         return new AdminAddCategoryDTO();
     }
 
     @PostMapping("/add")
-    public String addCategoryConfirm(@Valid AdminAddCategoryDTO addCategoryDTO, BindingResult bindingResult,
+    public String addCategoryConfirm(@Valid AdminAddCategoryDTO adminAddCategoryDTO, BindingResult bindingResult,
                                      RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("addCategoryDTO", addCategoryDTO);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addCategoryDTO", bindingResult);
+            redirectAttributes.addFlashAttribute("adminAddCategoryDTO", adminAddCategoryDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.adminAddCategoryDTO", bindingResult);
 
             return "redirect:/admin/category/add";
         }
-        categoryService.addCategory(modelMapper.map(addCategoryDTO, Category.class));
+        categoryService.addCategory(modelMapper.map(adminAddCategoryDTO, Category.class));
         return "redirect:/admin/category/";
     }
     @GetMapping("/edit/{id}")
@@ -59,16 +59,16 @@ public class AdminCategoryController {
         return "admin/edit_category";
     }
     @PostMapping("/edit/")
-    public String userEditConfirm(@Valid AdminAddCategoryDTO addCategoryDTO, BindingResult bindingResult,
+    public String userEditConfirm(@Valid AdminAddCategoryDTO adminAddCategoryDTO, BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute
-                    ("addCategoryDTO", addCategoryDTO);
+                    ("adminAddCategoryDTO", adminAddCategoryDTO);
             redirectAttributes.addFlashAttribute
-                    ("org.springframework.validation.BindingResult.addCategoryDTO", bindingResult);
-            return "redirect:/admin/category/edit/" + addCategoryDTO.getId();
+                    ("org.springframework.validation.BindingResult.adminAddCategoryDTO", bindingResult);
+            return "redirect:/admin/category/edit/" + adminAddCategoryDTO.getId();
         }
-        categoryService.updateCategory(addCategoryDTO);
+        categoryService.updateCategory(adminAddCategoryDTO);
         return "redirect:/admin/category/";
     }
     @GetMapping("/removeCategory/{id}")

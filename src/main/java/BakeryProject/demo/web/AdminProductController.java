@@ -49,22 +49,22 @@ public class AdminProductController {
     }
 
     @ModelAttribute
-    public AdminAddProductDTO addProductDTO() {
+    public AdminAddProductDTO adminAddProductDTO() {
         return new AdminAddProductDTO();
     }
 
     @PostMapping("/add")
-    public String addProductConfirm(@RequestParam("image") MultipartFile file, @Valid AdminAddProductDTO addProductDTO, BindingResult bindingResult,
+    public String addProductConfirm(@RequestParam("image") MultipartFile file, @Valid AdminAddProductDTO adminAddProductDTO, BindingResult bindingResult,
                                     RedirectAttributes redirectAttributes) throws IOException {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("addProductDTO", addProductDTO);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addProductDTO", bindingResult);
+            redirectAttributes.addFlashAttribute("adminAddProductDTO", adminAddProductDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.adminAddProductDTO", bindingResult);
 
             return "redirect:/admin/products/add";
         }
 
         String imageUri = productService.uploadProductImage(file);
-        Product product = modelMapper.map(addProductDTO, Product.class);
+        Product product = modelMapper.map(adminAddProductDTO, Product.class);
         product.setProductImage(imageUri);
         productService.addProduct(product);
         return "redirect:/admin/products/";
@@ -72,26 +72,26 @@ public class AdminProductController {
 
     @GetMapping("/edit/{id}")
     public String editProduct(@PathVariable Long id, Model model) {
-        AdminAddProductDTO addProductDTO = productService.findProductById(id);
+        AdminAddProductDTO adminAddProductDTO = productService.findProductById(id);
         List<Category> allCategories = categoryService.getAllCategories();
         model.addAttribute("allCategories", allCategories);
-        model.addAttribute("addProductDTO", addProductDTO);
+        model.addAttribute("adminAddProductDTO", adminAddProductDTO);
         return "admin/edit_product";
     }
 
     @PostMapping("/edit/")
-    public String editProductConfirm(@RequestParam("image") MultipartFile file, @Valid AdminAddProductDTO addProductDTO, BindingResult bindingResult,
+    public String editProductConfirm(@RequestParam("image") MultipartFile file, @Valid AdminAddProductDTO adminAddProductDTO, BindingResult bindingResult,
                                      RedirectAttributes redirectAttributes) throws IOException {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("addProductDTO", addProductDTO);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addProductDTO", bindingResult);
-            return "redirect:/admin/products/edit/" + addProductDTO.getId();
+            redirectAttributes.addFlashAttribute("adminAddProductDTO", adminAddProductDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.adminAddProductDTO", bindingResult);
+            return "redirect:/admin/products/edit/" + adminAddProductDTO.getId();
         }
         if (!file.isEmpty()) {
             String imageUri = productService.uploadProductImage(file);
-            addProductDTO.setProductImage(imageUri);
+            adminAddProductDTO.setProductImage(imageUri);
         }
-        productService.updateProduct(addProductDTO);
+        productService.updateProduct(adminAddProductDTO);
         return "redirect:/admin/products/";
     }
 
