@@ -2,6 +2,8 @@ package BakeryProject.demo.web;
 
 import BakeryProject.demo.models.DTO.AdminAddCategoryDTO;
 import BakeryProject.demo.models.entity.Category;
+import BakeryProject.demo.models.entity.Product;
+import BakeryProject.demo.models.view.CategoryView;
 import BakeryProject.demo.service.CategoryService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -9,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -25,7 +29,7 @@ public class AdminCategoryController {
     }
     @GetMapping("/")
     public String all(Model model) {
-        List<Category> allCategories = categoryService.getAllCategories();
+        List<CategoryView> allCategories = categoryService.getAllCategories();
         model.addAttribute("allCategories", allCategories);
         return "/admin/category";
     }
@@ -41,15 +45,18 @@ public class AdminCategoryController {
     }
 
     @PostMapping("/add")
-    public String addCategoryConfirm(@Valid AdminAddCategoryDTO adminAddCategoryDTO, BindingResult bindingResult,
-                                     RedirectAttributes redirectAttributes) {
+    public String addCategoryConfirm(@RequestParam("image") MultipartFile file, @Valid AdminAddCategoryDTO adminAddCategoryDTO, BindingResult bindingResult,
+                                     RedirectAttributes redirectAttributes) throws IOException {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("adminAddCategoryDTO", adminAddCategoryDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.adminAddCategoryDTO", bindingResult);
 
             return "redirect:/admin/category/add";
         }
-        categoryService.addCategory(modelMapper.map(adminAddCategoryDTO, Category.class));
+        String imageUrl = categoryService.uploadCategoryImage(file);
+        Category category = modelMapper.map(adminAddCategoryDTO, Category.class);
+        category.setImageUrl(imageUrl);
+        categoryService.addCategory(category);
         return "redirect:/admin/category/";
     }
     @GetMapping("/edit/{id}")
@@ -59,14 +66,18 @@ public class AdminCategoryController {
         return "admin/edit_category";
     }
     @PostMapping("/edit/")
-    public String userEditConfirm(@Valid AdminAddCategoryDTO adminAddCategoryDTO, BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes) {
+    public String userEditConfirm(@RequestParam("image") MultipartFile file,@Valid AdminAddCategoryDTO adminAddCategoryDTO, BindingResult bindingResult,
+                                  RedirectAttributes redirectAttributes) throws IOException {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute
                     ("adminAddCategoryDTO", adminAddCategoryDTO);
             redirectAttributes.addFlashAttribute
                     ("org.springframework.validation.BindingResult.adminAddCategoryDTO", bindingResult);
             return "redirect:/admin/category/edit/" + adminAddCategoryDTO.getId();
+        }
+        if (!file.isEmpty()) {
+            String imageUri = categoryService.uploadCategoryImage(file);
+            adminAddCategoryDTO.setImageUrl(imageUri);
         }
         categoryService.updateCategory(adminAddCategoryDTO);
         return "redirect:/admin/category/";

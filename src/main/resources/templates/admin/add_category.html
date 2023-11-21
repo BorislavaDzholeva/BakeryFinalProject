@@ -26,10 +26,10 @@
                         <div class="card-header">Add New Category</div>
                         <div class="card-body">
                             <h5 class="card-title"></h5>
-                            <form class="needs-validation" novalidate accept-charset="utf-8" method="POST"
+                            <form class="needs-validation" enctype="multipart/form-data" novalidate accept-charset="utf-8" method="POST"
                                   action="/admin/category/add" th:object="${adminAddCategoryDTO}">
                                 <div class="row g-4">
-                                    <div class="mb-3 col-md-6">
+                                    <div class="mb-4 col-md-3">
                                         <label for="name" class="form-label">Category Name</label>
                                         <input th:field="*{name}" th:errorclass="'is-invalid alert-danger'" type="text"
                                                class="form-control" id="name" name="name">
@@ -38,6 +38,22 @@
                                         <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}"
                                              th:errors="*{name}">This is an error
                                         </div>
+                                    </div>
+                                    <div class="mb-4 col-md-5">
+                                        <label for="name" class="form-label">Description</label>
+                                        <input th:field="*{description}" th:errorclass="'is-invalid alert-danger'" type="text"
+                                               class="form-control" id="description" name="name">
+                                        <small class="form-text text-muted"></small>
+                                        <div class="valid-feedback"></div>
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}"
+                                             th:errors="*{description}">This is an error
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="image" class="form-label">Upload Category Image</label>
+                                        <input accept="image/*" id="image" type="file" class="form-control" name="image">
+                                        <small class="form-text text-muted"></small>
+                                        <div class="valid-feedback"></div>
                                     </div>
                                     <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save
                                     </button>

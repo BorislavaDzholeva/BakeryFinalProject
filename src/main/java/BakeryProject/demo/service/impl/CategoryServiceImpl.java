@@ -2,15 +2,23 @@ package BakeryProject.demo.service.impl;
 
 import BakeryProject.demo.models.DTO.AdminAddCategoryDTO;
 import BakeryProject.demo.models.entity.Category;
+import BakeryProject.demo.models.view.CategoryView;
 import BakeryProject.demo.repository.CategoryRepository;
 import BakeryProject.demo.service.CategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
+    public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/src/main/resources/static/images/";
+
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
 
@@ -25,8 +33,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+    public List<CategoryView> getAllCategories() {
+        return categoryRepository.findAll().stream().map(category -> modelMapper.map(category, CategoryView.class))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -40,7 +49,10 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryRepository.findById(addCategoryDTO.getId()).orElse(null);
         if(category != null){
             category.setName(addCategoryDTO.getName());
-//            modelMapper.map(category, AddCategoryDTO.class);
+            if(addCategoryDTO.getImageUrl() != null) {
+                category.setImageUrl(addCategoryDTO.getImageUrl());
+            }
+            category.setDescription(addCategoryDTO.getDescription());
             categoryRepository.save(category);
         }
 
@@ -53,6 +65,15 @@ public class CategoryServiceImpl implements CategoryService {
     public Category findCategoryByName(String name) {
         return categoryRepository.findCategoryByName(name);
 
+    }
+
+    @Override
+    public String uploadCategoryImage(MultipartFile file) throws IOException {
+        StringBuilder fileName = new StringBuilder();
+        Path fileNameAndPath = Path.of(UPLOAD_DIRECTORY, file.getOriginalFilename());
+        fileName.append(file.getOriginalFilename());
+        Files.write(fileNameAndPath, file.getBytes());
+        return "/images/" + file.getOriginalFilename();
     }
 
 }

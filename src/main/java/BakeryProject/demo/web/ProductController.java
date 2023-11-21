@@ -2,11 +2,14 @@ package BakeryProject.demo.web;
 
 import BakeryProject.demo.models.entity.Category;
 import BakeryProject.demo.models.entity.Product;
+import BakeryProject.demo.models.view.CategoryView;
 import BakeryProject.demo.service.CategoryService;
 import BakeryProject.demo.service.ProductService;
+import BakeryProject.demo.models.view.ProductsView;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,9 +30,9 @@ public class ProductController {
     @GetMapping("/")
     public String all(Model model) {
         String pageName = "All Products";
-        List<Product> allProducts = productService.getAll();
-        List<Category> allCategories = categoryService.getAllCategories();
-        model.addAttribute("allCategories", allCategories);
+        List<ProductsView> allProducts = productService.getAll();
+//        List<CategoryView> allCategories = categoryService.getAllCategories();
+//        model.addAttribute("allCategories", allCategories);
         model.addAttribute("allProducts", allProducts);
         model.addAttribute("pageName", pageName);
         return "products";
@@ -37,15 +40,24 @@ public class ProductController {
     @GetMapping("single-product/{id}")
     public String singleProductPage(@PathVariable("id") Long id, Model model) {
         Product product = productService.findById(id);
+//        List<CategoryView> allCategories = categoryService.getAllCategories();
+//        model.addAttribute("allCategories", allCategories);
         model.addAttribute("product", product);
         return "single-product";
     }
     @GetMapping("productsByCategory/{id}")
     public String productsByCategory(@PathVariable("id") Long id, Model model) {
         List<Product> productsByCategory = productService.findAllProductsByCategoryId(id);
+//        List<CategoryView> allCategories = categoryService.getAllCategories();
+//        model.addAttribute("allCategories", allCategories);
         model.addAttribute("allProducts", productsByCategory);
         model.addAttribute("pageName", productsByCategory.get(0).getCategory().getName());
         return "products";
     }
 
+    @ModelAttribute
+    public void allCategories(Model model) {
+        List<CategoryView> allCategories = categoryService.getAllCategories();
+        model.addAttribute("allCategories", allCategories);
+    }
 }

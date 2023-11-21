@@ -3,11 +3,12 @@ package BakeryProject.demo.web;
 import BakeryProject.demo.models.DTO.AdminAddProductDTO;
 import BakeryProject.demo.models.entity.Category;
 import BakeryProject.demo.models.entity.Product;
+import BakeryProject.demo.models.view.CategoryView;
 import BakeryProject.demo.service.CategoryService;
 import BakeryProject.demo.service.ProductService;
+import BakeryProject.demo.models.view.ProductsView;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,8 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 @Controller
@@ -36,14 +35,14 @@ public class AdminProductController {
 
     @GetMapping("/")
     public String allProducts(Model model) {
-        List<Product> allProducts = productService.getAll();
+        List<ProductsView> allProducts = productService.getAll();
         model.addAttribute("allProducts", allProducts);
         return "/admin/products";
     }
 
     @GetMapping("/add")
     public String addProduct(Model model) {
-        List<Category> allCategories = categoryService.getAllCategories();
+        List<CategoryView> allCategories = categoryService.getAllCategories();
         model.addAttribute("allCategories", allCategories);
         return "/admin/add_product";
     }
@@ -63,9 +62,9 @@ public class AdminProductController {
             return "redirect:/admin/products/add";
         }
 
-        String imageUri = productService.uploadProductImage(file);
+        String imageUrl = productService.uploadProductImage(file);
         Product product = modelMapper.map(adminAddProductDTO, Product.class);
-        product.setProductImage(imageUri);
+        product.setProductImage(imageUrl);
         productService.addProduct(product);
         return "redirect:/admin/products/";
     }
@@ -73,7 +72,7 @@ public class AdminProductController {
     @GetMapping("/edit/{id}")
     public String editProduct(@PathVariable Long id, Model model) {
         AdminAddProductDTO adminAddProductDTO = productService.findProductById(id);
-        List<Category> allCategories = categoryService.getAllCategories();
+        List<CategoryView> allCategories = categoryService.getAllCategories();
         model.addAttribute("allCategories", allCategories);
         model.addAttribute("adminAddProductDTO", adminAddProductDTO);
         return "admin/edit_product";

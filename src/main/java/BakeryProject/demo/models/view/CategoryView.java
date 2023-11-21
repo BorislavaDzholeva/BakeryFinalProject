@@ -1,25 +1,10 @@
-package BakeryProject.demo.models.entity;
+package BakeryProject.demo.models.view;
 
-import jakarta.persistence.*;
-
-import java.util.List;
-import java.util.Set;
-
-@Entity
-@Table(name = "categories")
-public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CategoryView {
     private Long id;
-
-    @Column(nullable = false, unique = true)
     private String name;
-    @Column
     private String description;
-    @Column(name = "image_url")
     private String imageUrl;
-    @OneToMany(mappedBy = "category")
-    private List<Product> products;
 
     public String getDescription() {
         return description;
@@ -37,8 +22,7 @@ public class Category {
         this.imageUrl = imageUrl;
     }
 
-
-    public Category() {
+    public CategoryView() {
     }
 
     public Long getId() {
@@ -55,13 +39,5 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
     }
 }

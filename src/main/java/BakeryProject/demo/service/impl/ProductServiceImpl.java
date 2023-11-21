@@ -5,6 +5,7 @@ import BakeryProject.demo.models.entity.Product;
 import BakeryProject.demo.repository.ProductRepository;
 import BakeryProject.demo.service.CategoryService;
 import BakeryProject.demo.service.ProductService;
+import BakeryProject.demo.models.view.ProductsView;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 
@@ -30,8 +32,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAll() {
-        return productRepository.findAll();
+    public List<ProductsView> getAll() {
+        return productRepository.findAll().stream().map(product -> modelMapper.map(product, ProductsView.class))
+                .collect(Collectors.toList());
     }
 
     @Override

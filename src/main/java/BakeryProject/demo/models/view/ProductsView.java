@@ -1,44 +1,23 @@
-package BakeryProject.demo.models.DTO;
+package BakeryProject.demo.models.view;
+
 
 import BakeryProject.demo.models.entity.Category;
 import BakeryProject.demo.models.enums.AvailabilityEnum;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
-
 import java.math.BigDecimal;
 
-public class AdminAddProductDTO {
+public class ProductsView {
     private Long id;
-    @Column(nullable = false, unique = true)
-    @Size(min = 3, message = "Product name must be at least 3 characters!")
     private String name;
-    @Column(nullable = false, columnDefinition = "TEXT")
-    @Size(min = 10, message = "Description of the product must be at least 10 characters!")
     private String description;
-    @Column(name = "product_image")
     private String productImage;
-    @Column(nullable = false)
-    @Positive(message = "The weight must be positive number!")
     private int weight;
-    @NotNull(message = "You should add product price!")
-    @Positive(message = "The price must be positive number!")
     private BigDecimal price;
-    @Column(columnDefinition = "TEXT")
-    @NotEmpty(message = "You should add at least 1 allergen!")
     private String allergens;
-    @Column(nullable = false)
     private AvailabilityEnum availability;
-    @Column(columnDefinition = "TEXT")
-    @NotEmpty(message = "You should add at least 1 ingredient!")
     private String ingredients;
-    @ManyToOne
-    @NotNull
     private Category category;
 
-    public AdminAddProductDTO() {
+    public ProductsView() {
     }
 
     public Long getId() {

@@ -28,12 +28,16 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Description</th>
+                                <th>Image</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="c : ${allCategories}" th:object="${c}">
                                 <td th:text="${c.getName()}"></td>
+                                <td th:text="${c.getDescription()}"></td>
+                                <td><img th:src="${c.getImageUrl()}" width="120" height="120"/></td>
                                 <td class="text-end">
                                     <a th:href="@{/admin/category/edit/{id}(id = ${c.getId()})}" class="btn btn-outline-info btn-rounded"><i class="fas fa-pen"></i></a>
                                     <a th:href="@{/admin/category/removeCategory/{id}(id = ${c.getId()})}" class="btn btn-outline-danger btn-rounded"><i
