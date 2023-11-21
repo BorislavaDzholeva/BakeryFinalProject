@@ -17,4 +17,8 @@ public interface ProductService {
     void removeProductById(Long id);
 
     void updateProduct(AdminAddProductDTO addProductDTO);
+
+    Product findById(Long id);
+
+    List<Product> findAllProductsByCategoryId(Long id);
 }

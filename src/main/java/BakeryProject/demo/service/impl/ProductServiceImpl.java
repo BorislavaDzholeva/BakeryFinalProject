@@ -64,7 +64,6 @@ public class ProductServiceImpl implements ProductService {
     public void updateProduct(AdminAddProductDTO addProductDTO) {
         Product product = productRepository.findById(addProductDTO.getId()).orElse(null);
         if (product != null) {
-            //modelMapper.map(product, AddProductDTO.class);
             product.setName(addProductDTO.getName());
             product.setAllergens(addProductDTO.getAllergens());
             product.setAvailability(addProductDTO.getAvailability());
@@ -77,6 +76,16 @@ public class ProductServiceImpl implements ProductService {
             productRepository.save(product);
         }
 
+    }
+
+    @Override
+    public Product findById(Long id) {
+        return productRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Product> findAllProductsByCategoryId(Long id) {
+        return productRepository.findAllByCategoryId(id);
     }
 }
 

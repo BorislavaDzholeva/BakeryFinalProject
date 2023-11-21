@@ -1,10 +1,13 @@
 package BakeryProject.demo.web;
 
+import BakeryProject.demo.models.entity.Category;
 import BakeryProject.demo.models.entity.Product;
+import BakeryProject.demo.service.CategoryService;
 import BakeryProject.demo.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -14,15 +17,35 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final CategoryService categoryService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, CategoryService categoryService) {
         this.productService = productService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/")
     public String all(Model model) {
-        List<Product> all = productService.getAll();
-        model.addAttribute("products", all);
-        return "products-otherFile";
+        String pageName = "All Products";
+        List<Product> allProducts = productService.getAll();
+        List<Category> allCategories = categoryService.getAllCategories();
+        model.addAttribute("allCategories", allCategories);
+        model.addAttribute("allProducts", allProducts);
+        model.addAttribute("pageName", pageName);
+        return "products";
     }
+    @GetMapping("single-product/{id}")
+    public String singleProductPage(@PathVariable("id") Long id, Model model) {
+        Product product = productService.findById(id);
+        model.addAttribute("product", product);
+        return "single-product";
+    }
+    @GetMapping("productsByCategory/{id}")
+    public String productsByCategory(@PathVariable("id") Long id, Model model) {
+        List<Product> productsByCategory = productService.findAllProductsByCategoryId(id);
+        model.addAttribute("allProducts", productsByCategory);
+        model.addAttribute("pageName", productsByCategory.get(0).getCategory().getName());
+        return "products";
+    }
+
 }
