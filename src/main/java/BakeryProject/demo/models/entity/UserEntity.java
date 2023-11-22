@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,15 +21,15 @@ public class User {
     private String password;
     @Column(unique = true, nullable = false)
     private String email;
-    @Column(nullable = false)
+    @Column
     private String city;
-    @Column(nullable = false)
+    @Column
     private String address;
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number")
     private String phoneNumber;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private RoleEnum role;
+    private RoleEnum role = RoleEnum.User;
     @OneToMany(mappedBy = "creator")
     private List<Review> userReviews;
     @OneToMany(mappedBy = "user")
@@ -37,7 +37,7 @@ public class User {
     @OneToOne(mappedBy = "owner",cascade = CascadeType.ALL)
     private Card card;
 
-    public User() {
+    public UserEntity() {
     }
 
     public Long getId() {

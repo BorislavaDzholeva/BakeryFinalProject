@@ -1,7 +1,7 @@
 package BakeryProject.demo.service.impl;
 
 import BakeryProject.demo.models.entity.Order;
-import BakeryProject.demo.models.entity.User;
+import BakeryProject.demo.models.entity.UserEntity;
 import BakeryProject.demo.models.enums.OrderStatusEnum;
 import BakeryProject.demo.repository.OrderRepository;
 import BakeryProject.demo.repository.UserRepository;
@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
                 orderRepository.save(order);
                 break;
             case "Shipped":
-                User user = userRepository.findById(order.getUser().getId()).orElse(null);
+                UserEntity user = userRepository.findById(order.getUser().getId()).orElse(null);
                 if (user == null) {
                     throw new IllegalAccessException("User is not found!");
                 }

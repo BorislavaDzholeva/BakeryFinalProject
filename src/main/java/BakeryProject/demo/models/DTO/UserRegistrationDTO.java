@@ -15,8 +15,6 @@ import jakarta.validation.constraints.Size;
 )
 
 public class UserRegistrationDTO {
-
-    private Long id;
     @NotNull
     @Size(min =3, max = 20,message = "First name length must be between 3 and 20 characters!")
     private String firstName;
@@ -39,14 +37,6 @@ public class UserRegistrationDTO {
     private String email;
 
     public UserRegistrationDTO() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirstName() {

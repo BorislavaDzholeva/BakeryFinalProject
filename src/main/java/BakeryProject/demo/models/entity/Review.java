@@ -1,10 +1,8 @@
 package BakeryProject.demo.models.entity;
 
 import jakarta.persistence.*;
-import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Default;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -19,7 +17,7 @@ public class Review {
     @Column(nullable = false)
     private boolean isApproved = false;
     @ManyToOne
-    private User creator;
+    private UserEntity creator;
     @Column(name = "review_date", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime reviewDate;
@@ -56,7 +54,7 @@ public class Review {
         this.message = message;
     }
 
-    public User getCreator() {
+    public UserEntity getCreator() {
         return creator;
     }
 
@@ -69,7 +67,7 @@ public class Review {
         this.reviewDate = reviewDate;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(UserEntity creator) {
         this.creator = creator;
     }
 

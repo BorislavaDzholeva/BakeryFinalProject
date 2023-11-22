@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:fragment="head">
     <meta charset="utf-8">
@@ -48,11 +49,17 @@
             </div>
             <div class="col-lg-6 px-5 text-end">
                 <div class="h-100 d-inline-flex align-items-center">
-                    <a class="nav-link my-text-color active h5 text-end" href="/users/register">Registration</a>
-                    <!-- <a class="btn-lg-square text-primary border-end rounded-0" href=""><i class="fab fa-facebook-f"></i></a> -->
-                    <a class="nav-link my-text-color active h5 text-end" href="/users/login">Login</a>
-                    <a class="nav-link my-text-color active h5 text-end" href="/users/logout">Logout</a>
-                    <a class="nav-link my-text-color active h5 text-end" href="/admin/">Admin</a>
+                    <a class="nav-link my-text-color active h5 text-end"
+                       sec:authorize="!isAuthenticated()"
+                       href="/users/register">Registration</a>
+                    <a class="nav-link my-text-color active h5 text-end"
+                       sec:authorize="!isAuthenticated()"
+                       href="/users/login">Login</a>
+                    <form th:method="post" th:action="@{/users/logout}" sec:authorize="isAuthenticated()">
+                        <input type="submit" class="btn btn-link" value="Logout"/>
+                    </form>
+                    <a class="nav-link my-text-color active h5 text-end"  sec:authorize="hasRole('ROLE_Administrator')"
+                       href="/admin/">Admin</a>
 
                 </div>
             </div>

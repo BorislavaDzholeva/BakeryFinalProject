@@ -15,7 +15,7 @@ public class Order {
     @Column(name = "total_price", nullable = false)
     private BigDecimal totalPrice;
     @ManyToOne
-    private User user;
+    private UserEntity user;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "orders_products",
             joinColumns = @JoinColumn(name = "order_id"),
@@ -46,11 +46,11 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserEntity user) {
         this.user = user;
     }
 

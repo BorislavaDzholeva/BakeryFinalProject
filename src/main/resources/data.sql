@@ -1,3 +1,14 @@
+INSERT INTO users (id, username, password, email, first_name, last_name, phone_number, address, city, role)
+values (1, 'admin','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','borislava@abv.bg','Borislava','Dzholeva','0888888888','Sofia','Sofia','Administrator'),
+       (2, 'ivan80','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','ivanivanov@example.com','Ivan','Ivanov','0893883456','Sofia','Sofia','User'),
+       (3, 'petar80','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','petarpetrov80@abv.bg','Petar','Petrov','0848828988','Sofia','Sofia','User'),
+       (4, 'maria90','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','maria90@abv.bg','Maria','Ivanova','0888885588','Sofia','Sofia','User'),
+       (5, 'gergana90','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','gergana@abv.bg','Gergana','Dimitrova','0899885588','Sofia','Sofia','User');
+
+
+
+
+
 INSERT INTO categories (id, name,description, image_url)
 values (1,'White Bread','Classic types of breads with wheat flour, less salt and airy structure, crispy crust and neutral taste.','/images/p2RVPi1EdGy96ERJOUde.jpg'),
        (2, 'Black Bread', 'Bread with a crunchy crust mixed with different types of flour with added sunflower seeds, flaxseed and rye kernels.','/images/iaVlJv6d7Ndu9T9XgxvP.jpg'),

@@ -31,8 +31,6 @@ public class ProductController {
     public String all(Model model) {
         String pageName = "All Products";
         List<ProductsView> allProducts = productService.getAll();
-//        List<CategoryView> allCategories = categoryService.getAllCategories();
-//        model.addAttribute("allCategories", allCategories);
         model.addAttribute("allProducts", allProducts);
         model.addAttribute("pageName", pageName);
         return "products";
@@ -40,16 +38,12 @@ public class ProductController {
     @GetMapping("single-product/{id}")
     public String singleProductPage(@PathVariable("id") Long id, Model model) {
         Product product = productService.findById(id);
-//        List<CategoryView> allCategories = categoryService.getAllCategories();
-//        model.addAttribute("allCategories", allCategories);
         model.addAttribute("product", product);
         return "single-product";
     }
     @GetMapping("productsByCategory/{id}")
     public String productsByCategory(@PathVariable("id") Long id, Model model) {
         List<Product> productsByCategory = productService.findAllProductsByCategoryId(id);
-//        List<CategoryView> allCategories = categoryService.getAllCategories();
-//        model.addAttribute("allCategories", allCategories);
         model.addAttribute("allProducts", productsByCategory);
         model.addAttribute("pageName", productsByCategory.get(0).getCategory().getName());
         return "products";

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head th:replace="fragments/navigation::head"></head>
 <body>
 <div id="spinner"
@@ -20,16 +22,16 @@
     <h1 class="text-center mt-2">Login</h1>
     <hr class="hr-3 w-25 bg-white"/>
 
-    <form class="mx-auto w-25 bg-blur rounded" method="" action="/users/login">
+    <form class="mx-auto w-25 bg-blur rounded" th:method="post" th:action="@{/users/login}">
         <div class="form-group">
-            <div class="text-danger">Error messages</div>
-            <div class="text-danger">Incorrect username or password!</div>
+
+            <div th:if ="${param.error}" class="errors alert alert-danger">Incorrect username or password!</div>
 
             <div class="form-group">
                 <div class="label-holder text-white d-flex justify-content-center">
                     <label for="username" class="h3 mb-2">Username</label>
                 </div>
-                <input type="text" class="form-control" id="username" name="username"/>
+                <input type="text" class="form-control" id="username" name="username" th:value="*{username}"/>
             </div>
 
             <div class="form-group">
@@ -43,7 +45,11 @@
             </div>
         </div>
 
+
     </form>
+<!--    <p th:if ="${bad_credentials}" class="errors alert alert-danger">-->
+<!--        Invalid username or password.-->
+<!--    </p>-->
 </main>
 <footer th:replace="fragments/navigation::footer"></footer>
 <!-- Copyright Start -->

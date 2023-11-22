@@ -12,7 +12,7 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne
-    private User owner;
+    private UserEntity owner;
     @Column(name = "total_price", nullable = false)
     private BigDecimal totalPrice;
 
@@ -34,11 +34,11 @@ public class Card {
         this.id = id;
     }
 
-    public User getOwner() {
+    public UserEntity getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(UserEntity owner) {
         this.owner = owner;
     }
 

@@ -1,7 +1,7 @@
 package BakeryProject.demo.web;
 
 import BakeryProject.demo.models.DTO.AdminAddUserDTO;
-import BakeryProject.demo.models.entity.User;
+import BakeryProject.demo.models.entity.UserEntity;
 import BakeryProject.demo.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ public class AdminUserController {
 
     @GetMapping("/")
     public String all(Model model) {
-        List<User> allUsers = userService.getAllUsers();
+        List<UserEntity> allUsers = userService.getAllUsers();
         model.addAttribute("users", allUsers);
         return "admin/admin";
     }
