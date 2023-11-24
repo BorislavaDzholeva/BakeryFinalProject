@@ -1,9 +1,9 @@
 package BakeryProject.demo.repository;
 
-import BakeryProject.demo.models.entity.Card;
+import BakeryProject.demo.models.entity.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CardRepository extends JpaRepository<Card, Long> {
+public interface CartRepository extends JpaRepository<Cart, Long> {
 }

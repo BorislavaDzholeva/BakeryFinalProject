@@ -3,6 +3,7 @@ package BakeryProject.demo.service;
 import BakeryProject.demo.models.DTO.AdminAddUserDTO;
 import BakeryProject.demo.models.DTO.UserRegistrationDTO;
 import BakeryProject.demo.models.entity.UserEntity;
+import org.apache.catalina.User;
 
 import java.util.List;
 
@@ -19,4 +20,5 @@ public interface UserService {
 
     void registerUser(UserRegistrationDTO userRegistrationDTO);
 
+    UserEntity findUserByUsername(String currentUser);
 }

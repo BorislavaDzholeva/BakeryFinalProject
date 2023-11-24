@@ -23,7 +23,7 @@
                         <div class="card-body">
                             <h5 class="card-title"></h5>
                             <form class="needs-validation" enctype="multipart/form-data" novalidate accept-charset="utf-8" method="POST"
-                                  th:action="@{/admin/products/edit/}" th:object="${addProductDTO}">
+                                  th:action="@{/admin/products/edit/}" th:object="${adminAddProductDTO}">
                                 <input type="hidden" name="id" th:field="*{id}">
                                 <div class="row g-4">
                                     <div class="mb-3 col-md-6">

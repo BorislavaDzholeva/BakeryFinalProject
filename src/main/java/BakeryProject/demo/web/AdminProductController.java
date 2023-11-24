@@ -40,7 +40,7 @@ public class AdminProductController {
         return "/admin/products";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/add/")
     public String addProduct(Model model) {
         List<CategoryView> allCategories = categoryService.getAllCategories();
         model.addAttribute("allCategories", allCategories);
@@ -52,14 +52,14 @@ public class AdminProductController {
         return new AdminAddProductDTO();
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add/")
     public String addProductConfirm(@RequestParam("image") MultipartFile file, @Valid AdminAddProductDTO adminAddProductDTO, BindingResult bindingResult,
                                     RedirectAttributes redirectAttributes) throws IOException {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("adminAddProductDTO", adminAddProductDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.adminAddProductDTO", bindingResult);
 
-            return "redirect:/admin/products/add";
+            return "redirect:/admin/products/add/";
         }
 
         String imageUrl = productService.uploadProductImage(file);

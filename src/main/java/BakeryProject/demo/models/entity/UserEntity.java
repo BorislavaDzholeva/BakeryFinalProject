@@ -21,12 +21,6 @@ public class UserEntity {
     private String password;
     @Column(unique = true, nullable = false)
     private String email;
-    @Column
-    private String city;
-    @Column
-    private String address;
-    @Column(name = "phone_number")
-    private String phoneNumber;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private RoleEnum role = RoleEnum.User;
@@ -34,8 +28,9 @@ public class UserEntity {
     private List<Review> userReviews;
     @OneToMany(mappedBy = "user")
     private List<Order> userOrders;
-    @OneToOne(mappedBy = "owner",cascade = CascadeType.ALL)
-    private Card card;
+    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL)
+    private Cart cart;
+
 
     public UserEntity() {
     }
@@ -88,30 +83,6 @@ public class UserEntity {
         this.email = email;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public RoleEnum getRole() {
         return role;
     }
@@ -136,11 +107,11 @@ public class UserEntity {
         this.userOrders = userOrders;
     }
 
-    public Card getCard() {
-        return card;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setCard(Card card) {
-        this.card = card;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

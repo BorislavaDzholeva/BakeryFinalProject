@@ -4,6 +4,7 @@ import BakeryProject.demo.models.enums.OrderStatusEnum;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,16 +17,19 @@ public class Order {
     private BigDecimal totalPrice;
     @ManyToOne
     private UserEntity user;
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "orders_products",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Product> productsOrders;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status", nullable = false)
     private OrderStatusEnum orderStatus = OrderStatusEnum.Pending;
 
+    @Column
+    private String city;
+    @Column
+    private String address;
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
     public Order() {
     }
@@ -62,13 +66,34 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public List<Product> getProductsOrders() {
-        return productsOrders;
+    public String getCity() {
+        return city;
     }
 
-    public void setProductsOrders(List<Product> productsOrders) {
-        this.productsOrders = productsOrders;
+    public void setCity(String city) {
+        this.city = city;
     }
 
+    public String getAddress() {
+        return address;
+    }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
 }

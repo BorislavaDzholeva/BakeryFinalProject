@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/navigation::head"></head>
+<body>
+<div id="spinner"
+     class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-grow text-primary" role="status"></div>
+</div>
+<!-- Spinner End -->
+
+
+<!-- Topbar Start -->
+<th:block th:replace="fragments/navigation::topbar"></th:block>
+<th:block th:replace="fragments/navigation::header"></th:block>
+
+<div class="container-fluid page-header py-6 wow fadeIn" data-wow-delay="0.1s"></div>
+<main>
+    <div class="container">
+        <h1 class="text-center mt-2">Create Order</h1>
+        <hr class="hr-3 w-25 bg-white"/>
+        <form class="mx-auto bg-blur rounded" th:method="post" th:action="@{/orders/create}"
+              th:object="${createOrderDTO}">
+            <div class="g-4">
+                <div class="row mb-3 ">
+                    <!--   <div class="form-group">
+                           &lt;!&ndash;div class="label-holder text-white textCol d-flex justify-content-center">
+                               <label for="orderItems" class="h4 mb-2">Added Products</label>
+                               <tbody>
+                               <tr th:each="p : ${createOrderDTO.getOrderItems()}" th:object="${p}">
+                                   <td th:text="${p.getProduct().getName()}"></td>
+                                   <td th:text="${p.getQuantity()}"></td>
+                                   <td class="text-end">
+       &lt;!&ndash;                                <a th:href="@{/orders/remove-product/{id}(id=${p.getProduct().getId()})}"&ndash;&gt;
+       &lt;!&ndash;                                   class="btn btn-danger btn-sm">Remove</a>&ndash;&gt;
+                                   </td>
+                                   <input th:field="${createOrderDTO.getOrderItems()}" th:errorclass="'is-invalid alert-danger'" type="text" class="form-control"
+                                          id="orderItems" name="orderItems"/>
+                               </tr>
+                               </tbody>
+                           </div>&ndash;&gt;
+
+                           <small th:if="${#fields.hasErrors('city')}" th:errors="*{city}"
+                                  class="h6 danger">City error message</small>
+                       </div>-->
+                    <div class="form-group col">
+                        <div class="label-holder text-white textCol d-flex justify-content-center">
+                            <label for="city" class="h4 mb-2">City</label>
+                        </div>
+                        <input th:field="*{city}" th:errorclass="'is-invalid alert-danger'" type="text"
+                               class="form-control"
+                               id="city" name="city"/>
+                        <small th:if="${#fields.hasErrors('city')}" th:errors="*{city}"
+                               class="h6 danger">City error message</small>
+                    </div>
+                    <div class="form-group col">
+                        <div class="label-holder textCol d-flex justify-content-center">
+                            <label for="address" class="h4 mb-2">Address</label>
+                        </div>
+                        <input th:field="*{address}" th:errorclass="'is-invalid alert-danger'" type="text"
+                               class="form-control"
+                               id="address" name="address"/>
+                        <small th:if="${#fields.hasErrors('address')}" th:errors="*{address}"
+                               class="h6 danger">Address error message</small>
+                    </div>
+                    <div class="form-group col">
+                        <div class="label-holder textCol d-flex justify-content-center">
+                            <label for="phoneNumber" class="h4 mb-2">Phone</label>
+                        </div>
+                        <input th:field="*{phoneNumber}" th:errorclass="'is-invalid alert-danger'" type="text"
+                               class="form-control"
+                               id="phoneNumber" name="phoneNumber"/>
+                        <small th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
+                               class="h6 danger">Phone Number error message</small>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="row">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Products</th>
+                        <th scope="col">Count</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="cp : ${cartProducts}">
+                        <td th:text="${cp.getName()}">1</td>
+                        <td th:text="${cp.getQuantity()}">Mark</td>
+                        <td th:text="${cp.getPrice()}">Otto</td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <th class="text-end">Total price:</th>
+                        <th th:text="${totalPrice}">Otto</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-warning  mb-3">Finish Order</button>
+            </div>
+        </form>
+
+    </div>
+</main>
+<footer th:replace="fragments/navigation::footer"></footer>
+<!-- Copyright Start -->
+<div class="container-fluid copyright text-light py-4 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</div>
+<!-- Copyright End -->
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/lib/wow/wow.min.js"></script>
+<script src="/lib/easing/easing.min.js"></script>
+<script src="/lib/waypoints/waypoints.min.js"></script>
+<script src="/lib/counterup/counterup.min.js"></script>
+<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
+</body>
+</html>

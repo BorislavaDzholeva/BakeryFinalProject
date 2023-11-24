@@ -5,6 +5,7 @@ import BakeryProject.demo.models.DTO.UserRegistrationDTO;
 import BakeryProject.demo.models.entity.UserEntity;
 import BakeryProject.demo.repository.UserRepository;
 import BakeryProject.demo.service.UserService;
+import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -52,11 +53,8 @@ public class UserServiceImpl implements UserService {
         if (user != null) {
             user.setFirstName(addUserDTO.getFirstName());
             user.setLastName(addUserDTO.getLastName());
-            user.setAddress(addUserDTO.getAddress());
             user.setEmail(addUserDTO.getEmail());
             user.setUsername(addUserDTO.getUsername());
-            user.setCity(addUserDTO.getCity());
-            user.setPhoneNumber(addUserDTO.getPhoneNumber());
             user.setRole(addUserDTO.getRole());
             if (addUserDTO.getPassword().isEmpty()) {
                 user.setPassword(addUserDTO.getPassword());
@@ -74,5 +72,10 @@ public class UserServiceImpl implements UserService {
         user.setUsername(userRegistrationDTO.getUsername());
         user.setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
         userRepository.save(user);
+    }
+
+    @Override
+    public UserEntity findUserByUsername(String currentUser) {
+        return userRepository.findByUsername(currentUser).orElse(null);
     }
 }

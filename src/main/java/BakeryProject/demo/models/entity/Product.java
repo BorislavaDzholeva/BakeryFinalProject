@@ -2,11 +2,9 @@ package BakeryProject.demo.models.entity;
 
 import BakeryProject.demo.models.enums.AvailabilityEnum;
 import jakarta.persistence.*;
-import jakarta.servlet.annotation.MultipartConfig;
-
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "products")
@@ -31,12 +29,6 @@ public class Product {
     private AvailabilityEnum availability;
     @Column(nullable = false, columnDefinition = "TEXT")
     private String ingredients;
-    @ManyToMany(mappedBy = "productsReviews")
-    private List<Review> reviews;
-    @ManyToMany(mappedBy = "productsOrders")
-    private List<Order> orders;
-    @ManyToMany(mappedBy = "products")
-    private List<Card> cards;
     @ManyToOne
     private Category category;
 
@@ -113,30 +105,6 @@ public class Product {
 
     public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
-    public List<Card> getCards() {
-        return cards;
-    }
-
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
     }
 
     public Category getCategory() {

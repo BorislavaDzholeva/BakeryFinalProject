@@ -41,8 +41,7 @@
                 <p class="fs-3 fst-italic text-start" th:text="|Allergens : ${product.getAllergens()}|"></p>
                 <p class="fs-3 fst-italic text-start" th:text="|Aveilability : ${product.getAvailability.name()}|"></p>
                 <p class="fs-3 fst-italic text-start" th:text="|Description : ${product.getDescription()}|"></p>
-                <td style="width: 15%"><a class="btn btn-warning" th:href="@{/products/single-product/{id}(id = *{id})}">Add To Card</a></td>
-
+                <td style="width: 15%"><a class="btn btn-warning" th:href="@{/orders/buy/{id}(id = *{id})}">Add To Card</a></td>
             </div>
         </div>
 

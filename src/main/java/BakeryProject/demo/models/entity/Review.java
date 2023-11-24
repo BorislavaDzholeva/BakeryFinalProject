@@ -14,19 +14,13 @@ public class Review {
     private Long id;
     @Column(columnDefinition = "TEXT")
     private String message;
+
     @Column(nullable = false)
     private boolean isApproved = false;
     @ManyToOne
     private UserEntity creator;
     @Column(name = "review_date", nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime reviewDate;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "reviews_products",
-            joinColumns = @JoinColumn(name = "review_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<Product> productsReviews;
+    private LocalDateTime reviewDate = LocalDateTime.now();
 
     public Review() {
     }
@@ -38,6 +32,7 @@ public class Review {
     public void setId(Long id) {
         this.id = id;
     }
+
     public boolean isApproved() {
         return isApproved;
     }
@@ -58,7 +53,6 @@ public class Review {
         return creator;
     }
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     public LocalDateTime getReviewDate() {
         return reviewDate;
     }
@@ -71,11 +65,4 @@ public class Review {
         this.creator = creator;
     }
 
-    public Set<Product> getProductsReviews() {
-        return productsReviews;
-    }
-
-    public void setProductsReviews(Set<Product> productsReviews) {
-        this.productsReviews = productsReviews;
-    }
 }

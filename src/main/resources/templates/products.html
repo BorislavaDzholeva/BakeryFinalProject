@@ -24,35 +24,39 @@
     <div class="container text-center pt-5 pb-3"></div>
 </div>
 
-    <!-- Product Start -->
-    <div class="container-xxl bg-light my-6 py-6 pt-0">
-        <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <h1 class="display-6 mb-4" th:text="*{pageName}"></h1>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s" th:each="p : ${allProducts}" th:object="${p}">
-                    <div class="product-item d-flex flex-column bg-white rounded overflow-hidden h-100">
-                        <div class="text-center p-4">
-                            <h3 class="mb-3" th:text="${p.getName()}"></h3>
-                            <p class="fs-5" th:text="|Price : ${p.getPrice()} LV|"></p>
-                            <p class="fs-5" th:text="|Ingredients : ${p.getIngredients()}|"></p>
-                            <td style="width: 15%"><a class="btn btn-warning" th:href="@{/products/single-product/{id}(id = *{id})}">Product Details</a></td>
+<!-- Product Start -->
+<div class="container-xxl bg-light my-6 py-6 pt-0">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <h1 class="display-6 mb-4" th:text="*{pageName}"></h1>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s" th:each="p : ${allProducts}"
+                 th:object="${p}">
+                <div class="product-item d-flex flex-column bg-white rounded overflow-hidden h-100">
+                    <div class="text-center p-4">
+                        <h3 class="mb-3" th:text="${p.getName()}"></h3>
+                        <p class="fs-5" th:text="|Price : ${p.getPrice()} LV|"></p>
+                        <p class="fs-5" th:text="|Ingredients : ${p.getIngredients()}|"></p>
+                        <td style="width: 15%"><a class="btn btn-warning"
+                                                  th:href="@{/products/single-product/{id}(id = *{id})}">Product
+                            Details</a></td>
 
-                        </div>
-                        <div class="position-relative mt-auto">
-                            <img class="img-fluid" th:src="${p.getProductImage()}" src="images/p2RVPi1EdGy96ERJOUde.jpg">
-                            <div class="product-overlay">
-                                <a class="btn btn-lg-square btn-outline-light rounded-circle" href=""><i
-                                        class="fa fa-cart-plus text-primary"></i>Buy</a>
-                            </div>
+                    </div>
+                    <div class="position-relative mt-auto">
+                        <img class="img-fluid" th:src="${p.getProductImage()}" src="images/p2RVPi1EdGy96ERJOUde.jpg">
+                        <div class="product-overlay">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle"
+                               th:href="@{/orders/buy/{id}(id = *{id})}"><i
+                                    class="fa fa-cart-plus text-primary"></i>Buy</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Product End -->
+</div>
+<!-- Product End -->
 
 
 <!-- Footer Start -->

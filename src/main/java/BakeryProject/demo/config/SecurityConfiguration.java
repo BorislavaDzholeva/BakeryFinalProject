@@ -6,6 +6,7 @@ import BakeryProject.demo.service.impl.AppUserDetailService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,11 +27,13 @@ public class SecurityConfiguration {
                         .requestMatchers("/about").permitAll()
                         .requestMatchers("/contacts").permitAll()
                         .requestMatchers("/products/**").permitAll()
-                        .requestMatchers("/admin/**").hasRole(RoleEnum.Administrator.name())
+                        .requestMatchers(HttpMethod.GET,"/admin/**").hasRole(RoleEnum.Administrator.name())
+                        .requestMatchers(HttpMethod.POST,"/admin/**").hasRole(RoleEnum.Administrator.name())
                         .anyRequest().authenticated()
 
 
-        ).formLogin(
+        ).csrf(csrf -> csrf.disable())
+        .formLogin(
                 formLogin -> {
                     formLogin.loginPage("/users/login")
                             .usernameParameter("username")

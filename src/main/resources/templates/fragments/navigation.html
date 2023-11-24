@@ -51,15 +51,30 @@
                 <div class="h-100 d-inline-flex align-items-center">
                     <a class="nav-link my-text-color active h5 text-end"
                        sec:authorize="!isAuthenticated()"
-                       href="/users/register">Registration</a>
+                       href="/users/login">Login</a>
                     <a class="nav-link my-text-color active h5 text-end"
                        sec:authorize="!isAuthenticated()"
-                       href="/users/login">Login</a>
-                    <form th:method="post" th:action="@{/users/logout}" sec:authorize="isAuthenticated()">
-                        <input type="submit" class="btn btn-link" value="Logout"/>
-                    </form>
+                       href="/users/register">Registration</a>
+                    <div class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                        <a class="btn-lg-square text-primary dropdown-toggle border-end rounded-0" data-bs-toggle="dropdown" href=""><i class="fas fa-shopping-cart"></i></a>
+                        <ul class="dropdown-menu m-auto" style="z-index: 9999">
+                            <li  class="dropdown-item"  th:each="ci : ${userCart.getCartItems()}" th:object="${ci}" th:text="|Product :${ci.getProduct().getName()}  -  Quantity :${ci.getQuantity()}|"></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li class="text-center"><a href="/orders/create" ><span >Order Now</span></a> </li>
+                            <!--<div  class="dropdown-item">Item 1</div>
+                            <div  class="dropdown-item">Item 1</div>
+                            <div  class="dropdown-item">Item 1</div>-->
+                        </ul>
+                    </div>
                     <a class="nav-link my-text-color active h5 text-end"  sec:authorize="hasRole('ROLE_Administrator')"
-                       href="/admin/">Admin</a>
+                       href="/admin/">Admin Panel</a>
+                    <a class="nav-link my-text-color active h5 text-end"
+                       sec:authorize="isAuthenticated()"
+                       href="/reviews/create">Create Review</a>
+                    <form th:method="post" th:action="@{/users/logout}" sec:authorize="isAuthenticated()">
+                        <input type="submit" class="nav-link my-text active h5 text-end" value="Logout"/>
+                    </form>
+
 
                 </div>
             </div>
