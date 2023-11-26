@@ -1,6 +1,7 @@
 package BakeryProject.demo.web;
 
 import BakeryProject.demo.models.entity.Review;
+import BakeryProject.demo.models.view.ReviewView;
 import BakeryProject.demo.service.ReviewService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +22,7 @@ public class AdminReviewController {
 
     @GetMapping("/")
     public String all(Model model) {
-        List<Review> allReviews = reviewService.getAllReviews();
+        List<ReviewView> allReviews = reviewService.getAllReviews();
         model.addAttribute("allReviews", allReviews);
         return "/admin/review";
     }
