@@ -5,6 +5,7 @@ import BakeryProject.demo.models.entity.CartItem;
 import BakeryProject.demo.models.entity.Product;
 import BakeryProject.demo.models.entity.UserEntity;
 import BakeryProject.demo.models.view.CartItemView;
+import BakeryProject.demo.repository.CartItemRepository;
 import BakeryProject.demo.repository.CartRepository;
 import BakeryProject.demo.repository.ProductRepository;
 import BakeryProject.demo.repository.UserRepository;
@@ -20,11 +21,13 @@ public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
+    private final CartItemRepository cartItemRepository;
 
-    public CartServiceImpl(CartRepository cartRepository, UserRepository userRepository, ProductRepository productRepository) {
+    public CartServiceImpl(CartRepository cartRepository, UserRepository userRepository, ProductRepository productRepository, CartItemRepository cartItemRepository) {
         this.cartRepository = cartRepository;
         this.userRepository = userRepository;
         this.productRepository = productRepository;
+        this.cartItemRepository = cartItemRepository;
     }
 
     @Override
@@ -63,6 +66,7 @@ public class CartServiceImpl implements CartService {
         List<CartItem> cartItems = user.getCart().getCartItems();
         List<CartItemView> cartItemViews = cartItems.stream().map(cartItem -> {
             CartItemView cartItemView = new CartItemView();
+            cartItemView.setId(cartItem.getId());
             cartItemView.setName(cartItem.getProduct().getName());
             cartItemView.setPrice(cartItem.getProduct().getPrice());
             cartItemView.setQuantity(cartItem.getQuantity());
@@ -77,5 +81,60 @@ public class CartServiceImpl implements CartService {
         List<CartItem> cartItems = user.getCart().getCartItems();
         BigDecimal totalPrice = cartItems.stream().map(cartItem -> cartItem.getProduct().getPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity()))).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
         return totalPrice;
+    }
+
+    @Override
+    public void removeProductFromCart(String username, Long id) {
+        UserEntity user = userRepository.findByUsername(username).orElse(null);
+        Cart cart = user.getCart();
+        List<CartItem> cartItems = cart.getCartItems();
+        CartItem cartItemToRemove = new CartItem();
+        for (CartItem cartItem : cartItems) {
+            if (cartItem.getId().equals(id)) {
+                cartItemToRemove = cartItem;
+            }
+        }
+        cartItems.remove(cartItemToRemove);
+        cart.setCartItems(cartItems);
+        cartRepository.save(cart);
+        cartItemRepository.delete(cartItemToRemove);
+    }
+
+    @Override
+    public void incrementItem(String username, Long id) {
+        UserEntity user = userRepository.findByUsername(username).orElse(null);
+        Cart cart = user.getCart();
+        List<CartItem> cartItems = cart.getCartItems();
+        CartItem cartItemToIncrement = new CartItem();
+        for (CartItem cartItem : cartItems) {
+            if (cartItem.getId().equals(id)) {
+                cartItemToIncrement = cartItem;
+            }
+        }
+        cartItemToIncrement.setQuantity(cartItemToIncrement.getQuantity() + 1);
+        cartItemRepository.save(cartItemToIncrement);
+
+    }
+
+    @Override
+    public void decrementItem(String username, Long id) {
+        UserEntity user = userRepository.findByUsername(username).orElse(null);
+        Cart cart = user.getCart();
+        List<CartItem> cartItems = cart.getCartItems();
+        CartItem cartItemToDecrement = new CartItem();
+        for (CartItem cartItem : cartItems) {
+            if (cartItem.getId().equals(id)) {
+                cartItemToDecrement = cartItem;
+            }
+        }
+        cartItemToDecrement.setQuantity(cartItemToDecrement.getQuantity() - 1);
+        if (cartItemToDecrement.getQuantity() == 0) {
+            cartItems.remove(cartItemToDecrement);
+            cart.setCartItems(cartItems);
+            cartRepository.save(cart);
+            cartItemRepository.delete(cartItemToDecrement);
+            return;
+        }
+        cartItemRepository.save(cartItemToDecrement);
     }
 }

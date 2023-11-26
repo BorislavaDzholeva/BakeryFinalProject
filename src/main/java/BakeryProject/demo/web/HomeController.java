@@ -20,15 +20,9 @@ import java.util.List;
 public class HomeController {
     private final CategoryService categoryService;
     private final UserService userService;
-
     public HomeController(CategoryService categoryService, UserService userService) {
         this.categoryService = categoryService;
         this.userService = userService;
-    }
-
-    @GetMapping("/")
-    public String home(Model model) {
-        return "home";
     }
 
     @ModelAttribute
@@ -40,6 +34,12 @@ public class HomeController {
         }
         model.addAttribute("allCategories", allCategories);
     }
+
+    @GetMapping("/")
+    public String home(Model model) {
+        return "home";
+    }
+
 
     @GetMapping("about")
     public String about(Model model) {

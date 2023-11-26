@@ -24,26 +24,6 @@
               th:object="${createOrderDTO}">
             <div class="g-4">
                 <div class="row mb-3 ">
-                    <!--   <div class="form-group">
-                           &lt;!&ndash;div class="label-holder text-white textCol d-flex justify-content-center">
-                               <label for="orderItems" class="h4 mb-2">Added Products</label>
-                               <tbody>
-                               <tr th:each="p : ${createOrderDTO.getOrderItems()}" th:object="${p}">
-                                   <td th:text="${p.getProduct().getName()}"></td>
-                                   <td th:text="${p.getQuantity()}"></td>
-                                   <td class="text-end">
-       &lt;!&ndash;                                <a th:href="@{/orders/remove-product/{id}(id=${p.getProduct().getId()})}"&ndash;&gt;
-       &lt;!&ndash;                                   class="btn btn-danger btn-sm">Remove</a>&ndash;&gt;
-                                   </td>
-                                   <input th:field="${createOrderDTO.getOrderItems()}" th:errorclass="'is-invalid alert-danger'" type="text" class="form-control"
-                                          id="orderItems" name="orderItems"/>
-                               </tr>
-                               </tbody>
-                           </div>&ndash;&gt;
-
-                           <small th:if="${#fields.hasErrors('city')}" th:errors="*{city}"
-                                  class="h6 danger">City error message</small>
-                       </div>-->
                     <div class="form-group col">
                         <div class="label-holder text-white textCol d-flex justify-content-center">
                             <label for="city" class="h4 mb-2">City</label>

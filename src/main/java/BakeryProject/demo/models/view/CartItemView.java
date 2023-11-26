@@ -3,6 +3,7 @@ package BakeryProject.demo.models.view;
 import java.math.BigDecimal;
 
 public class CartItemView {
+    private Long id;
     private String name;
     private Integer quantity;
     private BigDecimal price;
@@ -13,6 +14,13 @@ public class CartItemView {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
+    }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
