@@ -33,7 +33,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductsView> getAll() {
-        return productRepository.findAll().stream().map(product -> modelMapper.map(product, ProductsView.class))
+        return productRepository.findAll().stream().
+                map(product -> modelMapper.map(product, ProductsView.class))
                 .collect(Collectors.toList());
     }
 

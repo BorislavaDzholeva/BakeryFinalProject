@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<!--
-* Bootstrap Simple Admin Template
-* Version: 2.1
-* Author: Alexis Luna
-* Website: https://github.com/alexis-luna/bootstrap-simple-admin-template
--->
-
 <head th:replace="fragments/admin/commons::head"></head>
 
 <body>
@@ -38,8 +31,11 @@
                                 <td th:text="${#temporals.format(r.getReviewDate(), 'dd/MMM/yyyy HH:mm')}"></td>
                                 <td th:text="${r.isApproved()}"></td>
                                 <td class="text-end">
-                                    <a th:if="${!r.isApproved()}" th:href="@{/admin/review/approve/{id}(id = ${r.getId()})}" class="btn btn-outline-info btn-rounded"><i class="fas fa-check"></i></a>
-                                    <a th:href="@{/admin/review/removeReview/{id}(id = ${r.getId()})}" class="btn btn-outline-danger btn-rounded"><i
+                                    <a th:if="${!r.isApproved()}"
+                                       th:href="@{/admin/review/approve/{id}(id = ${r.getId()})}"
+                                       class="btn btn-outline-info btn-rounded"><i class="fas fa-check"></i></a>
+                                    <a th:href="@{/admin/review/removeReview/{id}(id = ${r.getId()})}"
+                                       class="btn btn-outline-danger btn-rounded"><i
                                             class="fas fa-trash"></i></a>
                                 </td>
                             </tr>

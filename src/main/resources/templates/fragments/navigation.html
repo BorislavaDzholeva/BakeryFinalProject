@@ -56,14 +56,11 @@
                        sec:authorize="!isAuthenticated()"
                        href="/users/register">Registration</a>
                     <div class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                        <a class="btn-lg-square text-primary dropdown-toggle border-end rounded-0" data-bs-toggle="dropdown" href=""><i class="fas fa-shopping-cart"></i></a>
+                        <a class="btn-lg-square text-primary dropdown-toggle border-end rounded-0" data-bs-toggle="dropdown"><i class="fas fa-shopping-cart"></i></a>
                         <ul class="dropdown-menu m-auto" style="z-index: 9999">
                             <li  class="dropdown-item"  th:each="ci : ${userCart.getCartItems()}" th:object="${ci}" th:text="|${ci.getProduct().getName()}   -   ${ci.getQuantity()}|"></li>
                             <li><hr class="dropdown-divider"></li>
                             <li class="text-center"><a href="/cart/details" ><span >Cart Details</span></a> </li>
-                            <!--<div  class="dropdown-item">Item 1</div>
-                            <div  class="dropdown-item">Item 1</div>
-                            <div  class="dropdown-item">Item 1</div>-->
                         </ul>
                     </div>
                     <a class="nav-link my-text-color active h5 text-end"  sec:authorize="hasRole('ROLE_Administrator')"
