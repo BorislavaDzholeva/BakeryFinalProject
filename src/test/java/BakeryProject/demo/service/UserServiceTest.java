@@ -14,9 +14,7 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import java.util.Optional;
-
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -89,7 +87,6 @@ public class UserServiceTest {
     void testFindAllUsers() {
         serviceToTest.getAllUsers();
         Assertions.assertEquals(0, serviceToTest.getAllUsers().size());
-//        Mockito.verify(mockUserRepository).findAll();
     }
 
     @Test
@@ -97,28 +94,42 @@ public class UserServiceTest {
         when(mockUserRepository.findById(testAdminAddUserDTO.getId())).thenReturn(Optional.of(createTestUser));
         serviceToTest.updateUser(testAdminAddUserDTO);
         Mockito.verify(mockUserRepository).save(userEntityArgumentCaptor.capture());
+        Assertions.assertEquals(testAdminAddUserDTO.getUsername(), userEntityArgumentCaptor.getValue().getUsername());
     }
 
     @Test
     void testFindUserByUsername() {
         when(mockUserRepository.findByUsername(createTestUser.getUsername())).thenReturn(Optional.of(createTestUser));
-
         serviceToTest.findUserByUsername(createTestUser.getUsername());
         Mockito.verify(mockUserRepository).findByUsername(createTestUser.getUsername());
+        Assertions.assertEquals(createTestUser.getUsername(), serviceToTest.findUserByUsername(createTestUser.getUsername()).getUsername());
     }
 
     @Test
     void testRemoveUserById() {
         serviceToTest.removeUserById(1L);
         Mockito.verify(mockUserRepository).deleteById(1L);
+        Assertions.assertTrue(mockUserRepository.findById(1L).isEmpty());
     }
 
     @Test
     void testAddUser() {
         serviceToTest.addUser(testAdminAddUserDTO);
         Mockito.verify(mockUserRepository).save(userEntityArgumentCaptor.capture());
+        UserEntity capturedUser = userEntityArgumentCaptor.getValue();
 
-
+        Assertions.assertEquals(testAdminAddUserDTO.getUsername(), capturedUser.getUsername());
+        Assertions.assertEquals(testAdminAddUserDTO.getFirstName(), capturedUser.getFirstName());
+        Assertions.assertEquals(testAdminAddUserDTO.getLastName(), capturedUser.getLastName());
+        Assertions.assertEquals(testAdminAddUserDTO.getEmail(), capturedUser.getEmail());
+        Assertions.assertEquals(testAdminAddUserDTO.getPassword(), capturedUser.getPassword());
+    }
+    @Test
+    void testFindUserById() {
+        when(mockUserRepository.findById(createTestUser.getId())).thenReturn(Optional.of(createTestUser));
+        serviceToTest.findUserById(createTestUser.getId());
+        Mockito.verify(mockUserRepository).findById(createTestUser.getId());
+        Assertions.assertEquals(createTestUser.getId(), serviceToTest.findUserById(createTestUser.getId()).getId());
     }
 
 }

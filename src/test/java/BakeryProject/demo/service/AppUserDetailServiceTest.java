@@ -1,6 +1,5 @@
 package BakeryProject.demo.service;
 
-import BakeryProject.demo.models.DTO.UserRegistrationDTO;
 import BakeryProject.demo.models.entity.UserEntity;
 import BakeryProject.demo.models.enums.RoleEnum;
 import BakeryProject.demo.repository.UserRepository;
