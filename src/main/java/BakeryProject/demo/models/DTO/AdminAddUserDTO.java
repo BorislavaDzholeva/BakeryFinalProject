@@ -24,15 +24,6 @@ public class AdminAddUserDTO {
     @NotEmpty(message = "Email cannot be empty")
     @Email(message = "Email should be valid.")
     private String email;
-    @Column(nullable = false)
-    @Size(min = 3, message = "City length must be at least 3 characters!")
-    private String city;
-    @Column(nullable = false)
-    @Size(min = 5, message = "Address length must be at least 5 characters!")
-    private String address;
-    @Column(nullable = false)
-    @Size(min = 9, max = 10, message = "Phone number length must be 10 numbers")
-    private String phoneNumber;
     @NotNull
     private RoleEnum role;
 
@@ -85,30 +76,6 @@ public class AdminAddUserDTO {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public RoleEnum getRole() {

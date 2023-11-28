@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.multipart.MultipartFile;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -86,6 +87,17 @@ public class ProductServiceTest {
         when(mockCategoryService.findCategoryByName(testProduct.getCategory().getName())).thenReturn(testProduct.getCategory());
         serviceToTest.addProduct(testProduct);
         Mockito.verify(mockProductRepository).save(productArgumentCaptor.capture());
+        Product capturedProduct = productArgumentCaptor.getValue();
+        Assertions.assertEquals(testProduct.getName(), capturedProduct.getName());
+        Assertions.assertEquals(testProduct.getPrice(), capturedProduct.getPrice());
+        Assertions.assertEquals(testProduct.getWeight(), capturedProduct.getWeight());
+        Assertions.assertEquals(testProduct.getCategory(), capturedProduct.getCategory());
+        Assertions.assertEquals(testProduct.getProductImage(), capturedProduct.getProductImage());
+        Assertions.assertEquals(testProduct.getDescription(), capturedProduct.getDescription());
+        Assertions.assertEquals(testProduct.getAllergens(), capturedProduct.getAllergens());
+        Assertions.assertEquals(testProduct.getIngredients(), capturedProduct.getIngredients());
+        Assertions.assertEquals(testProduct.getAvailability(), capturedProduct.getAvailability());
+
 
     }
 
@@ -99,15 +111,17 @@ public class ProductServiceTest {
 
     @Test
     void testGetProductByCategoryId() {
-        when(mockProductRepository.findAllByCategoryId(testCategory.getId())).thenReturn(java.util.List.of(testProduct));
-        serviceToTest.findAllProductsByCategoryId(1L);
+        when(mockProductRepository.findAllByCategoryId(testCategory.getId())).thenReturn(List.of(testProduct));
+        serviceToTest.findAllProductsByCategoryId(testCategory.getId());
+        Mockito.verify(mockProductRepository).findAllByCategoryId(testCategory.getId());
         Assertions.assertEquals(1, serviceToTest.findAllProductsByCategoryId(testCategory.getId()).size());
     }
 
     @Test
     void testGetAllProducts() {
-        when(mockProductRepository.findAll()).thenReturn(java.util.List.of(testProduct));
+        when(mockProductRepository.findAll()).thenReturn(List.of(testProduct));
         serviceToTest.getAll();
+        Mockito.verify(mockProductRepository).findAll();
         Assertions.assertEquals(1, serviceToTest.getAll().size());
 
     }
@@ -138,6 +152,7 @@ public class ProductServiceTest {
 
     @Test
     void testAddProduct() {
+        when(mockCategoryService.findCategoryByName(testProduct.getCategory().getName())).thenReturn(testProduct.getCategory());
         serviceToTest.addProduct(testProduct);
         Mockito.verify(mockProductRepository).save(productArgumentCaptor.capture());
         Product capturedProduct = productArgumentCaptor.getValue();
@@ -159,5 +174,6 @@ public class ProductServiceTest {
         Assertions.assertThrows(NullPointerException.class, () -> {
             serviceToTest.uploadProductImage(mockFile);
         });
+
     }
 }

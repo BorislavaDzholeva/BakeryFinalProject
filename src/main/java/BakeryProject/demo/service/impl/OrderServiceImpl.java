@@ -26,7 +26,6 @@ public class OrderServiceImpl implements OrderService {
     public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, CartItemRepository cartItemRepository) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
-
         this.cartItemRepository = cartItemRepository;
     }
 
@@ -61,9 +60,7 @@ public class OrderServiceImpl implements OrderService {
         UserEntity user = userRepository.findByUsername(currentUserUsername).orElse(null);
         if (user == null) {
             throw new IllegalArgumentException("User is not found!");
-
         }
-
         Order order = new Order();
         List<CartItem> userCartItems = user.getCart().getCartItems();
         List<OrderItem> orderItems = new ArrayList<>();
@@ -84,13 +81,11 @@ public class OrderServiceImpl implements OrderService {
         order.setUser(user);
         order.setOrderStatus(OrderStatusEnum.Pending);
         orderRepository.save(order);
-
         user.getCart().setCartItems(new ArrayList<>());
         userRepository.save(user);
         for (CartItem cartItem : userCartItems) {
             cartItemRepository.deleteById(cartItem.getId());
         }
     }
-
 }
 

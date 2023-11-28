@@ -59,7 +59,8 @@ public class ReviewServiceTest {
         };
 
         testReview = new Review() {
-            {
+
+            {   setId(1L);
                 setCreator(createTestUser);
                 setMessage("test message");
                 setReviewDate(LocalDateTime.now());

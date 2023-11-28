@@ -79,9 +79,9 @@ public class CartServiceImpl implements CartService {
     public BigDecimal getTotalPrice(String currentUser) {
         UserEntity user = userRepository.findByUsername(currentUser).orElse(null);
         List<CartItem> cartItems = user.getCart().getCartItems();
-        BigDecimal totalPrice = cartItems.stream().map(cartItem -> cartItem.getProduct().getPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity()))).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
-        return totalPrice;
+        return cartItems.stream().map(cartItem -> cartItem.getProduct().getPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity()))).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
     }
+
 
     @Override
     public void removeProductFromCart(String username, Long id) {
