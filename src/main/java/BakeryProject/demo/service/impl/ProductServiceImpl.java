@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 
 public class ProductServiceImpl implements ProductService {
     public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/src/main/resources/static/images/";
-
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
     private final ModelMapper modelMapper;
@@ -35,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductsView> getAll() {
         return productRepository.findAll().stream().
                 map(product -> modelMapper.map(product, ProductsView.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
