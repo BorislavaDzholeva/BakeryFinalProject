@@ -21,8 +21,6 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ProductServiceTest {
-    public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/src/main/resources/static/images/";
-
     @Mock
     private ProductRepository mockProductRepository;
     @Mock
@@ -101,9 +99,9 @@ public class ProductServiceTest {
 
     @Test
     void testGetProductByCategoryId() {
-        when(mockProductRepository.findAllByCategoryId(1L)).thenReturn(java.util.List.of(testProduct));
+        when(mockProductRepository.findAllByCategoryId(testCategory.getId())).thenReturn(java.util.List.of(testProduct));
         serviceToTest.findAllProductsByCategoryId(1L);
-        Assertions.assertEquals(1, serviceToTest.findAllProductsByCategoryId(1L).size());
+        Assertions.assertEquals(1, serviceToTest.findAllProductsByCategoryId(testCategory.getId()).size());
     }
 
     @Test
@@ -125,9 +123,9 @@ public class ProductServiceTest {
 
     @Test
     void testRemoveProductById() {
-        serviceToTest.removeProductById(1L);
-        Mockito.verify(mockProductRepository).deleteById(1L);
-        Assertions.assertTrue(mockProductRepository.findById(1L).isEmpty());
+        serviceToTest.removeProductById(testProduct.getId());
+        Mockito.verify(mockProductRepository).deleteById(testProduct.getId());
+        Assertions.assertTrue(mockProductRepository.findById(testProduct.getId()).isEmpty());
     }
 
     @Test
@@ -161,9 +159,5 @@ public class ProductServiceTest {
         Assertions.assertThrows(NullPointerException.class, () -> {
             serviceToTest.uploadProductImage(mockFile);
         });
-
-
-
-
     }
 }
