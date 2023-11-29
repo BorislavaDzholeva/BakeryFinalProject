@@ -24,7 +24,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CartServiceTest {
-
     @Mock
     private UserRepository mockUserRepository;
     @Mock
@@ -33,11 +32,9 @@ public class CartServiceTest {
     private CartRepository mockCartRepository;
     @Mock
     private CartItemRepository mockCartItemRepository;
-    @Mock
-    private CartServiceImpl serviceToTest;
     @Captor
     private ArgumentCaptor<Cart> cartArgumentCaptor;
-
+    private CartServiceImpl serviceToTest;
     private UserEntity testUser;
     private Product testProduct;
     private Cart testCart;

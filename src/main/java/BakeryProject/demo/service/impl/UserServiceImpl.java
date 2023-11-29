@@ -2,16 +2,12 @@ package BakeryProject.demo.service.impl;
 
 import BakeryProject.demo.models.DTO.AdminAddUserDTO;
 import BakeryProject.demo.models.DTO.UserRegistrationDTO;
-import BakeryProject.demo.models.entity.Review;
 import BakeryProject.demo.models.entity.UserEntity;
 import BakeryProject.demo.repository.UserRepository;
 import BakeryProject.demo.service.UserService;
-import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -70,6 +66,9 @@ public class UserServiceImpl implements UserService {
         UserEntity user = modelMapper.map(userRegistrationDTO, UserEntity.class);
         user.setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
         userRepository.save(user);
+
+
+
 //        UserEntity user = new UserEntity();
 //        user.setFirstName(userRegistrationDTO.getFirstName());
 //        user.setLastName(userRegistrationDTO.getLastName());
