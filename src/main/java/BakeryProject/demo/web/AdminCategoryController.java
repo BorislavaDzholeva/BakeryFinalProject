@@ -63,10 +63,10 @@ public class AdminCategoryController {
     public String categoryEdit(@PathVariable Long id, Model model) {
         AdminAddCategoryDTO categoryData = categoryService.findCategoryById(id);
         model.addAttribute("categoryData", categoryData);
-        return "admin/edit_category";
+        return "/admin/edit_category";
     }
     @PostMapping("/edit/")
-    public String userEditConfirm(@RequestParam("image") MultipartFile file,@Valid AdminAddCategoryDTO adminAddCategoryDTO, BindingResult bindingResult,
+    public String categoryEditConfirm(@RequestParam("image") MultipartFile file,@Valid AdminAddCategoryDTO adminAddCategoryDTO, BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) throws IOException {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute

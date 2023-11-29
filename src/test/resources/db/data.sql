@@ -11,11 +11,11 @@
 --         'Dimitrova', 'User');
 
 INSERT INTO users (email,first_name,last_name,password,`role`,username) VALUES
-             ('borislava@abv.bg','Borislava','Dzholeva','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','Administrator','admin'),
-             ('ivanivanov@example.com','Ivan','Ivanov','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','User','ivan80'),
-             ('petarpetrov80@abv.bg','Petar','Petrov','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','User','petar80'),
-             ('maria90@abv.bg','Maria','Ivanova','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','User','maria90'),
-             ('gergana@abv.bg','Gergana','Dimitrova','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','User','gergana90');
+                                                                            ('borislava@abv.bg','Borislava','Dzholeva','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','Administrator','admin'),
+                                                                            ('ivanivanov@example.com','Ivan','Ivanov','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','User','ivan80'),
+                                                                            ('petarpetrov80@abv.bg','Petar','Petrov','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','User','petar80'),
+                                                                            ('maria90@abv.bg','Maria','Ivanova','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','User','maria90'),
+                                                                            ('gergana@abv.bg','Gergana','Dimitrova','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','User','gergana90');
 INSERT INTO carts (owner_id) VALUES (1), (2), (3), (4),(5);
 
 
