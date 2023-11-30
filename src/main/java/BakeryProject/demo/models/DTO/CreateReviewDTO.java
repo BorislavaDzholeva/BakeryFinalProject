@@ -1,11 +1,13 @@
 package BakeryProject.demo.models.DTO;
 import BakeryProject.demo.models.entity.UserEntity;
 import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
 public class CreateReviewDTO {
+    @Size(min = 3, message = "Message must be at least 3 characters long.")
     private String message;
     private UserEntity creator;
     private LocalDateTime reviewDate = LocalDateTime.now();

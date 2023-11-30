@@ -6,7 +6,8 @@
 
 <body>
 <!-- Spinner Start -->
-<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+<div id="spinner"
+     class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
     <div class="spinner-grow text-primary" role="status"></div>
 </div>
 <!-- Spinner End -->
@@ -17,15 +18,14 @@
 <div class="container-fluid page-header py-6 wow fadeIn" data-wow-delay="0.1s"></div>
 
 
-
-
 <!-- Contact Start -->
 <div class="container-xxl py-6">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
             <p class="text-primary text-uppercase mb-2">
             <h1 class="display-6 mb-4">If you like our products we’d love to hear it.</h1>
-            <h1 class="display-6 mb-4">Please leave us a review so we can share it with other customers just like you.</h1>
+            <h1 class="display-6 mb-4">Please leave us a review so we can share it with other customers just like
+                you.</h1>
         </div>
         <div class="row g-0 justify-content-center">
             <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.1s">
@@ -33,21 +33,28 @@
                     <div class="row g-3">
                         <div class="col-12">
                             <div class="form-floating">
-                                <label for="message">Message</label>
-                                <textarea class="form-control" name="message" placeholder="Leave a message here" id="message" style="height: 200px"></textarea>
+
+                                <div class="label-holder text-white textCol d-flex justify-content-center">
+                                    <label for="message" class="h4 mb-2"></label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-12 text-center">
-                            <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Send Review</button>
+                            <label for="message">Message</label>
+                            <textarea class="form-control" name="message" th:errorclass="'is-invalid alert-danger'" placeholder="Leave a message here"
+                                      id="message" type="text" style="height: 200px"></textarea>
+                            <small th:if="${#fields.hasErrors('message')}" th:errors="*{message}"
+                                   class="h6 danger"> Error message</small>
                         </div>
                     </div>
-                </form>
+                    <div class="col-12 text-center">
+                        <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Send Review</button>
+                    </div>
             </div>
+            </form>
         </div>
     </div>
 </div>
+</div>
 <!-- Contact End -->
-
 
 
 <footer th:replace="fragments/navigation::footer"></footer>

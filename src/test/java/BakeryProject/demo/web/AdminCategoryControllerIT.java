@@ -7,9 +7,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.multipart.MultipartFile;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -24,12 +21,25 @@ class AdminCategoryControllerIT {
 
     @Autowired
     MockMvc mockMvc;
+
     @Test
-    void all() {
+    void testCategoryAll() throws Exception {
+        this.mockMvc.perform(get("/admin/category/").with(user("admin").roles("Administrator")))
+                .andExpect(status().isOk())
+                .andExpect(view().name("/admin/category"));
     }
 
     @Test
-    void categoryAdd() throws Exception {
+    void testCategoryAddGet() throws Exception {
+        this.mockMvc.perform(get("/admin/category/add").with(user("admin").roles("Administrator")))
+                .andExpect(status().isOk())
+                .andExpect(view().name("/admin/add_category"));
+
+    }
+
+
+    @Test
+    void testCategoryAdd() throws Exception {
         MockMultipartFile imageFile = new MockMultipartFile("image", "test-image.png", IMAGE_PNG_VALUE, new byte[200]);
         this.mockMvc.perform(multipart("/admin/category/add").file(imageFile).with(user("admin").roles("Administrator"))
                         .param("name", "TestCategory2")
@@ -41,27 +51,65 @@ class AdminCategoryControllerIT {
     }
 
     @Test
-    void categoryEdit() throws Exception {
+    void testAddCategoryWithInvalidData() throws Exception {
+        MockMultipartFile imageFile = new MockMultipartFile("image", "test-image.png", IMAGE_PNG_VALUE, new byte[200]);
+        this.mockMvc.perform(multipart("/admin/category/add").file(imageFile).with(user("admin").roles("Administrator"))
+                        .param("name", "")
+                        .param("description", "TestCategory1 Description")
+                        .with(csrf())
+                ).andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/admin/category/add"));
+
+    }
+
+
+    @Test
+    void testCategoryEditGet() throws Exception {
         this.mockMvc.perform(get("/admin/category/edit/1").with(user("admin").roles("Administrator")))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/admin/edit_category"));
 
     }
     @Test
-    void categoryEditConfirm() {
+    void categoryEditConfirm() throws Exception {
         MockMultipartFile imageFile = new MockMultipartFile("image", "test-image.png", IMAGE_PNG_VALUE, new byte[200]);
-
+        this.mockMvc.perform(multipart("/admin/category/edit/").file(imageFile).with(user("admin").roles("Administrator"))
+                        .param("id", "1")
+                        .param("name", "TestCategory")
+                        .param("description", "TestCategory Description")
+                        .with(csrf())
+                ).andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/admin/category/"));
 
     }
+
+
+
+   @Test
+    void testRemoveCategory() throws Exception {
+        this.mockMvc.perform(get("/admin/category/removeCategory/1").with(user("admin").roles("Administrator"))
+                        .with(csrf())
+                ).andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/admin/category/"));
+
+    }
+
+
     @Test
-    void addCategoryConfirm() {
+    void testEditCategoryWithInvalidData() throws Exception {
+        MockMultipartFile imageFile = new MockMultipartFile("image", "test-image.png", IMAGE_PNG_VALUE, new byte[200]);
+        this.mockMvc.perform(multipart("/admin/category/edit/").file(imageFile).with(user("admin").roles("Administrator"))
+                        .param("id", "1")
+                        .param("name", "")
+                        .param("description", "TestCategory Description")
+                        .with(csrf())
+                ).andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/admin/category/edit/1"));
+
     }
 
-    @Test
-    void userEditConfirm() {
-    }
 
-    @Test
-    void removeCategory() {
-    }
+
+
+
 }

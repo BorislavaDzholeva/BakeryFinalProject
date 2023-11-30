@@ -1,6 +1,4 @@
 package BakeryProject.demo.web;
-
-import BakeryProject.demo.models.entity.Category;
 import BakeryProject.demo.models.entity.Product;
 import BakeryProject.demo.models.view.CategoryView;
 import BakeryProject.demo.service.CategoryService;
