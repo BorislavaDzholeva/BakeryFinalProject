@@ -26,12 +26,12 @@ public class AdminUserController {
     public String all(Model model) {
         List<UserEntity> allUsers = userService.getAllUsers();
         model.addAttribute("users", allUsers);
-        return "admin/admin";
+        return "/admin/admin";
     }
 
-    @GetMapping("/user/add")
+    @GetMapping("/user/add/")
     public String userAdd(Model model) {
-        return "admin/add_user";
+        return "/admin/add_user";
     }
 
     @ModelAttribute
@@ -39,7 +39,7 @@ public class AdminUserController {
         return new AdminAddUserDTO();
     }
 
-    @PostMapping("/user/add")
+    @PostMapping("/user/add/")
     public String userAddConfirm(@Valid AdminAddUserDTO adminAddUserDTO, BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -48,7 +48,7 @@ public class AdminUserController {
             redirectAttributes.addFlashAttribute
                     ("org.springframework.validation.BindingResult.adminAddUserDTO", bindingResult);
 
-            return "redirect:/admin/user/add";
+            return "redirect:/admin/user/add/";
         }
         userService.addUser(adminAddUserDTO);
         return "redirect:/admin/";
@@ -58,7 +58,7 @@ public class AdminUserController {
     public String userEdit(@PathVariable Long id, Model model) {
         AdminAddUserDTO userData = userService.findUserById(id);
         model.addAttribute("userData", userData);
-        return "admin/edit_user";
+        return "/admin/edit_user";
     }
 
     @PostMapping("/user/edit/")

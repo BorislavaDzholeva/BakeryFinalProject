@@ -22,7 +22,7 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping("/create")
+    @GetMapping("/create/")
     public String createReview() {
         return "create-review";
     }
@@ -31,14 +31,14 @@ public class ReviewController {
         return new CreateReviewDTO();
     }
 
-    @PostMapping("/create")
+    @PostMapping("/create/")
     public String createReviewConfirm(Principal principal, @Valid CreateReviewDTO createReviewDTO, BindingResult
             bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("createReviewDTO", createReviewDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.createReviewDTO", bindingResult);
 
-            return "redirect:/reviews/create";
+            return "redirect:/reviews/create/";
         }
         reviewService.createReview(createReviewDTO, principal.getName());
         return "redirect:/";

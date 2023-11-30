@@ -67,7 +67,7 @@
                        href="/admin/">Admin Panel</a>
                     <a class="nav-link my-text-color active h5 text-end"
                        sec:authorize="isAuthenticated()"
-                       href="/reviews/create">Create Review</a>
+                       href="/reviews/create/">Create Review</a>
                     <form th:method="post" th:action="@{/users/logout}" sec:authorize="isAuthenticated()">
                         <input type="submit" class="nav-link my-text active h5 text-end" value="Logout"/>
                     </form>

@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -21,25 +23,28 @@ public class ReviewControllerIT {
 
     @Test
     void testCreateReviewGet() throws Exception {
-        this.mockMvc.perform(get("/reviews/create").with(user("admin")))
+        this.mockMvc.perform(get("/reviews/create/").with(user("admin"))
+                        .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("create-review"));
     }
 
     @Test
     void testCreateReviewConfirm() throws Exception {
-        this.mockMvc.perform(post("/reviews/create").with(user("admin"))
+        this.mockMvc.perform(post("/reviews/create/").with(user("admin"))
                         .param("message", "Test")
+                        .with(csrf())
                 ).andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/"));
     }
 
     @Test
     void testCreateReviewConfirmWithInvalidData() throws Exception {
-        this.mockMvc.perform(post("/reviews/create").with(user("admin"))
+        this.mockMvc.perform(post("/reviews/create/").with(user("admin"))
                         .param("message", "Te")
+                        .with(csrf())
                 ).andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/reviews/create"));
+                .andExpect(view().name("redirect:/reviews/create/"));
     }
 
 

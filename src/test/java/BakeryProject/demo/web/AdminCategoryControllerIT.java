@@ -31,7 +31,7 @@ class AdminCategoryControllerIT {
 
     @Test
     void testCategoryAddGet() throws Exception {
-        this.mockMvc.perform(get("/admin/category/add").with(user("admin").roles("Administrator")))
+        this.mockMvc.perform(get("/admin/category/add/").with(user("admin").roles("Administrator")))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/admin/add_category"));
 
@@ -41,7 +41,7 @@ class AdminCategoryControllerIT {
     @Test
     void testCategoryAdd() throws Exception {
         MockMultipartFile imageFile = new MockMultipartFile("image", "test-image.png", IMAGE_PNG_VALUE, new byte[200]);
-        this.mockMvc.perform(multipart("/admin/category/add").file(imageFile).with(user("admin").roles("Administrator"))
+        this.mockMvc.perform(multipart("/admin/category/add/").file(imageFile).with(user("admin").roles("Administrator"))
                         .param("name", "TestCategory2")
                         .param("description", "TestCategory1 Description")
                         .with(csrf())
@@ -53,12 +53,12 @@ class AdminCategoryControllerIT {
     @Test
     void testAddCategoryWithInvalidData() throws Exception {
         MockMultipartFile imageFile = new MockMultipartFile("image", "test-image.png", IMAGE_PNG_VALUE, new byte[200]);
-        this.mockMvc.perform(multipart("/admin/category/add").file(imageFile).with(user("admin").roles("Administrator"))
+        this.mockMvc.perform(multipart("/admin/category/add/").file(imageFile).with(user("admin").roles("Administrator"))
                         .param("name", "")
                         .param("description", "TestCategory1 Description")
                         .with(csrf())
                 ).andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/admin/category/add"));
+                .andExpect(view().name("redirect:/admin/category/add/"));
 
     }
 

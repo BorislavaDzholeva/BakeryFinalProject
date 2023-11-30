@@ -70,5 +70,6 @@ public class UserControllerIT {
                         .with(csrf())
                 ).andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/users/register"));
+
     }
 }

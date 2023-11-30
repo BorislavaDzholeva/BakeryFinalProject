@@ -34,7 +34,7 @@ public class AdminCategoryController {
         return "/admin/category";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/add/")
     public String categoryAdd(Model model) {
         return "/admin/add_category";
     }
@@ -44,14 +44,14 @@ public class AdminCategoryController {
         return new AdminAddCategoryDTO();
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add/")
     public String addCategoryConfirm(@RequestParam("image") MultipartFile file, @Valid AdminAddCategoryDTO adminAddCategoryDTO, BindingResult bindingResult,
                                      RedirectAttributes redirectAttributes) throws IOException {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("adminAddCategoryDTO", adminAddCategoryDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.adminAddCategoryDTO", bindingResult);
 
-            return "redirect:/admin/category/add";
+            return "redirect:/admin/category/add/";
         }
         String imageUrl = categoryService.uploadCategoryImage(file);
         Category category = modelMapper.map(adminAddCategoryDTO, Category.class);

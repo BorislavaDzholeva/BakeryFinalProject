@@ -75,15 +75,17 @@ public class AdminProductController {
         List<CategoryView> allCategories = categoryService.getAllCategories();
         model.addAttribute("allCategories", allCategories);
         model.addAttribute("adminAddProductDTO", adminAddProductDTO);
-        return "admin/edit_product";
+        return "/admin/edit_product";
     }
 
     @PostMapping("/edit/")
     public String editProductConfirm(@RequestParam("image") MultipartFile file, @Valid AdminAddProductDTO adminAddProductDTO, BindingResult bindingResult,
                                      RedirectAttributes redirectAttributes) throws IOException {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("adminAddProductDTO", adminAddProductDTO);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.adminAddProductDTO", bindingResult);
+            redirectAttributes.addFlashAttribute
+                    ("adminAddProductDTO", adminAddProductDTO);
+            redirectAttributes.addFlashAttribute
+                    ("org.springframework.validation.BindingResult.adminAddProductDTO", bindingResult);
             return "redirect:/admin/products/edit/" + adminAddProductDTO.getId();
         }
         if (!file.isEmpty()) {
@@ -93,7 +95,6 @@ public class AdminProductController {
         productService.updateProduct(adminAddProductDTO);
         return "redirect:/admin/products/";
     }
-
     @GetMapping("/removeProduct/{id}")
     public String removeProduct(@PathVariable Long id) {
         productService.removeProductById(id);

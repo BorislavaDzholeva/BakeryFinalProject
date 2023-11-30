@@ -32,7 +32,7 @@ public class AdminReviewController {
         return "redirect:/admin/review/";
     }
     @GetMapping("/removeReview/{id}")
-    public String removeCategory(@PathVariable Long id) {
+    public String removeReview(@PathVariable Long id) {
         reviewService.removeReviewById(id);
         return "redirect:/admin/review/";
     }
