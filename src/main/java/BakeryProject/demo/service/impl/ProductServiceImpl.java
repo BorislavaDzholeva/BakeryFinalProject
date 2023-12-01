@@ -1,5 +1,6 @@
 package BakeryProject.demo.service.impl;
 
+import BakeryProject.demo.exception.ProductNotFoundException;
 import BakeryProject.demo.models.DTO.AdminAddProductDTO;
 import BakeryProject.demo.models.entity.Product;
 import BakeryProject.demo.repository.ProductRepository;
@@ -7,6 +8,7 @@ import BakeryProject.demo.service.CategoryService;
 import BakeryProject.demo.service.ProductService;
 import BakeryProject.demo.models.view.ProductsView;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +16,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 
@@ -75,7 +76,7 @@ public class ProductServiceImpl implements ProductService {
             product.setPrice(addProductDTO.getPrice());
             product.setWeight(addProductDTO.getWeight());
             product.setCategory(addProductDTO.getCategory());
-            if(addProductDTO.getProductImage() != null) {
+            if (addProductDTO.getProductImage() != null) {
                 product.setProductImage(addProductDTO.getProductImage());
             }
             productRepository.save(product);
@@ -85,7 +86,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product findById(Long id) {
-        return productRepository.findById(id).orElse(null);
+//        Product product = productRepository.findById(id).orElse(null);
+//        if (product == null) {
+//            throw new ProductNotFoundException("Product with id " + id + " not found", id.toString());
+//        }
+//        return product;
+        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product with id " + id + " not found", id.toString()));
     }
 
     @Override

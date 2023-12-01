@@ -95,6 +95,7 @@ public class AdminProductController {
         productService.updateProduct(adminAddProductDTO);
         return "redirect:/admin/products/";
     }
+
     @GetMapping("/removeProduct/{id}")
     public String removeProduct(@PathVariable Long id) {
         productService.removeProductById(id);

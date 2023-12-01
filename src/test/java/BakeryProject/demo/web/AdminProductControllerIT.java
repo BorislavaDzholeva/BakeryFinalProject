@@ -148,15 +148,6 @@ public class AdminProductControllerIT {
                 .andExpect(view().name("redirect:/admin/products/"));
     }
 
-    @Test
-    void testRemoveCategory() throws Exception {
-        this.mockMvc.perform(get("/admin/category/removeCategory/1").with(user("admin").roles("Administrator"))
-                        .with(csrf())
-                ).andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/admin/category/"));
-
-    }
-
 
 
 

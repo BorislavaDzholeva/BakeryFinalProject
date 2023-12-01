@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
@@ -9,10 +9,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
      class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
     <div class="spinner-grow text-primary" role="status"></div>
 </div>
-<!-- Spinner End -->
 
 
-<!-- Topbar Start -->
 <th:block th:replace="fragments/navigation::topbar"></th:block>
 <th:block th:replace="fragments/navigation::header"></th:block>
 
@@ -23,18 +21,17 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <hr class="hr-3 w-25 bg-white"/>
 
     <form class="mx-auto w-25 bg-blur rounded" th:method="post" th:action="@{/users/login}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <div class="form-group">
-
             <div th:if ="${param.error}" class="errors alert alert-danger">Incorrect username or password!</div>
-
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <div class="label-holder text-white d-flex justify-content-center">
                     <label for="username" class="h3 mb-2">Username</label>
                 </div>
                 <input type="text" class="form-control" id="username" name="username"/>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <div class="label-holder text-white d-flex justify-content-center">
                     <label for="password" class="h3 mb-2">Password</label>
                 </div>
@@ -47,19 +44,15 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 
     </form>
-<!--    <p th:if ="${bad_credentials}" class="errors alert alert-danger">-->
-<!--        Invalid username or password.-->
-<!--    </p>-->
+
 </main>
 <footer th:replace="fragments/navigation::footer"></footer>
-<!-- Copyright Start -->
 <div class="container-fluid copyright text-light py-4 wow fadeIn" data-wow-delay="0.1s">
     <div class="container">
         <div class="row">
         </div>
     </div>
 </div>
-<!-- Copyright End -->
 
 
 <!-- Back to Top -->

@@ -8,9 +8,11 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
     <!-- Favicon -->
-<!--    <link href="/img/favicon.ico" rel="icon">-->
+    <!--    <link href="/img/favicon.ico" rel="icon">-->
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,41 +44,48 @@
 
 
 <!-- Topbar Start -->
- <div class="container-fluid top-bar bg-dark text-light px-0 wow fadeIn" data-wow-delay="0.1s" th:fragment="topbar">
-        <div class="row gx-0 align-items-center d-none d-lg-flex">
-            <div class="col-lg-6 px-5 text-start">
-        
-            </div>
-            <div class="col-lg-6 px-5 text-end">
-                <div class="h-100 d-inline-flex align-items-center">
-                    <a class="nav-link my-text-color active h5 text-end"
-                       sec:authorize="!isAuthenticated()"
-                       href="/users/login">Login</a>
-                    <a class="nav-link my-text-color active h5 text-end"
-                       sec:authorize="!isAuthenticated()"
-                       href="/users/register">Registration</a>
-                    <div class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                        <a class="btn-lg-square text-primary dropdown-toggle border-end rounded-0" data-bs-toggle="dropdown"><i class="fas fa-shopping-cart"></i></a>
-                        <ul class="dropdown-menu m-auto" style="z-index: 9999">
-                            <li  class="dropdown-item"  th:each="ci : ${userCart.getCartItems()}" th:object="${ci}" th:text="|${ci.getProduct().getName()}   -   ${ci.getQuantity()}|"></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li class="text-center"><a href="/cart/details" ><span >Cart Details</span></a> </li>
-                        </ul>
+<div class="container-fluid top-bar bg-dark text-light px-0 wow fadeIn" data-wow-delay="0.1s" th:fragment="topbar">
+    <div class="row gx-0 align-items-center d-none d-lg-flex">
+        <div class="col-lg-6 px-5 text-start">
+
+        </div>
+        <div class="col-lg-6 px-5 text-end">
+            <div class="h-100 d-inline-flex align-items-center">
+                <a class="nav-link my-text-color active h5 text-end"
+                   sec:authorize="!isAuthenticated()"
+                   href="/users/login">Login</a>
+                <a class="nav-link my-text-color active h5 text-end"
+                   sec:authorize="!isAuthenticated()"
+                   href="/users/register">Registration</a>
+                <div class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                    <a class="btn-lg-square text-primary dropdown-toggle border-end rounded-0"
+                       data-bs-toggle="dropdown"><i class="fas fa-shopping-cart"></i></a>
+                    <div class="dropdown-menu m-auto" style="z-index: 9999">
+                        <div class="dropdown-item text-center" th:each="ci : ${userCart.getCartItems()}" th:object="${ci}">
+                            <span class="fst-italic" th:text="${ci.getProduct().getName()}"></span>
+                            <span>  -  </span>
+                            <span class="fw-semibold" th:text="${ci.getQuantity()}"></span>
+                        </div>
+                        <div>
+                            <hr class="dropdown-divider">
+                        </div>
+                        <div class="text-center"><a href="/cart/details"><span>Cart Details</span></a></div>
                     </div>
-                    <a class="nav-link my-text-color active h5 text-end"  sec:authorize="hasRole('ROLE_Administrator')"
-                       href="/admin/">Admin Panel</a>
-                    <a class="nav-link my-text-color active h5 text-end"
-                       sec:authorize="isAuthenticated()"
-                       href="/reviews/create/">Create Review</a>
-                    <form th:method="post" th:action="@{/users/logout}" sec:authorize="isAuthenticated()">
-                        <input type="submit" class="nav-link my-text active h5 text-end" value="Logout"/>
-                    </form>
-
-
                 </div>
+                <a class="nav-link my-text-color active h5 text-end" sec:authorize="hasRole('ROLE_Administrator')"
+                   href="/admin/">Admin Panel</a>
+                <a class="nav-link my-text-color active h5 text-end"
+                   sec:authorize="isAuthenticated()"
+                   href="/reviews/create/">Create Review</a>
+                <form th:method="post" th:action="@{/users/logout}" sec:authorize="isAuthenticated()">
+                    <input type="submit" class="nav-link my-text active h5 text-end" value="Logout"/>
+                </form>
+
+
             </div>
         </div>
     </div>
+</div>
 <!-- Topbar End -->
 <header th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
@@ -94,7 +103,8 @@
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Products</a>
                     <div class="dropdown-menu m-0">
                         <a th:href="@{/products/}" class="dropdown-item">All Products</a>
-                        <a th:href="@{/products/productsByCategory/{id}(id = *{id})}" th:each="c : ${allCategories}" th:object="${c}" class="dropdown-item"
+                        <a th:href="@{/products/productsByCategory/{id}(id = *{id})}" th:each="c : ${allCategories}"
+                           th:object="${c}" class="dropdown-item"
                            th:text="${c.getName()}"></a>
                     </div>
                 </div>
@@ -173,7 +183,7 @@
                     </p>
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+359 898 659 606</p>
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i>bakinglove_bakery@gmail.com</p>
-<!--              -->
+                    <!--              -->
                 </div>
                 <div class="col-lg-3 col-md-4">
                     <h4 class="text-light mb-4">Quick Links</h4>

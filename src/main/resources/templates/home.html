@@ -5,19 +5,16 @@
 <head th:replace="fragments/navigation::head"></head>
 
 <body>
-<!-- Spinner Start -->
 <div id="spinner"
      class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
     <div class="spinner-grow text-primary" role="status"></div>
 </div>
-<!-- Spinner End -->
 
 
 <th:block th:replace="fragments/navigation::topbar"></th:block>
 
 <th:block th:replace="fragments/navigation::header"></th:block>
 
-<!-- Carousel Start -->
 <div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="owl-carousel header-carousel position-relative">
         <div class="owl-carousel-item position-relative">
@@ -52,10 +49,6 @@
         </div>
     </div>
 </div>
-<!-- Carousel End -->
-
-
-<!-- Facts Start -->
 <div class="container-xxl py-6">
     <div class="container">
         <div class="row g-4">
@@ -90,10 +83,7 @@
         </div>
     </div>
 </div>
-<!-- Facts End -->
 
-
-<!-- About Start -->
 <div class="container-xxl py-6">
     <div class="container">
         <div class="row g-5">
@@ -135,10 +125,7 @@
         </div>
     </div>
 </div>
-<!-- About End -->
 
-
-<!-- Product Start -->
 <div class="container-xxl bg-light my-6 py-6 pt-0">
     <div class="container">
         <div class="bg-primary text-light rounded-bottom p-5 my-6 mt-0 wow fadeInUp" data-wow-delay="0.1s">
@@ -179,10 +166,6 @@
         </div>
     </div>
 </div>
-<!-- Product End -->
-
-
-<!-- Service Start -->
 <div class="container-xxl py-6">
     <div class="container">
         <div class="row g-5">
@@ -241,14 +224,9 @@
         </div>
     </div>
 </div>
-<!-- Service End -->
-
 
 <th:block th:replace="fragments/navigation::team"></th:block>
 
-
-
-<!-- Testimonial Start -->
 <div class="container-xxl bg-light my-6 py-6 pb-0">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
@@ -268,23 +246,14 @@
         </div>
     </div>
 </div>
-<!-- Testimonial End -->
-
-
-<!-- Footer Start -->
 <footer th:replace="fragments/navigation::footer"></footer>
-<!-- Footer End -->
 
-
-<!-- Copyright Start -->
 <div class="container-fluid copyright text-light py-4 wow fadeIn" data-wow-delay="0.1s">
     <div class="container">
         <div class="row">
         </div>
     </div>
 </div>
-<!-- Copyright End -->
-
 
 <!-- Back to Top -->
 <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>

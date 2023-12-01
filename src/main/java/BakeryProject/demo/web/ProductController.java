@@ -1,15 +1,17 @@
 package BakeryProject.demo.web;
+
+import BakeryProject.demo.exception.ProductNotFoundException;
+import BakeryProject.demo.models.entity.Cart;
 import BakeryProject.demo.models.entity.Product;
 import BakeryProject.demo.models.view.CategoryView;
+import BakeryProject.demo.models.view.ReviewView;
 import BakeryProject.demo.service.CategoryService;
 import BakeryProject.demo.service.ProductService;
 import BakeryProject.demo.models.view.ProductsView;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -33,12 +35,17 @@ public class ProductController {
         model.addAttribute("pageName", pageName);
         return "products";
     }
+
     @GetMapping("single-product/{id}")
     public String singleProductPage(@PathVariable("id") Long id, Model model) {
         Product product = productService.findById(id);
         model.addAttribute("product", product);
         return "single-product";
     }
+
+
+
+
     @GetMapping("productsByCategory/{id}")
     public String productsByCategory(@PathVariable("id") Long id, Model model) {
         List<Product> productsByCategory = productService.findAllProductsByCategoryId(id);
