@@ -1,17 +1,13 @@
 package BakeryProject.demo.web;
 
-import BakeryProject.demo.exception.ProductNotFoundException;
-import BakeryProject.demo.models.entity.Cart;
 import BakeryProject.demo.models.entity.Product;
 import BakeryProject.demo.models.view.CategoryView;
-import BakeryProject.demo.models.view.ReviewView;
 import BakeryProject.demo.service.CategoryService;
 import BakeryProject.demo.service.ProductService;
 import BakeryProject.demo.models.view.ProductsView;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -42,8 +38,6 @@ public class ProductController {
         model.addAttribute("product", product);
         return "single-product";
     }
-
-
 
 
     @GetMapping("productsByCategory/{id}")

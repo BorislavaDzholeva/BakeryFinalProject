@@ -1,5 +1,6 @@
 package BakeryProject.demo.service.impl;
 
+import BakeryProject.demo.exception.ObjectNotFoundException;
 import BakeryProject.demo.models.entity.Cart;
 import BakeryProject.demo.models.entity.CartItem;
 import BakeryProject.demo.models.entity.Product;
@@ -10,6 +11,7 @@ import BakeryProject.demo.repository.CartRepository;
 import BakeryProject.demo.repository.ProductRepository;
 import BakeryProject.demo.repository.UserRepository;
 import BakeryProject.demo.service.CartService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -101,7 +103,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void incrementItem(String username, Long id) {
+    public int incrementItem(String username, Long id) {
         UserEntity user = userRepository.findByUsername(username).orElse(null);
         Cart cart = user.getCart();
         List<CartItem> cartItems = cart.getCartItems();
@@ -111,13 +113,14 @@ public class CartServiceImpl implements CartService {
                 cartItemToIncrement = cartItem;
             }
         }
-        cartItemToIncrement.setQuantity(cartItemToIncrement.getQuantity() + 1);
+        int newCount = cartItemToIncrement.getQuantity() + 1;
+        cartItemToIncrement.setQuantity(newCount);
         cartItemRepository.save(cartItemToIncrement);
-
+        return newCount;
     }
 
     @Override
-    public void decrementItem(String username, Long id) {
+    public int decrementItem(String username, Long id) {
         UserEntity user = userRepository.findByUsername(username).orElse(null);
         Cart cart = user.getCart();
         List<CartItem> cartItems = cart.getCartItems();
@@ -127,14 +130,16 @@ public class CartServiceImpl implements CartService {
                 cartItemToDecrement = cartItem;
             }
         }
-        cartItemToDecrement.setQuantity(cartItemToDecrement.getQuantity() - 1);
+        int newCount = cartItemToDecrement.getQuantity() - 1;
+        cartItemToDecrement.setQuantity(newCount);
         if (cartItemToDecrement.getQuantity() == 0) {
             cartItems.remove(cartItemToDecrement);
             cart.setCartItems(cartItems);
             cartRepository.save(cart);
             cartItemRepository.delete(cartItemToDecrement);
-            return;
+            return 0;
         }
         cartItemRepository.save(cartItemToDecrement);
+        return newCount;
     }
 }

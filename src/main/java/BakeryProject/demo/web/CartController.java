@@ -48,14 +48,14 @@ public class CartController {
         cartService.removeProductFromCart(principal.getName(), id);
         return "redirect:/cart/details";
     }
-    @GetMapping("/incrementItem/{id}")
-    public String incrementItem(@PathVariable Long id, Principal principal) {
-        cartService.incrementItem(principal.getName(), id);
-        return "redirect:/cart/details";
-    }
-    @GetMapping("/decrementItem/{id}")
-    public String decrementItem(@PathVariable Long id, Principal principal) {
-        cartService.decrementItem(principal.getName(), id);
-        return "redirect:/cart/details";
-    }
+//    @GetMapping("/incrementItem/{id}")
+//    public String incrementItem(@PathVariable Long id, Principal principal) {
+//        cartService.incrementItem(principal.getName(), id);
+//        return "redirect:/cart/details";
+//    }
+//    @GetMapping("/decrementItem/{id}")
+//    public String decrementItem(@PathVariable Long id, Principal principal) {
+//        cartService.decrementItem(principal.getName(), id);
+//        return "redirect:/cart/details";
+//    }
 }

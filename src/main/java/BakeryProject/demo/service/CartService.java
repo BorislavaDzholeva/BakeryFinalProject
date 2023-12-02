@@ -15,7 +15,7 @@ public interface CartService {
 
     void removeProductFromCart(String username, Long id);
 
-    void incrementItem(String username, Long id);
+    int incrementItem(String username, Long id);
 
-    void decrementItem(String username, Long id);
+    int decrementItem(String username, Long id);
 }

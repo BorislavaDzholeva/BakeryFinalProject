@@ -17,12 +17,12 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-@ControllerAdvice
 @RequestMapping("/")
 public class HomeController {
     private final CategoryService categoryService;
     private final UserService userService;
     private final ReviewService reviewService;
+
     public HomeController(CategoryService categoryService, UserService userService, ReviewService reviewService) {
         this.categoryService = categoryService;
         this.userService = userService;
@@ -31,15 +31,15 @@ public class HomeController {
 
     @ModelAttribute
     public void allCategories(Model model, Principal principal) {
-        List<CategoryView> allCategories = categoryService.getAllCategories();
+//        List<CategoryView> allCategories = categoryService.getAllCategories();
         List<ReviewView> allReviews = reviewService.getApprovedReviews();
-        if (principal != null) {
-            Cart cart = userService.findUserByUsername(principal.getName()).getCart();
-            model.addAttribute("userCart", cart);
-        }
+//        if (principal != null) {
+//            Cart cart = userService.findUserByUsername(principal.getName()).getCart();
+//            model.addAttribute("userCart", cart);
+//        }
 
 
-        model.addAttribute("allCategories", allCategories);
+//        model.addAttribute("allCategories", allCategories);
         model.addAttribute("allReviews", allReviews);
     }
 
