@@ -43,15 +43,15 @@ public class CartControllerIT {
 
     @Test
     public void testIncrementItem() throws Exception {
-        mockMvc.perform(get("/cart/incrementItem/1").with(user("admin"))
+        mockMvc.perform(get("/incrementItem/1").with(user("admin"))
                         .with(csrf()))
-                .andExpect(status().is3xxRedirection());
+                .andExpect(status().is2xxSuccessful());
     }
 
     @Test
     public void testDecrementItem() throws Exception {
-        mockMvc.perform(get("/cart/decrementItem/1").with(user("admin"))
+        mockMvc.perform(get("/decrementItem/1").with(user("admin"))
                         .with(csrf()))
-                .andExpect(status().is3xxRedirection());
+                .andExpect(status().is2xxSuccessful());
     }
 }

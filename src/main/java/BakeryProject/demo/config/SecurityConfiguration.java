@@ -27,9 +27,10 @@ public class SecurityConfiguration {
         return httpSecurity
 //                .csrf(AbstractHttpConfigurer::disable)
 //                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-                .csrf((csrf) -> csrf
-                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                ).headers((headers) ->
+//                .csrf((csrf) -> csrf
+//                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+//                )
+                .headers((headers) ->
                         headers
                                 .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin
                                 ))

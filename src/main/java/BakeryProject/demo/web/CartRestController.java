@@ -1,6 +1,4 @@
 package BakeryProject.demo.web;
-
-import BakeryProject.demo.repository.UserRepository;
 import BakeryProject.demo.service.CartService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

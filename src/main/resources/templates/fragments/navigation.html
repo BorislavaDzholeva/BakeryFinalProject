@@ -64,7 +64,7 @@
                         <div class="dropdown-item text-center" th:each="ci : ${userCart.getCartItems()}" th:object="${ci}">
                             <span class="fst-italic" th:text="${ci.getProduct().getName()}"></span>
                             <span>  -  </span>
-                            <span class="fw-semibold" th:text="${ci.getQuantity()}"></span>
+                            <span class="fw-semibold" th:class="'quantity-product-'+${ci.getId()}" th:text="${ci.getQuantity()}"></span>
                         </div>
                         <div>
                             <hr class="dropdown-divider">
