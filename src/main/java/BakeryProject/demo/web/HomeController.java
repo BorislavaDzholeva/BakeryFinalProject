@@ -22,13 +22,12 @@ public class HomeController {
     private final CategoryService categoryService;
     private final UserService userService;
     private final ReviewService reviewService;
-    private final JavaMailSender mailSender;
 
-    public HomeController(CategoryService categoryService, UserService userService, ReviewService reviewService, JavaMailSender mailSender) {
+    public HomeController(CategoryService categoryService, UserService userService, ReviewService reviewService) {
         this.categoryService = categoryService;
         this.userService = userService;
         this.reviewService = reviewService;
-        this.mailSender = mailSender;
+
     }
 
     @ModelAttribute
@@ -47,17 +46,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
-        return "home";
-    }
-
-    @GetMapping("/testMail")
-    public String testMail(Model model) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo("borislavadjoleva@abv.bg");
-        message.setSubject("Bakery test mail");
-        message.setText("This is a test mail from Bakery");
-        mailSender.send(message);
-
         return "home";
     }
 

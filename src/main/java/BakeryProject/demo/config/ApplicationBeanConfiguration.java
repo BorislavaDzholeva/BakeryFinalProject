@@ -8,6 +8,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.EnvironmentCapable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -15,6 +16,7 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import java.util.Properties;
 
 @Configuration
+@EnableScheduling
 public class ApplicationBeanConfiguration {
 
     @Autowired

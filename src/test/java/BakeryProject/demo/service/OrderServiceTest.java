@@ -17,6 +17,8 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +41,11 @@ public class OrderServiceTest {
     private Cart testCart;
     private CreateOrderDTO testCreateOrderDTO;
     private OrderServiceImpl serviceToTest;
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @BeforeEach
     void setUp() {
-        serviceToTest = new OrderServiceImpl(mockOrderRepository, mockUserRepository, mockCartItemRepository);
+        serviceToTest = new OrderServiceImpl(mockOrderRepository, mockUserRepository, mockCartItemRepository, applicationEventPublisher);
         testCart = new Cart() {
             {
                 setId(1L);

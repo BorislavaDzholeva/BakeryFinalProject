@@ -1,5 +1,6 @@
 package BakeryProject.demo.service.impl;
 
+import BakeryProject.demo.event.OrderShippedEvent;
 import BakeryProject.demo.models.DTO.CreateOrderDTO;
 import BakeryProject.demo.models.entity.CartItem;
 import BakeryProject.demo.models.entity.Order;
@@ -10,6 +11,7 @@ import BakeryProject.demo.repository.CartItemRepository;
 import BakeryProject.demo.repository.OrderRepository;
 import BakeryProject.demo.repository.UserRepository;
 import BakeryProject.demo.service.OrderService;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,16 +19,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl implements OrderService{
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
     private final CartItemRepository cartItemRepository;
+    private ApplicationEventPublisher applicationEventPublisher;
 
 
-    public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, CartItemRepository cartItemRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, CartItemRepository cartItemRepository, ApplicationEventPublisher applicationEventPublisher) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.cartItemRepository = cartItemRepository;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @Override
@@ -45,6 +49,8 @@ public class OrderServiceImpl implements OrderService {
             case "Pending":
                 order.setOrderStatus(OrderStatusEnum.Shipped);
                 orderRepository.save(order);
+                OrderShippedEvent orderShippedEvent = new OrderShippedEvent(this, order.getId(), order.getUser().getEmail());
+                applicationEventPublisher.publishEvent(orderShippedEvent);
                 break;
             case "Shipped":
                 UserEntity user = userRepository.findById(order.getUser().getId()).orElse(null);
