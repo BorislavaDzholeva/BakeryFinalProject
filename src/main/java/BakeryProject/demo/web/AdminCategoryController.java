@@ -35,7 +35,7 @@ public class AdminCategoryController {
     }
 
     @GetMapping("/add/")
-    public String categoryAdd(Model model) {
+    public String categoryAdd() {
         return "/admin/add_category";
     }
 

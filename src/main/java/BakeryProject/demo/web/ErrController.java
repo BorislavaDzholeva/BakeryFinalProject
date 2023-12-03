@@ -1,5 +1,6 @@
 package BakeryProject.demo.web;
 
+import BakeryProject.demo.exception.BlockedIPException;
 import BakeryProject.demo.exception.ObjectNotFoundException;
 import BakeryProject.demo.models.entity.Cart;
 import BakeryProject.demo.models.view.CategoryView;
@@ -51,4 +52,8 @@ public class ErrController implements ErrorController {
         return "/404";
     }
 
+    @ExceptionHandler(BlockedIPException.class)
+    public String handleProductNotFound(BlockedIPException exception, Model model) {
+        return "/403";
+    }
 }

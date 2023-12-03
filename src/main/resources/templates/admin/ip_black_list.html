@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/admin/commons::head"></head>
+
+<body>
+<div class="wrapper">
+    <nav th:replace="fragments/admin/commons::left_menu"></nav>
+    <div id="body" class="active">
+        <nav th:replace="fragments/admin/commons::navbar"></nav>
+        <div class="content">
+            <div class="container">
+                <div class="page-title">
+                    <h3>IP BlackList
+                        <a href="/admin/ip_black_list/add/" class="btn btn-sm btn-outline-primary float-end"><i
+                                class="fas fa-plus"></i> Add IP</a></h3>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <table width="100%" class="table table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>IP</th>
+                                <th>Added On Date</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="ip : ${ipBlackList}" th:object="${ip}">
+                                <td th:text="${ip.getIp()}"></td>
+                                <td th:text="${#temporals.format(ip.getAddedOn(), 'dd/MMM/yyyy HH:mm')}"></td>
+                                <td class="text-end">
+                                    <a th:href="@{/admin/ip_black_list/removeIP/{id}(id = ${ip.getId()})}" class="btn btn-outline-danger btn-rounded"><i
+                                            class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:include="fragments/admin/scripts"></th:block>
+</body>
+
+</html>
