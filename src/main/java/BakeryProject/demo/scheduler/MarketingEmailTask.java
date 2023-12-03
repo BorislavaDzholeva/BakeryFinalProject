@@ -19,7 +19,7 @@ public class MarketingEmailTask {
     @Scheduled(cron = "0 0 11 * * FRI",zone = "Europe/Sofia")
     public void execute() {
         userService.getAllUsers().forEach(user -> {
-            emailService.sendEmail(user.getEmail(), "Weekly newsletter", "Check out our new products!");
+            emailService.sendEmail(user.getEmail(), "Weekly reminder!", "Check out our products available only in the Weekend!");
         });
     }
 }

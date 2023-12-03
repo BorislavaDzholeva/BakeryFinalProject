@@ -1,5 +1,6 @@
 package BakeryProject.demo.service;
 
+import BakeryProject.demo.event.OrderShippedEvent;
 import BakeryProject.demo.models.DTO.CreateOrderDTO;
 import BakeryProject.demo.models.entity.*;
 import BakeryProject.demo.models.enums.OrderStatusEnum;
@@ -23,6 +24,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -41,6 +43,7 @@ public class OrderServiceTest {
     private Cart testCart;
     private CreateOrderDTO testCreateOrderDTO;
     private OrderServiceImpl serviceToTest;
+    @Mock
     private ApplicationEventPublisher applicationEventPublisher;
 
     @BeforeEach
@@ -85,6 +88,9 @@ public class OrderServiceTest {
 
             }
         };
+
+
+
 
     }
 
@@ -135,6 +141,7 @@ public class OrderServiceTest {
         Mockito.verify(mockCartItemRepository, Mockito.times(1)).deleteById(argumentCaptor.capture());
         Assertions.assertEquals(1L, argumentCaptor.getValue().longValue());
     }
+
     @Test
     public void testCreateOrderWithNoUser() {
 
@@ -170,9 +177,9 @@ public class OrderServiceTest {
         Order order = new Order();
         order.setOrderStatus(OrderStatusEnum.Pending);
         order.setUser(testUser);
-
+        ApplicationEventPublisher applicationEventPublisher = Mockito.mock(ApplicationEventPublisher.class);
+        applicationEventPublisher.publishEvent(new OrderShippedEvent(this, order.getId(), order.getUser().getEmail()));
         serviceToTest.changeStatus(order);
-
         Mockito.verify(mockOrderRepository, Mockito.times(1)).save(order);
         Assertions.assertEquals(OrderStatusEnum.Shipped, order.getOrderStatus());
     }
