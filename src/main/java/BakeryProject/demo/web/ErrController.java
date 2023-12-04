@@ -7,7 +7,6 @@ import BakeryProject.demo.models.view.CategoryView;
 import BakeryProject.demo.service.CategoryService;
 import BakeryProject.demo.service.UserService;
 import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

@@ -87,3 +87,6 @@ VALUES (1, 1, 'Their staff is not only friendly but also highly skilled. Very fa
        (2, 1, 'Amazing service, to the door delivery and a smiling face with it!', '2023-11-26 12:45:10.099006', 3),
        (3, 1, 'My order arrived on time and everything was as I expected. Thank you!', '2023-11-26 12:45:10.099006', 4),
        (4, 1, 'Great and delicious breads. Fast delivery. Thank you.', '2023-11-26 12:45:10.099006', 5);
+
+INSERT INTO ip_blacklist (ip, added_on)
+VALUES ('192.168.10.10', '2023-11-26 12:45:10.099006');

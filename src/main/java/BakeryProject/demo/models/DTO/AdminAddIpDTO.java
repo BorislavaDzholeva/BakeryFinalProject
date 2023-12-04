@@ -1,7 +1,11 @@
 package BakeryProject.demo.models.DTO;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDateTime;
 
 public class AdminAddIpDTO {
+    @Pattern(regexp = "^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", message = "Invalid IP address")
     private String ip;
     private LocalDateTime addedOn = LocalDateTime.now();
 
