@@ -1,6 +1,4 @@
 package BakeryProject.demo.scheduler;
-
-import BakeryProject.demo.interceptors.BlacklistIPInterceptor;
 import BakeryProject.demo.service.IPBlackListService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -14,8 +12,9 @@ public class RemoveBlacklistedIPsTask {
         this.ipBlackListService = ipBlackListService;
     }
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 1800000)
     public void execute() {
+        System.out.println("Removing expired IPs from blacklist...");
         ipBlackListService.removeExpired();
     }
 

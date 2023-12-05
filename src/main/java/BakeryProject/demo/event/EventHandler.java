@@ -15,6 +15,6 @@ public class EventHandler {
     @EventListener(OrderShippedEvent.class)
     public void onOrderShipped(OrderShippedEvent event) {
         emailService.sendEmail
-                (event.getUserEmail(), "Your order has been shipped", "Your order #" + event.getOrderId() + " has been shipped.");
+                (event.getUserEmail(), "Your order has been shipped", "Dear customer, your order #" + event.getOrderId() + " has been SHIPPED and should arrive at your address in 30 minutes. Thank you for your purchase! We would love to hear your feedback!");
     }
 }

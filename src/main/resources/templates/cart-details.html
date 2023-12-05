@@ -48,7 +48,7 @@
                 <tr>
                     <td></td>
                     <th class="text-end">Total price:</th>
-                    <th th:text="${totalPrice}"></th>
+                    <th th:text="${totalPrice}" th:class="product-total-price"></th>
                     <td></td>
                 </tr>
 
@@ -93,6 +93,7 @@
         let header = $("meta[name='_csrf_header']").attr("content");
         let productId = $(this).data("product-id");
         let productClass = ".quantity-product-" + productId;
+        let totalPrice = $(".product-total-price");
         let that = this;
         fetch('/incrementItem/' + productId, {
             method: 'GET',
@@ -103,7 +104,8 @@
             .then(response => response.json())
             .then(response => {
                 console.log(response);
-                $(productClass).html(response.quantity);
+                $(productClass).html(response.data.quantity);
+                $(totalPrice).html(response.data.total_price);
             })
             .catch(err => console.error(err));
     });
@@ -114,6 +116,7 @@
         let header = $("meta[name='_csrf_header']").attr("content");
         let productId = $(this).data("product-id");
         let productClass = ".quantity-product-" + productId;
+        let totalPrice = $(".product-total-price");
         let that = this;
         fetch('/decrementItem/' + productId, {
             method: 'GET',
@@ -127,7 +130,9 @@
                 if(response.quantity === 0){
                     that.parentElement.parentElement.remove();
                 }
-                $(productClass).html(response.quantity);
+                $(productClass).html(response.data.quantity);
+                $(totalPrice).html(response.data.total_price);
+
             })
             .catch(err => console.error(err));
     });

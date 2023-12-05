@@ -1,23 +1,9 @@
--- INSERT INTO users (id, username, password, email, first_name, last_name, role)
--- values (1, 'admin', '$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.', 'borislava@abv.bg', 'Borislava',
---         'Dzholeva', 'Administrator'),
---        (2, 'ivan80', '$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.', 'ivanivanov@example.com', 'Ivan',
---         'Ivanov', 'User'),
---        (3, 'petar80', '$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.', 'petarpetrov80@abv.bg', 'Petar',
---         'Petrov', 'User'),
---        (4, 'maria90', '$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.', 'maria90@abv.bg', 'Maria',
---         'Ivanova', 'User'),
---        (5, 'gergana90', '$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.', 'gergana@abv.bg', 'Gergana',
---         'Dimitrova', 'User');
-
-
-
 INSERT INTO users (email,first_name,last_name,password,`role`,username) VALUES
              ('borislavadjoleva@abv.bg','Borislava','Dzholeva','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','Administrator','admin'),
              ('ivanivanov@example.com','Ivan','Ivanov','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','User','ivan80'),
              ('petarpetrov80@abv.bg','Petar','Petrov','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','User','petar80'),
              ('maria90@abv.bg','Maria','Ivanova','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','User','maria90'),
-             ('gergana@abv.bg','Gergana','Dimitrova','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','User','gergana90');
+             ('gerganaivanova69_1994@abv.bg','Gergana','Dimitrova','$2a$10$bUV4.EAL4IJOWfKHrrckte.KQqWvNlfFvABMetK7YrNJA4DXqNxR.','User','gergana90');
 INSERT INTO carts (owner_id) VALUES (1), (2), (3), (4),(5);
 
 

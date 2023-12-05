@@ -45,7 +45,7 @@ public class IPBlackListServiceImpl implements IPBlackListService {
     public void removeExpired() {
         List<IPBlackList> blacklist = ipBlackListRepository.findAll();
         blacklist.forEach(ipBlackList -> {
-            if (ipBlackList.getAddedOn().plusHours(24).isAfter(java.time.LocalDateTime.now())) {
+            if (ipBlackList.getAddedOn().plusHours(24).isBefore(java.time.LocalDateTime.now())) {
                 ipBlackListRepository.delete(ipBlackList);
             }
         });
