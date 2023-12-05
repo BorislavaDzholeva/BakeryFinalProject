@@ -42,27 +42,28 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public AdminAddCategoryDTO findCategoryById(Long id) {
-        Category category = categoryRepository.findById(id).orElse(null);
+        Category category = categoryRepository.findById(id).orElseThrow();
         return modelMapper.map(category, AdminAddCategoryDTO.class);
     }
 
     @Override
     public void updateCategory(AdminAddCategoryDTO addCategoryDTO) {
-        Category category = categoryRepository.findById(addCategoryDTO.getId()).orElse(null);
-        if(category != null){
-            category.setName(addCategoryDTO.getName());
-            if(addCategoryDTO.getImageUrl() != null) {
-                category.setImageUrl(addCategoryDTO.getImageUrl());
-            }
-            category.setDescription(addCategoryDTO.getDescription());
-            categoryRepository.save(category);
+        Category category = categoryRepository.findById(addCategoryDTO.getId()).orElseThrow();
+        category.setName(addCategoryDTO.getName());
+        if (addCategoryDTO.getImageUrl() != null) {
+            category.setImageUrl(addCategoryDTO.getImageUrl());
         }
+        category.setDescription(addCategoryDTO.getDescription());
+        categoryRepository.save(category);
+
 
     }
+
     @Override
     public void removeCategoryById(Long id) {
         categoryRepository.deleteById(id);
     }
+
     @Override
     public Category findCategoryByName(String name) {
         return categoryRepository.findCategoryByName(name);

@@ -1,5 +1,6 @@
 package BakeryProject.demo.scheduler;
 
+import BakeryProject.demo.models.entity.UserEntity;
 import BakeryProject.demo.service.EmailService;
 import BakeryProject.demo.service.UserService;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,10 +17,14 @@ public class MarketingEmailTask {
         this.userService = userService;
     }
 
-    @Scheduled(cron = "0 0 11 * * FRI",zone = "Europe/Sofia")
+    //    @Scheduled(cron = "0 0 11 * * FRI",zone = "Europe/Sofia")
+    @Scheduled(cron = " 0 42 00 * * WED", zone = "Europe/Sofia")
     public void execute() {
-        userService.getAllUsers().forEach(user -> {
-            emailService.sendEmail(user.getEmail(), "Weekly reminder!", "Check out our products available only in the Weekend!");
-        });
+        UserEntity user = userService.findUserByUsername("admin");
+        emailService.sendEmail(user.getEmail(), "Weekly reminder!", "Check out our products available only in the Weekend!");
+
+//        userService.getAllUsers().forEach(user -> {
+//            emailService.sendEmail(user.getEmail(), "Weekly reminder!", "Check out our products available only in the Weekend!");
+//        });
     }
 }

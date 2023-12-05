@@ -45,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public AdminAddProductDTO findProductById(Long id) {
-        Product product = productRepository.findById(id).orElse(null);
+        Product product = productRepository.findById(id).orElseThrow();
         return modelMapper.map(product, AdminAddProductDTO.class);
     }
 
@@ -65,21 +65,20 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void updateProduct(AdminAddProductDTO addProductDTO) {
-        Product product = productRepository.findById(addProductDTO.getId()).orElse(null);
-        if (product != null) {
-            product.setName(addProductDTO.getName());
-            product.setAllergens(addProductDTO.getAllergens());
-            product.setAvailability(addProductDTO.getAvailability());
-            product.setDescription(addProductDTO.getDescription());
-            product.setIngredients(addProductDTO.getIngredients());
-            product.setPrice(addProductDTO.getPrice());
-            product.setWeight(addProductDTO.getWeight());
-            product.setCategory(addProductDTO.getCategory());
-            if (addProductDTO.getProductImage() != null) {
-                product.setProductImage(addProductDTO.getProductImage());
-            }
-            productRepository.save(product);
+        Product product = productRepository.findById(addProductDTO.getId()).orElseThrow();
+        product.setName(addProductDTO.getName());
+        product.setAllergens(addProductDTO.getAllergens());
+        product.setAvailability(addProductDTO.getAvailability());
+        product.setDescription(addProductDTO.getDescription());
+        product.setIngredients(addProductDTO.getIngredients());
+        product.setPrice(addProductDTO.getPrice());
+        product.setWeight(addProductDTO.getWeight());
+        product.setCategory(addProductDTO.getCategory());
+        if (addProductDTO.getProductImage() != null) {
+            product.setProductImage(addProductDTO.getProductImage());
         }
+        productRepository.save(product);
+
 
     }
 

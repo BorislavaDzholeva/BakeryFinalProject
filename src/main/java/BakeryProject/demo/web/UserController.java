@@ -1,15 +1,17 @@
 package BakeryProject.demo.web;
 
 import BakeryProject.demo.models.DTO.UserRegistrationDTO;
+import BakeryProject.demo.models.entity.UserEntity;
+import BakeryProject.demo.models.view.UserView;
 import BakeryProject.demo.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/users")
@@ -44,9 +46,15 @@ public class UserController {
 
             return "redirect:/users/register";
         }
-
         userService.registerUser(userRegistrationDTO);
         return "redirect:/users/login";
+    }
+
+    @GetMapping("/profile/")
+    private String profile(Principal principal, Model model){
+        UserView userView = userService.getUserView(principal.getName());
+        model.addAttribute("userView", userView);
+        return "profile";
     }
 
 }

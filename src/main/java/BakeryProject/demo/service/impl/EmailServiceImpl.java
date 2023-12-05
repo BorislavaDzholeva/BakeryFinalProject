@@ -17,10 +17,15 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendEmail(String to, String subject, String text) {
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(text);
-        mailSender.send(message);
+        try {
+            message.setFrom("borislavadjoleva@outlook.com");
+            message.setTo(to);
+            message.setSubject(subject);
+            message.setText(text);
+            mailSender.send(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

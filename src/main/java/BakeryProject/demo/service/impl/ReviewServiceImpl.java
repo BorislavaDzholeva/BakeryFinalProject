@@ -45,18 +45,17 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void approveReview(Long id) {
-        Review review = reviewRepository.findById(id).orElse(null);
-        if (review != null) {
-            review.setApproved(true);
-            reviewRepository.save(review);
-        }
+        Review review = reviewRepository.findById(id).orElseThrow();
+        review.setApproved(true);
+        reviewRepository.save(review);
+
 
     }
 
     @Override
     public void createReview(CreateReviewDTO createReviewDTO, String name) {
         Review review = modelMapper.map(createReviewDTO, Review.class);
-        UserEntity user = userRepository.findByUsername(name).orElse(null);
+        UserEntity user = userRepository.findByUsername(name).orElseThrow();
         review.setCreator(user);
         review.setReviewDate(LocalDateTime.now());
         reviewRepository.save(review);

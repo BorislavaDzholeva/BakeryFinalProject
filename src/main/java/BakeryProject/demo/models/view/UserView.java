@@ -1,40 +1,19 @@
-package BakeryProject.demo.models.entity;
+package BakeryProject.demo.models.view;
 
-import BakeryProject.demo.models.enums.RoleEnum;
-import jakarta.persistence.*;
-
+import BakeryProject.demo.models.entity.Order;
 import java.util.List;
 
-@Entity
-@Table(name = "users")
-public class UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserView {
     private Long id;
-    @Column(name = "first_name", nullable = false)
     private String firstName;
-    @Column(name = "last_name", nullable = false)
     private String lastName;
-    @Column(unique = true, nullable = false)
     private String username;
-    @Column(nullable = false)
     private String password;
-    @Column(unique = true, nullable = false)
     private String email;
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private RoleEnum role = RoleEnum.User;
-    @OneToMany(mappedBy = "creator")
-    private List<Review> userReviews;
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Order> userOrders;
-    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL)
-    private Cart cart;
 
-
-    public UserEntity() {
+    public UserView() {
     }
-
 
     public Long getId() {
         return id;
@@ -84,35 +63,11 @@ public class UserEntity {
         this.email = email;
     }
 
-    public RoleEnum getRole() {
-        return role;
-    }
-
-    public void setRole(RoleEnum role) {
-        this.role = role;
-    }
-
-    public List<Review> getUserReviews() {
-        return userReviews;
-    }
-
-    public void setUserReviews(List<Review> userReviews) {
-        this.userReviews = userReviews;
-    }
-
     public List<Order> getUserOrders() {
         return userOrders;
     }
 
     public void setUserOrders(List<Order> userOrders) {
         this.userOrders = userOrders;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
     }
 }

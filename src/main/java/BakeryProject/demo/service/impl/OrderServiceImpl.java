@@ -19,11 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
     private final CartItemRepository cartItemRepository;
-    private ApplicationEventPublisher applicationEventPublisher;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
 
     public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, CartItemRepository cartItemRepository, ApplicationEventPublisher applicationEventPublisher) {
@@ -35,12 +35,12 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public List<Order> getAllOrders() {
-        return orderRepository.findAll();
+        return orderRepository.findAllByOrderByIdDesc();
     }
 
     @Override
     public Order findById(Long id) {
-        return orderRepository.findById(id).orElse(null);
+        return orderRepository.findById(id).orElseThrow();
     }
 
     @Override
@@ -53,20 +53,14 @@ public class OrderServiceImpl implements OrderService{
                 applicationEventPublisher.publishEvent(orderShippedEvent);
                 break;
             case "Shipped":
-                UserEntity user = userRepository.findById(order.getUser().getId()).orElse(null);
-                if (user == null) {
-                    throw new IllegalAccessException("User is not found!");
-                }
+                UserEntity user = userRepository.findById(order.getUser().getId()).orElseThrow();
                 break;
         }
     }
 
     @Override
     public void createOrder(CreateOrderDTO createOrderDTO, String currentUserUsername) {
-        UserEntity user = userRepository.findByUsername(currentUserUsername).orElse(null);
-        if (user == null) {
-            throw new IllegalArgumentException("User is not found!");
-        }
+        UserEntity user = userRepository.findByUsername(currentUserUsername).orElseThrow();
         Order order = new Order();
         List<CartItem> userCartItems = user.getCart().getCartItems();
         List<OrderItem> orderItems = new ArrayList<>();

@@ -35,8 +35,8 @@ public class CartServiceImpl implements CartService {
     @Override
     public void buyProductById(Long productId, String currentUser) {
 
-        UserEntity user = userRepository.findByUsername(currentUser).orElse(null);
-        Product product = productRepository.findById(productId).orElse(null);
+        UserEntity user = userRepository.findByUsername(currentUser).orElseThrow();
+        Product product = productRepository.findById(productId).orElseThrow();
 
         Cart cart = user.getCart();
         if (cart == null) {
@@ -64,7 +64,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<CartItemView> getCartItems(String currentUser) {
-        UserEntity user = userRepository.findByUsername(currentUser).orElse(null);
+        UserEntity user = userRepository.findByUsername(currentUser).orElseThrow();
         List<CartItem> cartItems = user.getCart().getCartItems();
         List<CartItemView> cartItemViews = cartItems.stream().map(cartItem -> {
             CartItemView cartItemView = new CartItemView();
@@ -79,7 +79,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public BigDecimal getTotalPrice(String currentUser) {
-        UserEntity user = userRepository.findByUsername(currentUser).orElse(null);
+        UserEntity user = userRepository.findByUsername(currentUser).orElseThrow();
         List<CartItem> cartItems = user.getCart().getCartItems();
         return cartItems.stream().map(cartItem -> cartItem.getProduct().getPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity()))).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
     }
@@ -87,7 +87,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void removeProductFromCart(String username, Long id) {
-        UserEntity user = userRepository.findByUsername(username).orElse(null);
+        UserEntity user = userRepository.findByUsername(username).orElseThrow();
         Cart cart = user.getCart();
         List<CartItem> cartItems = cart.getCartItems();
         CartItem cartItemToRemove = new CartItem();
@@ -104,7 +104,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public int incrementItem(String username, Long id) {
-        UserEntity user = userRepository.findByUsername(username).orElse(null);
+        UserEntity user = userRepository.findByUsername(username).orElseThrow();
         Cart cart = user.getCart();
         List<CartItem> cartItems = cart.getCartItems();
         CartItem cartItemToIncrement = new CartItem();
@@ -121,7 +121,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public int decrementItem(String username, Long id) {
-        UserEntity user = userRepository.findByUsername(username).orElse(null);
+        UserEntity user = userRepository.findByUsername(username).orElseThrow();
         Cart cart = user.getCart();
         List<CartItem> cartItems = cart.getCartItems();
         CartItem cartItemToDecrement = new CartItem();

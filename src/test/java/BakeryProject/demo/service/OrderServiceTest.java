@@ -23,6 +23,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -107,9 +108,9 @@ public class OrderServiceTest {
 
     @Test
     void testGetAllOrders() {
-        when(mockOrderRepository.findAll()).thenReturn(List.of(testOrder));
+        when(mockOrderRepository.findAllByOrderByIdDesc()).thenReturn(List.of(testOrder));
         serviceToTest.getAllOrders();
-        Mockito.verify(mockOrderRepository).findAll();
+        Mockito.verify(mockOrderRepository).findAllByOrderByIdDesc();
         Assertions.assertEquals(1, serviceToTest.getAllOrders().size());
 
     }
@@ -149,7 +150,7 @@ public class OrderServiceTest {
 
         when(mockUserRepository.findByUsername(username)).thenReturn(Optional.empty());
 
-        Assertions.assertThrows(IllegalArgumentException.class, ()
+        Assertions.assertThrows(NoSuchElementException.class, ()
                 -> serviceToTest.createOrder(testCreateOrderDTO, username));
     }
 
@@ -204,7 +205,7 @@ public class OrderServiceTest {
         order.setUser(testUser);
 
         when(mockUserRepository.findById(testUser.getId())).thenReturn(Optional.empty());
-        Assertions.assertThrows(IllegalAccessException.class, () -> serviceToTest.changeStatus(order));
+        Assertions.assertThrows(NoSuchElementException.class, () -> serviceToTest.changeStatus(order));
     }
 
 
