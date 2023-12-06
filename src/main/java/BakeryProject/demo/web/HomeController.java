@@ -31,36 +31,28 @@ public class HomeController {
     }
 
     @ModelAttribute
-    public void allCategories(Model model, Principal principal) {
-//        List<CategoryView> allCategories = categoryService.getAllCategories();
+    public void allCategories(Model model) {
         List<ReviewView> allReviews = reviewService.getApprovedReviews();
-//        if (principal != null) {
-//            Cart cart = userService.findUserByUsername(principal.getName()).getCart();
-//            model.addAttribute("userCart", cart);
-//        }
-
-
-//        model.addAttribute("allCategories", allCategories);
         model.addAttribute("allReviews", allReviews);
     }
 
     @GetMapping("/")
-    public String home(Model model) {
+    public String home() {
         return "home";
     }
 
     @GetMapping("about")
-    public String about(Model model) {
+    public String about() {
         return "about";
     }
 
     @GetMapping("contacts")
-    public String contacts(Model model) {
+    public String contacts() {
         return "contacts";
     }
 
     @GetMapping("products")
-    public String products(Model model) {
+    public String products() {
         return "products";
     }
 

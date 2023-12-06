@@ -13,11 +13,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
 
 import java.math.BigDecimal;
@@ -44,12 +42,14 @@ public class OrderServiceTest {
     private Cart testCart;
     private CreateOrderDTO testCreateOrderDTO;
     private OrderServiceImpl serviceToTest;
+    @Spy
+    private ModelMapper modelMapper;
     @Mock
     private ApplicationEventPublisher applicationEventPublisher;
 
     @BeforeEach
     void setUp() {
-        serviceToTest = new OrderServiceImpl(mockOrderRepository, mockUserRepository, mockCartItemRepository, applicationEventPublisher);
+        serviceToTest = new OrderServiceImpl(mockOrderRepository, mockUserRepository, mockCartItemRepository, applicationEventPublisher, modelMapper);
         testCart = new Cart() {
             {
                 setId(1L);

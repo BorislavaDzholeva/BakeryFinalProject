@@ -30,7 +30,7 @@
                         </tr>
                         </thead>
                         <tbody th:object="${orderDetailsView}">
-                        <tr class="text-center" th:each="o : ${orderDetailsView}" th:object="${orderDetailsView}">
+                        <tr class="text-center" th:each="o : ${orderDetailsView.getOrderItems()}" th:object="${orderDetailsView.getOrderItems()}">
                             <td th:text="${o.getProduct().getName()}"></td>
                             <td th:text="${o.getQuantity()}"></td>
                             <td th:text="${o.getPrice()}"></td>

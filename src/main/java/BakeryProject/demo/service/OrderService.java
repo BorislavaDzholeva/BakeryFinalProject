@@ -12,7 +12,7 @@ public interface OrderService {
 
     Order findById(Long id);
 
-    void changeStatus(Order order) throws IllegalAccessException;
+    void changeStatus(Order order);
 
     void createOrder(CreateOrderDTO createOrderDTO, String currentUserUsername);
 

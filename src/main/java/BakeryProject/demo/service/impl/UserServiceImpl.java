@@ -2,8 +2,10 @@ package BakeryProject.demo.service.impl;
 
 import BakeryProject.demo.models.DTO.AdminAddUserDTO;
 import BakeryProject.demo.models.DTO.UserRegistrationDTO;
+import BakeryProject.demo.models.entity.Cart;
 import BakeryProject.demo.models.entity.UserEntity;
 import BakeryProject.demo.models.view.UserView;
+import BakeryProject.demo.repository.CartRepository;
 import BakeryProject.demo.repository.UserRepository;
 import BakeryProject.demo.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -16,11 +18,13 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final CartRepository cartRepository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, CartRepository cartRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.cartRepository = cartRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
     }
@@ -38,7 +42,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUser(AdminAddUserDTO addUserDTO) {
         UserEntity user = modelMapper.map(addUserDTO, UserEntity.class);
-        userRepository.save(user);
+        user = userRepository.save(user);
+        Cart emptyCart = new Cart();
+        emptyCart.setOwner(user);
+        cartRepository.save(emptyCart);
+
     }
 
     @Override
@@ -65,7 +73,10 @@ public class UserServiceImpl implements UserService {
     public void registerUser(UserRegistrationDTO userRegistrationDTO) {
         UserEntity user = modelMapper.map(userRegistrationDTO, UserEntity.class);
         user.setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
-        userRepository.save(user);
+        user = userRepository.save(user);
+        Cart emptyCart = new Cart();
+        emptyCart.setOwner(user);
+        cartRepository.save(emptyCart);
     }
 
 

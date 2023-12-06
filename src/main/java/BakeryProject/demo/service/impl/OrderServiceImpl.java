@@ -12,6 +12,7 @@ import BakeryProject.demo.repository.CartItemRepository;
 import BakeryProject.demo.repository.OrderRepository;
 import BakeryProject.demo.repository.UserRepository;
 import BakeryProject.demo.service.OrderService;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +26,15 @@ public class OrderServiceImpl implements OrderService {
     private final UserRepository userRepository;
     private final CartItemRepository cartItemRepository;
     private final ApplicationEventPublisher applicationEventPublisher;
+    private final ModelMapper modelMapper;
 
 
-    public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, CartItemRepository cartItemRepository, ApplicationEventPublisher applicationEventPublisher) {
+    public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, CartItemRepository cartItemRepository, ApplicationEventPublisher applicationEventPublisher, ModelMapper modelMapper) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.cartItemRepository = cartItemRepository;
         this.applicationEventPublisher = applicationEventPublisher;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void changeStatus(Order order) throws IllegalAccessException {
+    public void changeStatus(Order order) {
         switch (order.getOrderStatus().name()) {
             case "Pending":
                 order.setOrderStatus(OrderStatusEnum.Shipped);
@@ -92,13 +95,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDetailsView getOrderDetailsView(Long id) {
         Order order = orderRepository.findById(id).orElseThrow();
-        OrderDetailsView orderDetailsView = new OrderDetailsView();
-        orderDetailsView.setId(order.getId());
-        orderDetailsView.setProduct(order.getOrderItems().get(0).getProduct());
-        orderDetailsView.setPrice(order.getOrderItems().get(0).getPrice());
-        orderDetailsView.setQuantity(order.getOrderItems().get(0).getQuantity());
-        orderDetailsView.setUser(order.getUser());
-        return orderDetailsView;
+        return modelMapper.map(order, OrderDetailsView.class);
 
     }
 }

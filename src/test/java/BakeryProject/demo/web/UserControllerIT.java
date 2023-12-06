@@ -1,20 +1,14 @@
 package BakeryProject.demo.web;
 
-import BakeryProject.demo.models.DTO.UserRegistrationDTO;
-import BakeryProject.demo.service.UserService;
 import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.transaction.AfterTransaction;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.modelmapper.internal.bytebuddy.matcher.ElementMatchers.any;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -72,4 +66,23 @@ public class UserControllerIT {
                 .andExpect(redirectedUrl("/users/register"));
 
     }
+
+    @Test
+    void testProfile() throws Exception {
+        this.mockMvc.perform(get("/users/profile/").with(user("admin"))
+                        .param("username", "admin")
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(view().name("profile"));
+    }
+
+
+    @Test
+    void testOrderDetails() throws Exception {
+        this.mockMvc.perform(get("/users/orderDetails/1").with(user("admin"))
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(view().name("order-details"));
+    }
+
 }

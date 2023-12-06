@@ -1,7 +1,6 @@
 package BakeryProject.demo.web;
 
 import BakeryProject.demo.models.entity.Order;
-import BakeryProject.demo.models.enums.OrderStatusEnum;
 import BakeryProject.demo.service.OrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +26,7 @@ public class AdminOrderController {
         return "/admin/orders";
     }
     @GetMapping("/status/{id}")
-    public String statusButton(@PathVariable Long id) throws IllegalAccessException {
+    public String statusButton(@PathVariable Long id) {
         Order order = orderService.findById(id);
         orderService.changeStatus(order);
         return "redirect:/admin/orders/";

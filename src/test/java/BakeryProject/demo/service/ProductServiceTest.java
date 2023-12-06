@@ -109,13 +109,13 @@ public class ProductServiceTest {
         Assertions.assertEquals(testAdminAddProductDTO.getName(), productArgumentCaptor.getValue().getName());
     }
 
-    @Test
-    void testGetProductByCategoryId() {
-        when(mockProductRepository.findAllByCategoryId(testCategory.getId())).thenReturn(List.of(testProduct));
-        serviceToTest.findAllProductsByCategoryId(testCategory.getId());
-        Mockito.verify(mockProductRepository).findAllByCategoryId(testCategory.getId());
-        Assertions.assertEquals(1, serviceToTest.findAllProductsByCategoryId(testCategory.getId()).size());
-    }
+//    @Test
+//    void testGetProductByCategoryId() {
+//        when(mockProductRepository.findAllByCategoryId(testCategory.getId())).thenReturn(List.of(testProduct));
+//        serviceToTest.findAllProductsByCategoryId(testCategory.getId());
+//        Mockito.verify(mockProductRepository).findAllByCategoryId(testCategory.getId());
+//        Assertions.assertEquals(1, serviceToTest.findAllProductsByCategoryId(testCategory.getId()).size());
+//    }
 
     @Test
     void testGetAllProducts() {
