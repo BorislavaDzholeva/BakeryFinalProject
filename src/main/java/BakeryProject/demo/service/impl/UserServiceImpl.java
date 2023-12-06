@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUser(AdminAddUserDTO addUserDTO) {
         UserEntity user = modelMapper.map(addUserDTO, UserEntity.class);
+        user.setPassword(passwordEncoder.encode(addUserDTO.getPassword()));
         user = userRepository.save(user);
         Cart emptyCart = new Cart();
         emptyCart.setOwner(user);

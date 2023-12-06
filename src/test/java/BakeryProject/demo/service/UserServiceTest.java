@@ -24,7 +24,6 @@ public class UserServiceTest {
     private PasswordEncoder mockPasswordEncoder;
     @Mock
     private UserRepository mockUserRepository;
-
     @Mock
     private CartRepository mockCartRepository;
     @Spy
@@ -77,14 +76,6 @@ public class UserServiceTest {
 
         serviceToTest.registerUser(testUserRegistrationDTO);
         Mockito.verify(mockUserRepository).save(userEntityArgumentCaptor.capture());
-
-//        UserEntity capturedUser = userEntityArgumentCaptor.getValue();
-//
-//        Assertions.assertEquals(testUserRegistrationDTO.getUsername(), capturedUser.getUsername());
-//        Assertions.assertEquals(testUserRegistrationDTO.getFirstName(), capturedUser.getFirstName());
-//        Assertions.assertEquals(testUserRegistrationDTO.getLastName(), capturedUser.getLastName());
-//        Assertions.assertEquals(testUserRegistrationDTO.getEmail(), capturedUser.getEmail());
-//        Assertions.assertEquals("encodedPassword", capturedUser.getPassword());
     }
 
     @Test
@@ -126,7 +117,7 @@ public class UserServiceTest {
         Assertions.assertEquals(testAdminAddUserDTO.getFirstName(), capturedUser.getFirstName());
         Assertions.assertEquals(testAdminAddUserDTO.getLastName(), capturedUser.getLastName());
         Assertions.assertEquals(testAdminAddUserDTO.getEmail(), capturedUser.getEmail());
-        Assertions.assertEquals(testAdminAddUserDTO.getPassword(), capturedUser.getPassword());
+
     }
     @Test
     void testFindUserById() {

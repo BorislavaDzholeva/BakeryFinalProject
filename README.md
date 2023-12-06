@@ -2,13 +2,24 @@
 
 This Spring Boot project, named "Bakery," is a comprehensive web application for a bakery store. It provides a catalog and an online shop, along with an admin panel accessible at the `/admin/` route. The admin panel allows for efficient management of various aspects of the system, including users, categories, orders, products, and user reviews.
 
-## Prerequisites
+![A4MTFD3FpR7a61R1ovl9.jpg](src%2Fmain%2Fresources%2Fstatic%2Fimages%2FA4MTFD3FpR7a61R1ovl9.jpg) ![img.png](img.png)
+## Technologies Used
 
 Before you start, ensure you have the following installed on your machine:
 
 - Java Development Kit (JDK) 17
+- Spring Security
+- Spring Data JPA
+- Spring Web
+- Spring Boot Mail for sending emails
+- Thymeleaf
+- HTML, CSS, JavaScript
+- Bootstrap 5
 - Maven
 - MySQL
+- ModelMapper
+- And more...
+
 
 ## Getting Started
 
@@ -52,7 +63,7 @@ The admin panel, accessible at `/admin/`, provides the following management opti
 - **Managing Categories:** Admins can handle product categories.
 - **Managing Orders:** Admins can view and manage customer orders.
 - **Managing Products:** Admins can add, edit, or remove bakery products.
-- **Managing User Reviews:** Admins can view and moderate user reviews.
+- **Managing User Reviews:** Admins can view and approve user reviews.
 
 ## Frontend Features
 
