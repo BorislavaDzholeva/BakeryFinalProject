@@ -5,6 +5,8 @@ import BakeryProject.demo.models.DTO.UserRegistrationDTO;
 import BakeryProject.demo.models.entity.UserEntity;
 import BakeryProject.demo.models.enums.RoleEnum;
 import BakeryProject.demo.repository.CartRepository;
+import BakeryProject.demo.repository.OrderRepository;
+import BakeryProject.demo.repository.ReviewRepository;
 import BakeryProject.demo.repository.UserRepository;
 import BakeryProject.demo.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -26,6 +28,11 @@ public class UserServiceTest {
     private UserRepository mockUserRepository;
     @Mock
     private CartRepository mockCartRepository;
+
+    @Mock
+    private ReviewRepository mockReviewRepository;
+    @Mock
+    private OrderRepository mockOrderRepository;
     @Spy
     private ModelMapper modelMapper;
     @Captor
@@ -37,7 +44,7 @@ public class UserServiceTest {
 
     @BeforeEach
     void setUp() {
-        serviceToTest = new UserServiceImpl(mockUserRepository, mockCartRepository, modelMapper, mockPasswordEncoder);
+        serviceToTest = new UserServiceImpl(mockUserRepository, mockCartRepository, mockReviewRepository, mockOrderRepository, modelMapper, mockPasswordEncoder);
         createTestUser = new UserEntity() {
             {
                 setId(1L);

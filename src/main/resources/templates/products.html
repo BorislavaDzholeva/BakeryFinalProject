@@ -36,7 +36,8 @@
                     </div>
                     <div class="position-relative mt-auto">
                         <img class="img-fluid" th:src="${p.getProductImage()}" src="images/p2RVPi1EdGy96ERJOUde.jpg">
-                        <div class="product-overlay">
+                        <div class="product-overlay"
+                             th:if="${p.getAvailability().name()} == 'Always' OR ${#temporals.dayOfWeekName(#temporals.createNow())} == 'Saturday' OR ${#temporals.dayOfWeekName(#temporals.createNow())} == 'Sunday'">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle"
                                th:href="@{/cart/buy/{id}(id = *{id})}">Buy<i
                                     class="fa fa-cart-plus text-primary"></i></a>

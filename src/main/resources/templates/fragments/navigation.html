@@ -52,7 +52,7 @@
                     <a class="btn-lg-square text-primary dropdown-toggle border-end rounded-0"
                        data-bs-toggle="dropdown"><i class="fas fa-shopping-cart"></i></a>
                     <div class="dropdown-menu m-auto" style="z-index: 9999">
-                        <div class="dropdown-item text-center" th:each="ci : ${userCart.getCartItems()}" th:object="${ci}">
+                        <div class="dropdown-item text-center" th:each="ci : ${userCart.getCartItems()}" th:object="${ci}" th:data-product-item="${ci.getId()}">
                             <span class="fst-italic" th:text="${ci.getProduct().getName()}"></span>
                             <span>  -  </span>
                             <span class="fw-semibold" th:class="'quantity-product-'+${ci.getId()}" th:text="${ci.getQuantity()}"></span>

@@ -1,6 +1,8 @@
 package BakeryProject.demo.models.view;
 
 import BakeryProject.demo.models.entity.Order;
+import BakeryProject.demo.models.enums.RoleEnum;
+
 import java.util.List;
 
 public class UserView {
@@ -11,8 +13,18 @@ public class UserView {
     private String password;
     private String email;
     private List<Order> userOrders;
+    private RoleEnum role;
+
 
     public UserView() {
+    }
+
+    public RoleEnum getRole() {
+        return role;
+    }
+
+    public void setRole(RoleEnum role) {
+        this.role = role;
     }
 
     public Long getId() {

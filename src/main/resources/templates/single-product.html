@@ -28,13 +28,16 @@
             </div>
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
                 <div class="h-100">
+                    <p class="fs-3 fst-italic text-start" th:text="|Name : ${product.getName()}|"></p>
                     <p class="fs-3 fst-italic text-start" th:text="|Price : ${product.getPrice()} LV|"></p>
                     <p class="fs-3 fst-italic text-start" th:text="|Ingredients : ${product.getIngredients()}|"></p>
                     <p class="fs-3 fst-italic text-start" th:text="|Weight : ${product.getWeight()}|"></p>
                     <p class="fs-3 fst-italic text-start" th:text="|Allergens : ${product.getAllergens()}|"></p>
                     <p class="fs-3 fst-italic text-start" th:text="|Aveilability : ${product.getAvailability.name()}|"></p>
                     <p class="fs-3 fst-italic text-start" th:text="|Description : ${product.getDescription()}|"></p>
-                    <td style="width: 15%"><a class="btn btn-warning" th:href="@{/cart/buy/{id}(id = *{id})}">Add To Card</a></td>
+                    <td style="width: 15%"><a class="btn btn-warning" th:href="@{/cart/buy/{id}(id = *{id})}"
+                        th:if="${product.getAvailability().name()} == 'Always' OR ${#temporals.dayOfWeekName(#temporals.createNow())} == 'Saturday' OR ${#temporals.dayOfWeekName(#temporals.createNow())} == 'Sunday'"
+                    >Add To Card</a></td>
 
                 </div>
             </div>

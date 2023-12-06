@@ -8,7 +8,7 @@ import BakeryProject.demo.models.view.UserView;
 import java.util.List;
 
 public interface UserService {
-    public List<UserEntity> getAllUsers();
+    public List<UserView> getAllUsers();
 
     void removeUserById(Long id);
 

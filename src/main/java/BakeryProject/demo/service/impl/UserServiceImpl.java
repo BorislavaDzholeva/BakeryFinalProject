@@ -6,6 +6,8 @@ import BakeryProject.demo.models.entity.Cart;
 import BakeryProject.demo.models.entity.UserEntity;
 import BakeryProject.demo.models.view.UserView;
 import BakeryProject.demo.repository.CartRepository;
+import BakeryProject.demo.repository.OrderRepository;
+import BakeryProject.demo.repository.ReviewRepository;
 import BakeryProject.demo.repository.UserRepository;
 import BakeryProject.demo.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -19,23 +21,33 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final CartRepository cartRepository;
+    private final ReviewRepository reviewRepository;
+    private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, CartRepository cartRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
+
+    public UserServiceImpl(UserRepository userRepository, CartRepository cartRepository, ReviewRepository reviewRepository, OrderRepository orderRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.cartRepository = cartRepository;
+        this.reviewRepository = reviewRepository;
+        this.orderRepository = orderRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public List<UserEntity> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserView> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(user -> modelMapper.map(user, UserView.class)).toList();
     }
 
     @Override
     public void removeUserById(Long id) {
+        UserEntity user = userRepository.findById(id).orElseThrow();
+        user.getUserReviews().forEach(review -> reviewRepository.deleteById(review.getId()));
+        user.getUserOrders().forEach(order -> orderRepository.deleteById(order.getId()));
+        cartRepository.deleteById(user.getCart().getId());
         userRepository.deleteById(id);
     }
 

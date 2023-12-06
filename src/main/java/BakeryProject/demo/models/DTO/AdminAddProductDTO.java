@@ -34,7 +34,6 @@ public class AdminAddProductDTO {
     @Column(columnDefinition = "TEXT")
     @NotEmpty(message = "You should add at least 1 ingredient!")
     private String ingredients;
-    @ManyToOne
     @NotNull
     private Category category;
 
