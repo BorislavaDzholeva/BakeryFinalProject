@@ -60,7 +60,8 @@
                         <div>
                             <hr class="dropdown-divider">
                         </div>
-                        <div class="text-center"><a href="/cart/details"><span>Cart Details</span></a></div>
+                        <div class="text-center" sec:authorize="isAuthenticated()"
+                        ><a href="/cart/details"><span>Cart Details</span></a></div>
                     </div>
                 </div>
                 <a class="nav-link my-text-color active h5 text-end" sec:authorize="hasRole('ROLE_Administrator')"

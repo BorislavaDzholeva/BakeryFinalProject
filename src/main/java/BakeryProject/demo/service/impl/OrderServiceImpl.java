@@ -7,6 +7,7 @@ import BakeryProject.demo.models.entity.Order;
 import BakeryProject.demo.models.entity.OrderItem;
 import BakeryProject.demo.models.entity.UserEntity;
 import BakeryProject.demo.models.enums.OrderStatusEnum;
+import BakeryProject.demo.models.view.OrderDetailsView;
 import BakeryProject.demo.repository.CartItemRepository;
 import BakeryProject.demo.repository.OrderRepository;
 import BakeryProject.demo.repository.UserRepository;
@@ -86,6 +87,19 @@ public class OrderServiceImpl implements OrderService {
         for (CartItem cartItem : userCartItems) {
             cartItemRepository.deleteById(cartItem.getId());
         }
+    }
+
+    @Override
+    public OrderDetailsView getOrderDetailsView(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow();
+        OrderDetailsView orderDetailsView = new OrderDetailsView();
+        orderDetailsView.setId(order.getId());
+        orderDetailsView.setProduct(order.getOrderItems().get(0).getProduct());
+        orderDetailsView.setPrice(order.getOrderItems().get(0).getPrice());
+        orderDetailsView.setQuantity(order.getOrderItems().get(0).getQuantity());
+        orderDetailsView.setUser(order.getUser());
+        return orderDetailsView;
+
     }
 }
 

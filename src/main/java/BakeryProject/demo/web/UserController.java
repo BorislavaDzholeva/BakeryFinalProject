@@ -1,8 +1,9 @@
 package BakeryProject.demo.web;
 
-import BakeryProject.demo.models.DTO.UserRegistrationDTO;
-import BakeryProject.demo.models.entity.UserEntity;
+import  BakeryProject.demo.models.DTO.UserRegistrationDTO;
+import BakeryProject.demo.models.view.OrderDetailsView;
 import BakeryProject.demo.models.view.UserView;
+import BakeryProject.demo.service.OrderService;
 import BakeryProject.demo.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -17,9 +18,11 @@ import java.security.Principal;
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
+    private final OrderService orderService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, OrderService orderService) {
         this.userService = userService;
+        this.orderService = orderService;
     }
 
     @ModelAttribute
@@ -56,5 +59,15 @@ public class UserController {
         model.addAttribute("userView", userView);
         return "profile";
     }
+
+    @GetMapping("orderDetails/{id}")
+    public String orderDetails(@PathVariable("id") Long id, Model model){
+        OrderDetailsView orderDetailsView = orderService.getOrderDetailsView(id);
+        model.addAttribute("orderDetailsView", orderDetailsView);
+        return "order-details";
+
+    }
+
+
 
 }
