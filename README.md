@@ -48,7 +48,7 @@ Before you start, ensure you have the following installed on your machine:
    ```
 
    The application will start, and you can access it at [http://localhost:8080](http://localhost:8080).
-
+![readMephoto.png](src%2Fmain%2Fresources%2Fstatic%2Fimg%2FreadMephoto.png)
 ## Project Structure
 
 - `src/main/java/BakeryProject/demo`: Contains the main application class and other Java classes.
