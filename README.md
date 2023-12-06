@@ -59,15 +59,19 @@ Before you start, ensure you have the following installed on your machine:
 
 The admin panel, accessible at `/admin/`, provides the following management options:
 
-- **Managing Users:** Admins can manage user accounts.
-- **Managing Categories:** Admins can handle product categories.
-- **Managing Orders:** Admins can view and manage customer orders.
-- **Managing Products:** Admins can add, edit, or remove bakery products.
-- **Managing User Reviews:** Admins can view and approve user reviews.
+- **Managing Users:** Admin can add, edit and remove user accounts.
+- **Managing Categories:** Admin can add, edit and remove product categories.
+- **Managing Orders:** Admin can view and manage customer orders.
+- **Managing Products:** Admin can add, edit, or remove bakery products.
+- **Managing User Reviews:** Admin can view and approve user reviews.
 
 ## Frontend Features
 
 The frontend offers the following features:
 
-- **User Registration:** Users can register an account on the platform.
+- **User Registration:** Users can register an account on the platform. ![readMeRegistration.png](src%2Fmain%2Fresources%2Fstatic%2Fimg%2FreadMeRegistration.png)
+- **User Login and Logout:** Users can log in and log out of their accounts. ![readMeLogin.png](src%2Fmain%2Fresources%2Fstatic%2Fimg%2FreadMeLogin.png)
 - **Online Shopping:** Users can browse the catalog, add products to their cart, and place orders.
+  ![readMeCategories.png](src%2Fmain%2Fresources%2Fstatic%2Fimg%2FreadMeCategories.png)
+- **User Reviews:** Users can write reviews for products. ![readMeReview.png](src%2Fmain%2Fresources%2Fstatic%2Fimg%2FreadMeReview.png)
+- **User Profile:** Users can view their profile information and order history. ![readMeUserProfile.png](src%2Fmain%2Fresources%2Fstatic%2Fimg%2FreadMeUserProfile.png)
