@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.web.multipart.MultipartFile;
 import java.math.BigDecimal;
 import java.util.List;
@@ -34,10 +35,11 @@ public class ProductServiceTest {
     private Product testProduct;
     private Category testCategory;
     private AdminAddProductDTO testAdminAddProductDTO;
+    private ResourceLoader resourceLoader;
 
     @BeforeEach
     void setUp() {
-        serviceToTest = new ProductServiceImpl(mockProductRepository, mockCategoryService, modelMapper);
+        serviceToTest = new ProductServiceImpl(mockProductRepository, mockCategoryService, modelMapper, resourceLoader, "images");
         testCategory = new Category() {
             {
                 setId(1L);

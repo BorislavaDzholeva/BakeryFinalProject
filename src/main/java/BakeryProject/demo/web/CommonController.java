@@ -34,14 +34,14 @@ public class CommonController implements ErrorController {
         this.categoryService = categoryService;
         this.userService = userService;
     }
-    @ExceptionHandler(Exception.class)
-    @RequestMapping("/error")
-    public String handleServerError(Exception exception, Model model) {
-        List<CategoryView> allCategories = categoryService.getAllCategories();
-        model.addAttribute("allCategories", allCategories);
-        model.addAttribute("message", exception.getMessage());
-        return "500";
-    }
+//    @ExceptionHandler(Exception.class)
+//    @RequestMapping("/error")
+//    public String handleServerError(Exception exception, Model model) {
+//        List<CategoryView> allCategories = categoryService.getAllCategories();
+//        model.addAttribute("allCategories", allCategories);
+//        model.addAttribute("message", exception.getMessage());
+//        return "500";
+//    }
 
     @ExceptionHandler(ObjectNotFoundException.class)
     public String handleProductNotFound(ObjectNotFoundException exception, Model model) {

@@ -7,26 +7,34 @@ import BakeryProject.demo.models.view.CategoryView;
 import BakeryProject.demo.repository.CategoryRepository;
 import BakeryProject.demo.service.CategoryService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.WritableResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/src/main/resources/static/images/";
-
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
+    private final ResourceLoader resourceLoader;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository, ModelMapper modelMapper) {
+    private String containerName;
+    static final String BLOB_RESOURCE_PATTERN = "azure-blob://%s/%s";
+    static final String PUBLIC_URL_PATTERN = "https://borislavabakeryimages.blob.core.windows.net/images/%s";
+
+    public CategoryServiceImpl(CategoryRepository categoryRepository, ModelMapper modelMapper, @Qualifier("azureStorageBlobProtocolResolver") ResourceLoader resourceLoader,    @Value("${spring.cloud.azure.storage.blob.container-name}") String containerName) {
         this.categoryRepository = categoryRepository;
         this.modelMapper = modelMapper;
+        this.resourceLoader = resourceLoader;
+        this.containerName = containerName;
     }
 
     @Override
@@ -36,9 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryView> getAllCategories() {
-        return categoryRepository.
-                findAll().stream().map(category -> modelMapper.map(category, CategoryView.class))
-                .collect(Collectors.toList());
+        return categoryRepository.findAll().stream().map(category -> modelMapper.map(category, CategoryView.class)).collect(Collectors.toList());
     }
 
     @Override
@@ -73,11 +79,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public String uploadCategoryImage(MultipartFile file) throws IOException {
-        StringBuilder fileName = new StringBuilder();
-        Path fileNameAndPath = Path.of(UPLOAD_DIRECTORY, file.getOriginalFilename());
-        fileName.append(file.getOriginalFilename());
-        Files.write(fileNameAndPath, file.getBytes());
-        return "/images/" + file.getOriginalFilename();
+        Resource resource = resourceLoader.getResource(String.format(BLOB_RESOURCE_PATTERN, this.containerName, file.getOriginalFilename()));
+        try (OutputStream os = ((WritableResource) resource).getOutputStream()) {
+            os.write(file.getBytes());
+        }
+        return String.format(PUBLIC_URL_PATTERN, file.getOriginalFilename());
     }
 
 }

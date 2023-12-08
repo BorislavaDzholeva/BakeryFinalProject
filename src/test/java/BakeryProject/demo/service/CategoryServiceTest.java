@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.Optional;
 import static org.mockito.Mockito.mock;
@@ -27,10 +28,11 @@ public class CategoryServiceTest {
     private CategoryServiceImpl serviceToTest;
     private Category testCategory;
     private AdminAddCategoryDTO testAdminAddCategoryDTO;
+    private ResourceLoader resourceLoader;
 
     @BeforeEach
     void setUp() {
-        serviceToTest = new CategoryServiceImpl(mockCategoryRepository, modelMapper);
+        serviceToTest = new CategoryServiceImpl(mockCategoryRepository, modelMapper, resourceLoader, "images");
         testCategory = new Category() {
             {
                 setId(1L);

@@ -26,14 +26,14 @@ class AdminCategoryControllerIT {
     void testCategoryAll() throws Exception {
         this.mockMvc.perform(get("/admin/category/").with(user("admin").roles("Administrator")))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/admin/category"));
+                .andExpect(view().name("admin/category"));
     }
 
     @Test
     void testCategoryAddGet() throws Exception {
         this.mockMvc.perform(get("/admin/category/add/").with(user("admin").roles("Administrator")))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/admin/add_category"));
+                .andExpect(view().name("admin/add_category"));
 
     }
 
@@ -67,7 +67,7 @@ class AdminCategoryControllerIT {
     void testCategoryEditGet() throws Exception {
         this.mockMvc.perform(get("/admin/category/edit/1").with(user("admin").roles("Administrator")))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/admin/edit_category"));
+                .andExpect(view().name("admin/edit_category"));
 
     }
     @Test

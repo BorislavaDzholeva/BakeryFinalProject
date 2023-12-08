@@ -27,7 +27,7 @@ public class AdminOrderControllerIT {
     void testOrderAll() throws Exception {
         this.mockMvc.perform(get("/admin/orders/").with(user("admin").roles("Administrator")))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/admin/orders"));
+                .andExpect(view().name("admin/orders"));
     }
 
     @Test

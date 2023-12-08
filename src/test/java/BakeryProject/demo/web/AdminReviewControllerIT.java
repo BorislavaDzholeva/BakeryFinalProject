@@ -25,7 +25,7 @@ public class AdminReviewControllerIT {
     void testAll() throws Exception {
         this.mockMvc.perform(get("/admin/review/").with(user("admin").roles("Administrator")))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/admin/review"));
+                .andExpect(view().name("admin/review"));
     }
 
     @Test

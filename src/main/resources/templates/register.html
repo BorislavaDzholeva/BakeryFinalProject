@@ -18,10 +18,10 @@
     <h1 class="text-center mt-2">Registration Form</h1>
     <hr class="hr-3 w-25 bg-white"/>
 
-    <form class="mx-auto w-25 bg-blur rounded" th:method="post" th:action="@{/users/register}"
+    <form class="mx-auto w-50 bg-blur rounded" th:method="post" th:action="@{/users/register}"
           th:object="${userRegistrationDTO}">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-        <div class="form-group">
+        <div class="form-group mb-3">
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="firstName" class="h4 mb-2">First Name</label>
             </div>
@@ -30,7 +30,7 @@
             <small th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
                    class="h6 danger">First name error message</small>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
             <div class="label-holder textCol d-flex justify-content-center">
                 <label for="lastName" class="h4 mb-2">Last Name</label>
             </div>
@@ -39,7 +39,7 @@
             <small th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
                    class="h6 danger">Last name error message</small>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
             <div class="label-holder textCol d-flex justify-content-center">
                 <label for="username" class="h4 mb-2">Username</label>
             </div>
@@ -49,7 +49,7 @@
                    class="h6 danger">Username error message</small>
         </div>
 
-        <div class="form-group">
+        <div class="form-group mb-3">
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="email" class="h4 mb-2">Email</label>
             </div>
@@ -59,7 +59,7 @@
                    class="h6 danger">Email error message</small>
         </div>
 
-        <div class="form-group">
+        <div class="form-group mb-3">
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="password" class="h4 mb-2">Password</label>
             </div>
@@ -69,7 +69,7 @@
                    class="h6 danger">Password error message</small>
         </div>
 
-        <div class="form-group">
+        <div class="form-group mb-3">
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="confirmPassword" class="h4 mb-2">Confirm Password</label>
             </div>

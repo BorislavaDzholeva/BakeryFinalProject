@@ -29,7 +29,7 @@ public class AdminProductControllerIT {
         this.mockMvc.perform(get("/admin/products/").with(user("admin").roles("Administrator"))
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/admin/products"));
+                .andExpect(view().name("admin/products"));
     }
 
     @Test
@@ -37,7 +37,7 @@ public class AdminProductControllerIT {
         this.mockMvc.perform(get("/admin/products/add/").with(user("admin").roles("Administrator"))
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/admin/add_product"));
+                .andExpect(view().name("admin/add_product"));
 
     }
 
@@ -97,7 +97,7 @@ public class AdminProductControllerIT {
         this.mockMvc.perform(get("/admin/products/edit/1").with(user("admin").roles("Administrator"))
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/admin/edit_product"));
+                .andExpect(view().name("admin/edit_product"));
 
     }
 

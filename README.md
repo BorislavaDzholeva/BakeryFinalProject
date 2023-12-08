@@ -1,4 +1,5 @@
 # Bakery Web Store - Spring Boot Project
+*Demo URL:* [Link](https://bakery.agreeablebeach-fd5711a9.westeurope.azurecontainerapps.io/)
 
 This Spring Boot project, named "Bakery," is a comprehensive web application for a bakery store. It provides a catalog and an online shop, along with an admin panel accessible at the `/admin/` route. The admin panel allows for efficient management of various aspects of the system, including users, categories, orders, products, and user reviews.
 

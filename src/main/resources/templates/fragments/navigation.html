@@ -37,9 +37,8 @@
 <!-- Topbar Start -->
 <div class="container-fluid top-bar bg-dark text-light px-0 wow fadeIn" data-wow-delay="0.1s" th:fragment="topbar">
     <div class="row gx-0 align-items-center d-none d-lg-flex">
-        <div class="col-lg-6 px-5 text-start">
+        <div class="col-lg-6 px-5 text-start"></div>
 
-        </div>
         <div class="col-lg-6 px-5 text-end">
             <div class="h-100 d-inline-flex align-items-center">
                 <a class="nav-link my-text-color active h5 text-end"
@@ -92,6 +91,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto p-4 p-lg-0">
+                <a class="nav-item nav-link d-lg-none d-sm-flex d-md-flex" sec:authorize="hasRole('ROLE_Administrator')"
+                   href="/admin/">Admin Panel</a>
+                <a class="nav-item nav-link d-lg-none d-sm-flex d-md-flex"
+                   sec:authorize="isAuthenticated()"
+                   href="/users/profile/"><i class="fa fa-user" style="margin-right: 5px;"></i><span>My Profile</span></a>
+                <a class="nav-item nav-link d-lg-none d-sm-flex d-md-flex"
+                   sec:authorize="isAuthenticated()"
+                   href="/reviews/create/">Create Review</a>
+                <a href="/cart/details" class="nav-item nav-link d-lg-none d-sm-flex d-md-flex" sec:authorize="isAuthenticated()" ><i class="fas fa-shopping-cart" style="margin-right: 5px;"></i><span>Cart Details</span></a>
+                <li><hr class="dropdown-divider" sec:authorize="isAuthenticated()"></li>
                 <a href="/" class="nav-item nav-link active">Home</a>
                 <a href="/about" class="nav-item nav-link">About Us</a>
                 <div class="nav-item dropdown">
@@ -104,6 +113,16 @@
                     </div>
                 </div>
                 <a href="/contacts" class="nav-item nav-link">Contact</a>
+                <li><hr class="dropdown-divider"></li>
+                <a class="nav-item nav-link d-lg-none d-sm-flex d-md-flex"
+                   sec:authorize="!isAuthenticated()"
+                   href="/users/login">Login</a>
+                <a class="nav-item nav-link d-lg-none d-sm-flex d-md-flex"
+                   sec:authorize="!isAuthenticated()"
+                   href="/users/register">Registration</a>
+                <form th:method="post" th:action="@{/users/logout}" sec:authorize="isAuthenticated()">
+                    <input type="submit" class="btn btn-link nav-item nav-link d-lg-none d-sm-flex d-md-flex" value="Logout"/>
+                </form>
             </div>
             <div class=" d-none d-lg-flex">
                 <div class="flex-shrink-0 btn-lg-square border border-light rounded-circle">

@@ -25,14 +25,14 @@ public class AdminUserControllerIT {
     void testUserAll() throws Exception {
         this.mockMvc.perform(get("/admin/").with(user("admin").roles("Administrator")))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/admin/admin"));
+                .andExpect(view().name("admin/admin"));
     }
 
     @Test
     void testUserAddGet() throws Exception {
         this.mockMvc.perform(get("/admin/user/add/").with(user("admin").roles("Administrator")))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/admin/add_user"));
+                .andExpect(view().name("admin/add_user"));
 
     }
 
@@ -69,7 +69,7 @@ public class AdminUserControllerIT {
     void testUserEditGet() throws Exception {
         this.mockMvc.perform(get("/admin/user/edit/1").with(user("admin").roles("Administrator")))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/admin/edit_user"));
+                .andExpect(view().name("admin/edit_user"));
     }
 
     @Test

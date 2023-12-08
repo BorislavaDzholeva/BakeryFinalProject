@@ -26,7 +26,7 @@ public class AdminIPBlacklistIT {
         this.mockMvc.perform(get("/admin/ip_black_list/").with(user("admin").roles("Administrator"))
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/admin/ip_black_list"));
+                .andExpect(view().name("admin/ip_black_list"));
     }
 
     @Test
@@ -34,7 +34,7 @@ public class AdminIPBlacklistIT {
         this.mockMvc.perform(get("/admin/ip_black_list/add/").with(user("admin").roles("Administrator"))
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/admin/add_ip_to_black_list"));
+                .andExpect(view().name("admin/add_ip_to_black_list"));
     }
 
     @Test
