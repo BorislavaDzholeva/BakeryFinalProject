@@ -25,11 +25,6 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-//                .csrf((csrf) -> csrf
-//                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-//                )
                 .headers((headers) ->
                         headers
                                 .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin

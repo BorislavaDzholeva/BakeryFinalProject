@@ -45,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public AdminAddProductDTO findProductById(Long id) {
-        Product product = productRepository.findById(id).orElseThrow();
+        Product product = productRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Not found"));
         return modelMapper.map(product, AdminAddProductDTO.class);
     }
 
@@ -65,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void updateProduct(AdminAddProductDTO addProductDTO) {
-        Product product = productRepository.findById(addProductDTO.getId()).orElseThrow();
+        Product product = productRepository.findById(addProductDTO.getId()).orElseThrow(() -> new ObjectNotFoundException("Not found"));
         product.setName(addProductDTO.getName());
         product.setAllergens(addProductDTO.getAllergens());
         product.setAvailability(addProductDTO.getAvailability());
@@ -84,12 +84,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product findById(Long id) {
-        return productRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Product with id " + id + " not found", id.toString()));
+        return productRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Not found"));
     }
 
     @Override
     public List<Product> findAllProductsByCategoryId(Long id) {
-        return productRepository.findAllByCategoryId(id);
+        List<Product> allByCategoryId = productRepository.findAllByCategoryId(id);
+        if(allByCategoryId == null || allByCategoryId.isEmpty()){
+            throw new ObjectNotFoundException("Not found");
+        }
+        return allByCategoryId;
     }
 }
 

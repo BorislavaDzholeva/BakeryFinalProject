@@ -1,5 +1,6 @@
 package BakeryProject.demo.service.impl;
 
+import BakeryProject.demo.exception.ObjectNotFoundException;
 import BakeryProject.demo.models.DTO.AdminAddCategoryDTO;
 import BakeryProject.demo.models.entity.Category;
 import BakeryProject.demo.models.view.CategoryView;
@@ -42,13 +43,13 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public AdminAddCategoryDTO findCategoryById(Long id) {
-        Category category = categoryRepository.findById(id).orElseThrow();
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Not found"));
         return modelMapper.map(category, AdminAddCategoryDTO.class);
     }
 
     @Override
     public void updateCategory(AdminAddCategoryDTO addCategoryDTO) {
-        Category category = categoryRepository.findById(addCategoryDTO.getId()).orElseThrow();
+        Category category = categoryRepository.findById(addCategoryDTO.getId()).orElseThrow(() -> new ObjectNotFoundException("Not found"));
         category.setName(addCategoryDTO.getName());
         if (addCategoryDTO.getImageUrl() != null) {
             category.setImageUrl(addCategoryDTO.getImageUrl());

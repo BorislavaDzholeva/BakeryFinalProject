@@ -40,7 +40,7 @@ public class ErrController implements ErrorController {
         List<CategoryView> allCategories = categoryService.getAllCategories();
         model.addAttribute("allCategories", allCategories);
         model.addAttribute("message", exception.getMessage());
-        return "/500";
+        return "500";
     }
 
     @ExceptionHandler(ObjectNotFoundException.class)
@@ -48,7 +48,7 @@ public class ErrController implements ErrorController {
         List<CategoryView> allCategories = categoryService.getAllCategories();
         model.addAttribute("allCategories", allCategories);
         model.addAttribute("message", exception.getMessage());
-        return "/404";
+        return "404";
     }
 
     @ExceptionHandler(BlockedIPException.class)

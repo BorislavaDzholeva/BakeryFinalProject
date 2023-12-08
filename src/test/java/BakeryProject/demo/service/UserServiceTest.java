@@ -2,6 +2,8 @@ package BakeryProject.demo.service;
 
 import BakeryProject.demo.models.DTO.AdminAddUserDTO;
 import BakeryProject.demo.models.DTO.UserRegistrationDTO;
+import BakeryProject.demo.models.entity.Cart;
+import BakeryProject.demo.models.entity.Review;
 import BakeryProject.demo.models.entity.UserEntity;
 import BakeryProject.demo.models.enums.RoleEnum;
 import BakeryProject.demo.repository.CartRepository;
@@ -17,6 +19,8 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.ArrayList;
 import java.util.Optional;
 import static org.mockito.Mockito.when;
 
@@ -39,12 +43,21 @@ public class UserServiceTest {
     private ArgumentCaptor<UserEntity> userEntityArgumentCaptor;
     private UserServiceImpl serviceToTest;
     private UserEntity createTestUser;
+    private Cart testCart;
     private UserRegistrationDTO testUserRegistrationDTO;
     private AdminAddUserDTO testAdminAddUserDTO;
 
     @BeforeEach
     void setUp() {
         serviceToTest = new UserServiceImpl(mockUserRepository, mockCartRepository, mockReviewRepository, mockOrderRepository, modelMapper, mockPasswordEncoder);
+
+        testCart = new Cart() {
+            {
+                setId(1L);
+                setCartItems(new ArrayList<>());
+                setOwner(createTestUser);
+            }
+        };
         createTestUser = new UserEntity() {
             {
                 setId(1L);
@@ -54,6 +67,9 @@ public class UserServiceTest {
                 setEmail("firstName@abv.bg");
                 setUsername("user");
                 setRole(RoleEnum.valueOf("User"));
+                setUserReviews(new ArrayList<>());
+                setUserOrders(new ArrayList<>());
+                setCart(testCart);
             }
         };
         testUserRegistrationDTO = new UserRegistrationDTO() {
@@ -109,8 +125,10 @@ public class UserServiceTest {
 
     @Test
     void testRemoveUserById() {
+        when(mockUserRepository.findById(1L)).thenReturn(Optional.of(createTestUser));
         serviceToTest.removeUserById(1L);
         Mockito.verify(mockUserRepository).deleteById(1L);
+        when(mockUserRepository.findById(1L)).thenReturn(Optional.empty());
         Assertions.assertTrue(mockUserRepository.findById(1L).isEmpty());
     }
 

@@ -1,7 +1,6 @@
 package BakeryProject.demo.service.impl;
 
 import BakeryProject.demo.models.DTO.AdminAddIpDTO;
-import BakeryProject.demo.models.entity.Category;
 import BakeryProject.demo.models.entity.IPBlackList;
 import BakeryProject.demo.repository.IPBlackListRepository;
 import BakeryProject.demo.service.IPBlackListService;

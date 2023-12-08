@@ -1,6 +1,7 @@
 package BakeryProject.demo.service;
 
 import BakeryProject.demo.event.OrderShippedEvent;
+import BakeryProject.demo.exception.ObjectNotFoundException;
 import BakeryProject.demo.models.DTO.CreateOrderDTO;
 import BakeryProject.demo.models.entity.*;
 import BakeryProject.demo.models.enums.OrderStatusEnum;
@@ -205,7 +206,7 @@ public class OrderServiceTest {
         order.setUser(testUser);
 
         when(mockUserRepository.findById(testUser.getId())).thenReturn(Optional.empty());
-        Assertions.assertThrows(NoSuchElementException.class, () -> serviceToTest.changeStatus(order));
+        Assertions.assertThrows(ObjectNotFoundException.class, () -> serviceToTest.changeStatus(order));
     }
 
 

@@ -36,7 +36,7 @@ public class CartServiceImpl implements CartService {
     public void buyProductById(Long productId, String currentUser) {
 
         UserEntity user = userRepository.findByUsername(currentUser).orElseThrow();
-        Product product = productRepository.findById(productId).orElseThrow();
+        Product product = productRepository.findById(productId).orElseThrow(() -> new ObjectNotFoundException("Not found"));
 
         Cart cart = user.getCart();
         if (cart == null) {

@@ -21,7 +21,7 @@ public class CartRestController {
     public Map<String, Map<String, String>> incrementItem(@PathVariable Long id, Principal principal) {
         int quantity = cartService.incrementItem(principal.getName(), id);
         BigDecimal totalPrice = cartService.getTotalPrice(principal.getName());
-
+        // {"data":{"quantity":"2","total_price":"2.00"}}
         return Map.of("data", Map.of("quantity", String.valueOf(quantity),"total_price", String.valueOf(totalPrice)));
     }
 

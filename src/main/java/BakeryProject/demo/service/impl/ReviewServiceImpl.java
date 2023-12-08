@@ -1,5 +1,6 @@
 package BakeryProject.demo.service.impl;
 
+import BakeryProject.demo.exception.ObjectNotFoundException;
 import BakeryProject.demo.models.DTO.CreateReviewDTO;
 import BakeryProject.demo.models.entity.Review;
 import BakeryProject.demo.models.entity.UserEntity;
@@ -45,7 +46,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void approveReview(Long id) {
-        Review review = reviewRepository.findById(id).orElseThrow();
+        Review review = reviewRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Not found"));
         review.setApproved(true);
         reviewRepository.save(review);
 

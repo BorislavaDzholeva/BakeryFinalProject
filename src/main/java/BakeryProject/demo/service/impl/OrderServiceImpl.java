@@ -1,6 +1,7 @@
 package BakeryProject.demo.service.impl;
 
 import BakeryProject.demo.event.OrderShippedEvent;
+import BakeryProject.demo.exception.ObjectNotFoundException;
 import BakeryProject.demo.models.DTO.CreateOrderDTO;
 import BakeryProject.demo.models.entity.CartItem;
 import BakeryProject.demo.models.entity.Order;
@@ -44,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order findById(Long id) {
-        return orderRepository.findById(id).orElseThrow();
+        return orderRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Not found"));
     }
 
     @Override
@@ -57,7 +58,7 @@ public class OrderServiceImpl implements OrderService {
                 applicationEventPublisher.publishEvent(orderShippedEvent);
                 break;
             case "Shipped":
-                UserEntity user = userRepository.findById(order.getUser().getId()).orElseThrow();
+                UserEntity user = userRepository.findById(order.getUser().getId()).orElseThrow(() -> new ObjectNotFoundException("Not found"));
                 break;
         }
     }
@@ -94,7 +95,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDetailsView getOrderDetailsView(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow();
+        Order order = orderRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Not found"));
         return modelMapper.map(order, OrderDetailsView.class);
 
     }

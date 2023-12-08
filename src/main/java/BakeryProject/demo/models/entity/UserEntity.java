@@ -27,6 +27,7 @@ public class UserEntity {
     @OneToMany(mappedBy = "creator")
     private List<Review> userReviews;
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OrderBy("id DESC")
     private List<Order> userOrders;
     @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL)
     private Cart cart;

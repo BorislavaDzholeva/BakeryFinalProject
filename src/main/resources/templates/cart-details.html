@@ -113,8 +113,8 @@
             .then(response => {
                 console.log(response);
                 if(parseInt(response.data.quantity) == 0){
+                    $(totalPrice).html(response.data.total_price);
                     $(`[data-product-item=${productId}]`).remove();
-                    $(totalPrice).html(0);
                 } else {
                     $(productClass).html(response.data.quantity);
                     $(totalPrice).html(response.data.total_price);

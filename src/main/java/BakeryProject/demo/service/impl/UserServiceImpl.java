@@ -1,8 +1,10 @@
 package BakeryProject.demo.service.impl;
 
+import BakeryProject.demo.exception.ObjectNotFoundException;
 import BakeryProject.demo.models.DTO.AdminAddUserDTO;
 import BakeryProject.demo.models.DTO.UserRegistrationDTO;
 import BakeryProject.demo.models.entity.Cart;
+import BakeryProject.demo.models.entity.Order;
 import BakeryProject.demo.models.entity.UserEntity;
 import BakeryProject.demo.models.view.UserView;
 import BakeryProject.demo.repository.CartRepository;
@@ -44,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void removeUserById(Long id) {
-        UserEntity user = userRepository.findById(id).orElseThrow();
+        UserEntity user = userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Not found"));
         user.getUserReviews().forEach(review -> reviewRepository.deleteById(review.getId()));
         user.getUserOrders().forEach(order -> orderRepository.deleteById(order.getId()));
         cartRepository.deleteById(user.getCart().getId());
@@ -64,13 +66,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AdminAddUserDTO findUserById(Long id) {
-        UserEntity user = userRepository.findById(id).orElseThrow();
+        UserEntity user = userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Not found"));
         return modelMapper.map(user, AdminAddUserDTO.class);
     }
 
     @Override
     public void updateUser(AdminAddUserDTO addUserDTO) {
-        UserEntity user = userRepository.findById(addUserDTO.getId()).orElseThrow();
+        UserEntity user = userRepository.findById(addUserDTO.getId()).orElseThrow(() -> new ObjectNotFoundException("Not found"));
         user.setFirstName(addUserDTO.getFirstName());
         user.setLastName(addUserDTO.getLastName());
         user.setEmail(addUserDTO.getEmail());
@@ -100,6 +102,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserView getUserView(String name) {
+
         UserEntity userEntity = userRepository.findByUsername(name).orElseThrow();
         return modelMapper.map(userEntity, UserView.class);
 
