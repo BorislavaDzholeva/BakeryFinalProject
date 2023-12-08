@@ -16,7 +16,7 @@ import java.util.List;
 
 @ControllerAdvice
 @Controller
-public class ErrController implements ErrorController {
+public class CommonController implements ErrorController {
     private final CategoryService categoryService;
     private final UserService userService;
 
@@ -30,7 +30,7 @@ public class ErrController implements ErrorController {
         }
     }
 
-    public ErrController(CategoryService categoryService, UserService userService) {
+    public CommonController(CategoryService categoryService, UserService userService) {
         this.categoryService = categoryService;
         this.userService = userService;
     }
@@ -53,6 +53,6 @@ public class ErrController implements ErrorController {
 
     @ExceptionHandler(BlockedIPException.class)
     public String handleProductNotFound(BlockedIPException exception, Model model) {
-        return "/403";
+        return "403";
     }
 }

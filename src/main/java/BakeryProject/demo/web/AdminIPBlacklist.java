@@ -24,7 +24,7 @@ public class AdminIPBlacklist {
     public String all(Model model) {
         List<IPBlackList> ipBlackList = ipBlackListService.getAllBlackListIp();
         model.addAttribute("ipBlackList", ipBlackList);
-        return "/admin/ip_black_list";
+        return "admin/ip_black_list";
     }
 
     @ModelAttribute
@@ -35,7 +35,7 @@ public class AdminIPBlacklist {
 
     @GetMapping("/add/")
     public String ipAdd() {
-        return "/admin/add_ip_to_black_list";
+        return "admin/add_ip_to_black_list";
     }
 
     @PostMapping("/add/")

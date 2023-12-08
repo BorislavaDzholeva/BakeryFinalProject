@@ -23,7 +23,7 @@ public class AdminOrderController {
     public String allOrders(Model model) {
         List<Order> allOrders = orderService.getAllOrders();
         model.addAttribute("allOrders", allOrders);
-        return "/admin/orders";
+        return "admin/orders";
     }
     @GetMapping("/status/{id}")
     public String statusButton(@PathVariable Long id) {

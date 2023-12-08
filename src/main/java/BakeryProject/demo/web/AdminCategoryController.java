@@ -31,12 +31,12 @@ public class AdminCategoryController {
     public String all(Model model) {
         List<CategoryView> allCategories = categoryService.getAllCategories();
         model.addAttribute("allCategories", allCategories);
-        return "/admin/category";
+        return "admin/category";
     }
 
     @GetMapping("/add/")
     public String categoryAdd() {
-        return "/admin/add_category";
+        return "admin/add_category";
     }
 
     @ModelAttribute
@@ -63,7 +63,7 @@ public class AdminCategoryController {
     public String categoryEdit(@PathVariable Long id, Model model) {
         AdminAddCategoryDTO categoryData = categoryService.findCategoryById(id);
         model.addAttribute("categoryData", categoryData);
-        return "/admin/edit_category";
+        return "admin/edit_category";
     }
     @PostMapping("/edit/")
     public String categoryEditConfirm(@RequestParam("image") MultipartFile file,@Valid AdminAddCategoryDTO adminAddCategoryDTO, BindingResult bindingResult,

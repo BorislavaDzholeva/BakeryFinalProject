@@ -37,14 +37,14 @@ public class AdminProductController {
     public String allProducts(Model model) {
         List<ProductsView> allProducts = productService.getAll();
         model.addAttribute("allProducts", allProducts);
-        return "/admin/products";
+        return "admin/products";
     }
 
     @GetMapping("/add/")
     public String addProduct(Model model) {
         List<CategoryView> allCategories = categoryService.getAllCategories();
         model.addAttribute("allCategories", allCategories);
-        return "/admin/add_product";
+        return "admin/add_product";
     }
 
     @ModelAttribute
@@ -75,7 +75,7 @@ public class AdminProductController {
         List<CategoryView> allCategories = categoryService.getAllCategories();
         model.addAttribute("allCategories", allCategories);
         model.addAttribute("adminAddProductDTO", adminAddProductDTO);
-        return "/admin/edit_product";
+        return "admin/edit_product";
     }
 
     @PostMapping("/edit/")

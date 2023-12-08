@@ -26,12 +26,12 @@ public class AdminUserController {
     public String all(Model model) {
         List<UserView> allUsers = userService.getAllUsers();
         model.addAttribute("users", allUsers);
-        return "/admin/admin";
+        return "admin/admin";
     }
 
     @GetMapping("/user/add/")
     public String userAdd(Model model) {
-        return "/admin/add_user";
+        return "admin/add_user";
     }
 
     @ModelAttribute
@@ -58,7 +58,7 @@ public class AdminUserController {
     public String userEdit(@PathVariable Long id, Model model) {
         AdminAddUserDTO userData = userService.findUserById(id);
         model.addAttribute("userData", userData);
-        return "/admin/edit_user";
+        return "admin/edit_user";
     }
 
     @PostMapping("/user/edit/")

@@ -24,7 +24,7 @@ public class AdminReviewController {
     public String all(Model model) {
         List<ReviewView> allReviews = reviewService.getAllReviews();
         model.addAttribute("allReviews", allReviews);
-        return "/admin/review";
+        return "admin/review";
     }
     @GetMapping("/approve/{id}")
     public String approveReview(@PathVariable Long id) {
