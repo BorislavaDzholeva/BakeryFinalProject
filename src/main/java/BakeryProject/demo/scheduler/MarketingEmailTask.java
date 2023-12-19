@@ -20,8 +20,7 @@ public class MarketingEmailTask {
     }
 
     //    @Scheduled(cron = "0 0 11 * * FRI",zone = "Europe/Sofia")
-    @Scheduled(cron = " 0 13 13 * * THU", zone = "Europe/Sofia")
-    @Async
+//    @Async
     public void execute() {
 
         // Send weekly email to all users: disabled because Outlook have limits

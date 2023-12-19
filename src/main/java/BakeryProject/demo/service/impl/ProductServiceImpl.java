@@ -73,12 +73,6 @@ public class ProductServiceImpl implements ProductService {
         }
         return String.format(PUBLIC_URL_PATTERN, file.getOriginalFilename());
 
-
-//        StringBuilder fileName = new StringBuilder();
-//        Path fileNameAndPath = Path.of(UPLOAD_DIRECTORY, file.getOriginalFilename());
-//        fileName.append(file.getOriginalFilename());
-//        Files.write(fileNameAndPath, file.getBytes());
-//        return "/images/" + file.getOriginalFilename();
     }
 
     @Override
