@@ -1,5 +1,6 @@
 # Bakery Web Store - My first Spring Boot Project
-### Welcome to Bakery Website repository! This is my personal project, marking my first venture and steps into application development.
+### Welcome to Bakery Website repository! 
+This is my personal project, marking my first venture and steps into application development.
 
 ## Table of Contents
 * Description 
@@ -66,9 +67,6 @@ Before you start, ensure you have the following installed on your machine:
 
    The application will start, and you can access it at [http://localhost:8080](http://localhost:8080).
 ![readMephoto.png](src%2Fmain%2Fresources%2Fstatic%2Fimg%2FreadMephoto.png)
-
-## Demo
-Deployed to : [Link](https://bakery.agreeablebeach-fd5711a9.westeurope.azurecontainerapps.io/)
 
 ## Project Structure
 
